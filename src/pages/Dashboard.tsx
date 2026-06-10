@@ -3,9 +3,10 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+
   const { logout } = useAuth();
 
-  const logout = () => {
+  const handleLogout = () => {
     logout();
 
     navigate("/");
@@ -26,7 +27,7 @@ export default function Dashboard() {
           </div>
 
           <button
-            onClick={logout}
+            onClick={handleLogout}
             className="bg-red-500 hover:bg-red-400 px-5 py-3 rounded-xl"
           >
             Logout
