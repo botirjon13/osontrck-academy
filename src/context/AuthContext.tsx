@@ -30,8 +30,6 @@ export function AuthProvider({
   }, []);
 
   const login = () => {
-    localStorage.setItem("token", "logged-in");
-
     setIsAuthenticated(true);
   };
 
