@@ -1,13 +1,55 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+
+interface User {
+  id: number;
+  email: string;
+  fullName: string;
+}
 
 export default function Dashboard() {
   const navigate = useNavigate();
 
   const { logout } = useAuth();
 
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await fetch(
+          "https://api-playground-backend-v8sd.onrender.com/auth/profile",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          logout();
+          navigate("/login");
+          return;
+        }
+
+        const data = await response.json();
+
+        setUser(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
   const handleLogout = () => {
     logout();
+
+    localStorage.removeItem("token");
 
     navigate("/");
   };
@@ -22,7 +64,11 @@ export default function Dashboard() {
             </h1>
 
             <p className="text-gray-400 mt-2">
-              Welcome to OsonTrack Academy
+              Welcome {user?.fullName}
+            </p>
+
+            <p className="text-gray-500 text-sm mt-1">
+              {user?.email}
             </p>
           </div>
 
