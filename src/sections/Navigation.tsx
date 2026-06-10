@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
@@ -47,14 +48,14 @@ export default function Navigation() {
         </div>
 
         <div className="flex items-center gap-4">
-          <a
-            href="#signin"
+          <Link
+            to="/login"
             className="text-[15px] font-medium text-text-secondary hover:text-text-primary transition-colors duration-200"
           >
             Sign In
-          </a>
-          <a
-            href="#courses"
+          </Link>
+          <Link
+            to="/register"
             className="text-[15px] font-semibold px-6 py-2.5 rounded-full transition-all duration-200 hover:scale-[1.02]"
             style={{
               backgroundColor: '#D4A853',
@@ -62,7 +63,7 @@ export default function Navigation() {
             }}
           >
             Get Started
-          </a>
+          </Link>
         </div>
       </div>
     </nav>
