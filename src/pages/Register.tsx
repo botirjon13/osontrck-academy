@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Register() {
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const { login } = useAuth();
   const [password, setPassword] = useState("");
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
 
-    localStorage.setItem("token", "registered");
+    login();
 
     navigate("/dashboard");
   };
