@@ -9,14 +9,45 @@ export default function Login() {
   const { login } = useAuth();
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    // fake auth
+  try {
+    const response = await fetch(
+      "https://api-playground-backend-v8sd.onrender.com/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      alert("Invalid email or password");
+      return;
+    }
+
+    const data = await response.json();
+
+    localStorage.setItem(
+      "token",
+      data.access_token
+    );
+
     login();
 
     navigate("/dashboard");
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert("Server error");
+  }
+};
 
   return (
     <div className="min-h-screen bg-[#020817] text-white flex items-center justify-center px-4">
