@@ -29,13 +29,18 @@ export default function Dashboard() {
           }
         );
 
-        if (!response.ok) {
-          logout();
-          navigate("/login");
-          return;
-        }
+        //if (!response.ok) {
+         // logout();
+         // navigate("/login");
+          //return;
+        //}
+        
+        console.log(response.status);
 
         const data = await response.json();
+
+        console.log(data);
+
 
         setUser(data);
       } catch (error) {
