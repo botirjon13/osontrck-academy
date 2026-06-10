@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { useFluidLineGrid } from '../hooks/useFluidLineGrid';
+import { Link } from 'react-router-dom';
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -88,8 +89,8 @@ export default function Hero() {
               transitionDelay: '450ms',
             }}
           >
-            <a
-              href="#courses"
+            <Link
+              to="/register"
               className="px-9 py-4 rounded-full font-semibold text-base transition-all duration-200 hover:scale-[1.02]"
               style={{
                 backgroundColor: '#D4A853',
@@ -97,9 +98,9 @@ export default function Hero() {
               }}
             >
               Start Learning
-            </a>
-            <a
-              href="#courses"
+            </Link>
+            <Link
+              to="/login"
               className="px-9 py-4 rounded-full font-semibold text-base border transition-all duration-200 hover:border-accent-gold hover:text-accent-gold"
               style={{
                 borderColor: '#4A5A70',
@@ -107,7 +108,7 @@ export default function Hero() {
               }}
             >
               View Courses
-            </a>
+            </Link>
           </div>
 
           {/* Stats */}
