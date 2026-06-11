@@ -108,5 +108,10 @@
 "faq.a4": "Ha. Professional tarif foydalanuvchilari kursni tugatgach tasdiqlangan sertifikat oladilar.",
 
 "faq.q5": "API Playground mobil qurilmada ishlaydimi?",
-"faq.a5": "Eng yaxshi tajriba kompyuterda bo'ladi, ammo barcha video darslar va nazariy materiallar mobil qurilmalarda ham ishlaydi."
+"faq.a5": "Eng yaxshi tajriba kompyuterda bo'ladi, ammo barcha video darslar va nazariy materiallar mobil qurilmalarda ham ishlaydi.",
+
+  "cta.title": "Backend dasturlashni amaliy o'rganishga tayyormisiz?",
+"cta.subtitle": "API, PostgreSQL va NestJS o'rganayotgan 12 000+ dasturchilar safiga qo'shiling.",
+"cta.button": "Bepul boshlash",
+"cta.note": "Bank kartasi talab qilinmaydi. Istalgan vaqtda bekor qilishingiz mumkin."
 }
