@@ -38,5 +38,20 @@
   "hero.courses": "Посмотреть курсы",
   "hero.students": "Студентов",
   "hero.lessons": "Видео уроков",
-  "hero.rating": "Средний рейтинг"
+  "hero.rating": "Средний рейтинг",
+
+  "why.badge": "ПОЧЕМУ OSONTRACK",
+  "why.title": "Всё необходимое для изучения backend-разработки",
+  "why.feature1.title": "Интерактивные уроки",
+  "why.feature1.desc": "Практикуйтесь с реальными API прямо во встроенной песочнице.",
+  "why.feature2.title": "Пошаговая программа",
+  "why.feature2.desc": "От основ HTTP до production-приложений на NestJS.",
+  "why.feature3.title": "Реальные проекты",
+  "why.feature3.desc": "Создавайте проекты уровня портфолио: API менеджера задач, систему авторизации и E-commerce Backend.",
+  "why.feature4.title": "Поддержка сообщества",
+  "why.feature4.desc": "Присоединяйтесь к сообществу из 12 000+ разработчиков.",
+  "why.feature5.title": "Мастерство PostgreSQL",
+  "why.feature5.desc": "От основ SQL до сложных запросов и проектирования баз данных.",
+  "why.feature6.title": "JWT и безопасность",
+  "why.feature6.desc": "Изучайте аутентификацию, авторизацию и лучшие практики безопасности."
 }
