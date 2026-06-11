@@ -1,19 +1,37 @@
+import { useTranslation } from "react-i18next";
+
 export default function Footer() {
+  const { t } = useTranslation();
+  
   const linkGroups = [
     {
-      title: 'Courses',
-      links: ['REST API', 'PostgreSQL', 'NestJS', 'JWT Auth'],
+      title: t("footer.courses"),
+      links: [
+      t("footer.restapi"),
+      t("footer.postgresql"),
+      t("footer.nestjs"),
+      t("footer.jwt"),
+        ],
     },
     {
-      title: 'Company',
-      links: ['About', 'Blog', 'Careers', 'Contact'],
+      title: t("footer.company"),
+      links: [
+      t("footer.about"),
+      t("footer.blog"),
+      t("footer.careers"),
+      t("footer.contact"),
+        ],
     },
     {
-      title: 'Legal',
-      links: ['Privacy', 'Terms', 'Cookies'],
+      title: t("footer.legal"),
+      links: [
+      t("footer.privacy"),
+      t("footer.terms"),
+      t("footer.cookies"),
+        ],
     },
   ];
-
+  
   const socialIcons = [
     {
       name: 'GitHub',
@@ -71,7 +89,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm mt-3 leading-relaxed max-w-[240px]" style={{ color: '#4A5A70' }}>
-              Making backend development accessible to everyone.
+              {t("footer.description")}
             </p>
           </div>
 
@@ -107,7 +125,7 @@ export default function Footer() {
           style={{ borderTop: '1px solid rgba(138, 154, 176, 0.06)' }}
         >
           <p className="text-[13px]" style={{ color: '#4A5A70' }}>
-            2026 OsonTrack. All rights reserved.
+            {t("footer.copyright")}
           </p>
 
           <div className="flex items-center gap-4">
@@ -134,3 +152,4 @@ export default function Footer() {
     </footer>
   );
 }
+
