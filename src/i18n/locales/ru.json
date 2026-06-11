@@ -21,5 +21,12 @@
 
   "dashboard.title": "Панель управления",
   "dashboard.welcome": "Добро пожаловать",
-  "dashboard.logout": "Выйти"
+  "dashboard.logout": "Выйти",
+
+  "nav.courses": "Курсы",
+  "nav.pricing": "Тарифы",
+  "nav.about": "О нас",
+  "nav.blog": "Блог",
+  "nav.signin": "Войти",
+  "nav.getstarted": "Начать"
 }
