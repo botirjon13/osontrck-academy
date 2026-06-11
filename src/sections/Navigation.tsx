@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LanguageSwitcher from "../components/ui/LanguageSwitcher";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
