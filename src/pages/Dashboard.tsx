@@ -175,9 +175,7 @@ export default function Dashboard() {
 
       <button
         onClick={() =>
-          window.open(
-            "https://api.osontrack.uz/api/docs",
-            "_blank"
+          navigate("/playground")
           )
         }
         className="mt-4 bg-yellow-500 hover:bg-yellow-400 text-black px-5 py-3 rounded-xl font-semibold"
