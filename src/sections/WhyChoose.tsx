@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 function FeatureIcon({ type }: { type: string }) {
   const size = 20;
@@ -57,6 +58,7 @@ function FeatureIcon({ type }: { type: string }) {
 export default function WhyChoose() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -73,37 +75,37 @@ export default function WhyChoose() {
   }, []);
 
   const features = [
-    {
-      icon: 'interactive',
-      title: 'Interactive Lessons',
-      desc: 'Practice with real API endpoints in our built-in playground. No setup needed.',
-    },
-    {
-      icon: 'curriculum',
-      title: 'Step-by-Step Curriculum',
-      desc: 'Structured learning path from HTTP basics to production-ready NestJS applications.',
-    },
-    {
-      icon: 'projects',
-      title: 'Real-World Projects',
-      desc: 'Build portfolio-worthy projects: Task Manager API, Auth System, E-commerce Backend.',
-    },
-    {
-      icon: 'community',
-      title: 'Community Support',
-      desc: 'Join 12,000+ developers in our Discord. Get help, share progress, find accountability partners.',
-    },
-    {
-      icon: 'database',
-      title: 'PostgreSQL Mastery',
-      desc: 'Go from SQL fundamentals to advanced querying, migrations, and database design.',
-    },
-    {
-      icon: 'security',
-      title: 'JWT & Security',
-      desc: 'Learn authentication, authorization, and security best practices the right way.',
-    },
-  ];
+  {
+    icon: "interactive",
+    title: t("why.feature1.title"),
+    desc: t("why.feature1.desc"),
+  },
+  {
+    icon: "curriculum",
+    title: t("why.feature2.title"),
+    desc: t("why.feature2.desc"),
+  },
+  {
+    icon: "projects",
+    title: t("why.feature3.title"),
+    desc: t("why.feature3.desc"),
+  },
+  {
+    icon: "community",
+    title: t("why.feature4.title"),
+    desc: t("why.feature4.desc"),
+  },
+  {
+    icon: "database",
+    title: t("why.feature5.title"),
+    desc: t("why.feature5.desc"),
+  },
+  {
+    icon: "security",
+    title: t("why.feature6.title"),
+    desc: t("why.feature6.desc"),
+  },
+];
 
   return (
     <section
@@ -124,13 +126,13 @@ export default function WhyChoose() {
             className="text-xs font-medium uppercase tracking-[2px]"
             style={{ color: '#D4A853' }}
           >
-            WHY OSONTRACK
+            {t("why.badge")}
           </span>
           <h2
             className="font-serif text-3xl md:text-[44px] font-semibold mt-4 leading-[1.12]"
             style={{ color: '#F0EDE5', letterSpacing: '-1px' }}
           >
-            Everything you need to master backend
+            {t("why.title")}
           </h2>
         </div>
 
