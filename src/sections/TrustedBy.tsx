@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 export default function TrustedBy() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,7 +39,7 @@ export default function TrustedBy() {
         className="text-center text-[13px] uppercase tracking-[1.5px] mb-5"
         style={{ color: '#4A5A70' }}
       >
-        Trusted by developers at
+        {t("trusted.title")}
       </p>
       <div className="max-w-[900px] mx-auto flex flex-wrap items-center justify-center gap-8 md:gap-16 px-6">
         {companies.map((name) => (
