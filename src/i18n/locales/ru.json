@@ -135,5 +135,40 @@
 
 "footer.description": "Делаем backend-разработку доступной для каждого.",
 
-"footer.copyright": "© 2026 OsonTrack. Все права защищены."
+"footer.copyright": "© 2026 OsonTrack. Все права защищены.",
+
+"courses.badge": "КУРСЫ",
+"courses.title": "От новичка до backend-разработчика",
+
+"courses.rest.tag": "REST API",
+"courses.rest.title": "Основы REST API",
+"courses.rest.desc": "Изучите HTTP-методы, коды состояния, JSON и создайте свой первый API.",
+"courses.rest.lessons": "16 уроков",
+"courses.rest.rating": "Рейтинг 4.9",
+"courses.rest.level": "Начальный",
+"courses.rest.price": "Бесплатно",
+
+"courses.pg.tag": "База данных",
+"courses.pg.title": "PostgreSQL для разработчиков",
+"courses.pg.desc": "Освойте SQL-запросы, проектирование баз данных, миграции и оптимизацию.",
+"courses.pg.lessons": "22 урока",
+"courses.pg.rating": "Рейтинг 4.8",
+"courses.pg.level": "Средний",
+"courses.pg.price": "Бесплатно",
+
+"courses.nest.tag": "Фреймворк",
+"courses.nest.title": "NestJS и TypeScript",
+"courses.nest.desc": "Создавайте масштабируемые backend-приложения с помощью модулей, контроллеров и сервисов NestJS.",
+"courses.nest.lessons": "20 уроков",
+"courses.nest.rating": "Рейтинг 4.9",
+"courses.nest.level": "Средний",
+"courses.nest.price": "Бесплатно",
+
+"courses.jwt.tag": "Безопасность",
+"courses.jwt.title": "JWT Аутентификация",
+"courses.jwt.desc": "Реализуйте безопасные системы входа с JWT, refresh token и middleware.",
+"courses.jwt.lessons": "14 уроков",
+"courses.jwt.rating": "Рейтинг 4.8",
+"courses.jwt.level": "Продвинутый",
+"courses.jwt.price": "Бесплатно"  
 }
