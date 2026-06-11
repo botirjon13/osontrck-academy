@@ -209,6 +209,20 @@
   "dashboard.challengedesc": "Strengthen your skills with practical tasks.",
 
   "dashboard.progress": "Progress",
-  "dashboard.progressdesc": "Track your learning achievements."
+  "dashboard.progressdesc": "Track your learning achievements.",
+
+  "dashboard.path": "Backend Developer Path",
+"dashboard.xp": "Experience",
+"dashboard.level": "Level",
+"dashboard.beginner": "Beginner",
+
+"dashboard.learningpath": "Learning Path",
+
+"dashboard.restapi": "REST API Basics",
+"dashboard.postgresql": "PostgreSQL",
+"dashboard.nestjs": "NestJS",
+"dashboard.jwt": "JWT Authentication",
+
+"dashboard.reward": "Reward:"
   
 }
