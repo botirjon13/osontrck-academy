@@ -224,7 +224,18 @@
 "dashboard.nestjs": "NestJS",
 "dashboard.jwt": "JWT Authentication",
 
-"dashboard.reward": "Mukofot:"
+"dashboard.reward": "Mukofot:",
+
+  "playground.back": "Dashboardga qaytish",
+"playground.title": "Swagger Playground",
+"playground.subtitle": "API endpointlarni sinab ko'ring va missiyalarni bajaring.",
+
+"playground.mission1": "Missiya #1",
+"playground.mission1desc": "GET /health endpointini muvaffaqiyatli chaqiring.",
+
+"playground.tip": "Maslahat",
+"playground.tipdesc": "Swagger ichida endpoint ustiga bosib, Try it out → Execute ni tanlang."
+
   
 
 }
