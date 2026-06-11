@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 export default function HowItWorks() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -19,11 +21,26 @@ export default function HowItWorks() {
   }, []);
 
   const steps = [
-    { title: 'Sign Up', desc: 'Create your free account and set your learning goals.' },
-    { title: 'Watch & Learn', desc: 'Follow structured video lessons with hands-on examples.' },
-    { title: 'Code Along', desc: 'Practice in our interactive API playground with real endpoints.' },
-    { title: 'Build Projects', desc: 'Apply your skills with guided real-world projects.' },
-    { title: 'Get Certified', desc: 'Earn certificates and showcase your backend skills.' },
+    {
+    title: t("how.step1.title"),
+    desc: t("how.step1.desc"),
+    },
+    {
+    title: t("how.step2.title"),
+    desc: t("how.step2.desc"),
+    },
+    {
+    title: t("how.step3.title"),
+    desc: t("how.step3.desc"),
+    },
+    {
+    title: t("how.step4.title"),
+    desc: t("how.step4.desc"),
+    },
+    {
+    title: t("how.step5.title"),
+    desc: t("how.step5.desc"),
+    },
   ];
 
   return (
@@ -44,13 +61,13 @@ export default function HowItWorks() {
             className="text-xs font-medium uppercase tracking-[2px]"
             style={{ color: '#D4A853' }}
           >
-            HOW IT WORKS
+            {t("how.badge")}
           </span>
           <h2
             className="font-serif text-3xl md:text-[44px] font-semibold mt-4 leading-[1.12]"
             style={{ color: '#F0EDE5', letterSpacing: '-1px' }}
           >
-            Your path to backend mastery
+            {t("how.title")}
           </h2>
         </div>
 
