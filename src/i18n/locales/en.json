@@ -1,0 +1,16 @@
+{
+  "nav.signin": "Sign In",
+  "nav.getstarted": "Get Started",
+
+  "login.title": "Welcome Back",
+  "login.subtitle": "Login to your OsonTrack Academy account",
+  "login.button": "Login",
+
+  "register.title": "Create Account",
+  "register.subtitle": "Join OsonTrack Academy today",
+  "register.button": "Register",
+
+  "dashboard.title": "Dashboard",
+  "dashboard.welcome": "Welcome",
+  "dashboard.logout": "Logout"
+}
