@@ -170,5 +170,23 @@
 "courses.jwt.lessons": "14 ta dars",
 "courses.jwt.rating": "4.8 reyting",
 "courses.jwt.level": "Yuqori",
-"courses.jwt.price": "Bepul"
+"courses.jwt.price": "Bepul",
+
+  "how.badge": "QANDAY ISHLAYDI",
+"how.title": "Backend mutaxassisiga aylanish yo'lingiz",
+
+"how.step1.title": "Ro'yxatdan o'ting",
+"how.step1.desc": "Bepul hisob yarating va o'qish maqsadlaringizni belgilang.",
+
+"how.step2.title": "Tomosha qiling va o'rganing",
+"how.step2.desc": "Amaliy misollar bilan tayyorlangan video darslarni kuzating.",
+
+"how.step3.title": "Kod yozing",
+"how.step3.desc": "Interaktiv API Playground orqali haqiqiy endpointlarda mashq qiling.",
+
+"how.step4.title": "Loyihalar yarating",
+"how.step4.desc": "O'rgangan bilimlaringizni amaliy loyihalarda qo'llang.",
+
+"how.step5.title": "Sertifikat oling",
+"how.step5.desc": "Kurslarni yakunlab sertifikatga ega bo'ling va bilimlaringizni namoyish eting."
 }
