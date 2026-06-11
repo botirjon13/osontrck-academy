@@ -108,5 +108,10 @@
 "faq.a4": "Yes. Professional plan users receive verified certificates after course completion.",
 
 "faq.q5": "Can I access the API Playground on mobile?",
-"faq.a5": "The best experience is on desktop, but all video lessons and theory content work on mobile devices as well."
+"faq.a5": "The best experience is on desktop, but all video lessons and theory content work on mobile devices as well.",
+
+  "cta.title": "Ready to build real backend skills?",
+"cta.subtitle": "Join 12,000+ developers learning APIs, PostgreSQL, and NestJS.",
+"cta.button": "Start Learning for Free",
+"cta.note": "No credit card required. Cancel anytime."
 }
