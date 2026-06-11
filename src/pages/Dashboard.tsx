@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
+import Header from "../components/Header";
 
 interface User {
-  id: number;
+  id: string;
   email: string;
   fullName: string;
 }
@@ -12,6 +14,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   const { logout } = useAuth();
+  const { t } = useTranslation();
 
   const [user, setUser] = useState<User | null>(null);
 
@@ -29,18 +32,11 @@ export default function Dashboard() {
           }
         );
 
-        //if (!response.ok) {
-         // logout();
-         // navigate("/login");
-          //return;
-        //}
-        
         console.log(response.status);
 
         const data = await response.json();
 
         console.log(data);
-
 
         setUser(data);
       } catch (error) {
@@ -60,31 +56,35 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020817] text-white p-10">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-bold">
-              Dashboard
-            </h1>
+    <>
+      <Header />
 
-            <p className="text-gray-400 mt-2">
-              Welcome {user?.fullName}
-            </p>
+      <div className="min-h-screen bg-[#020817] text-white p-10">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold">
+                {t("dashboard.title")}
+              </h1>
 
-            <p className="text-gray-500 text-sm mt-1">
-              {user?.email}
-            </p>
+              <p className="text-gray-400 mt-2">
+                {t("dashboard.welcome")} {user?.fullName}
+              </p>
+
+              <p className="text-gray-500 text-sm mt-1">
+                {user?.email}
+              </p>
+            </div>
+
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 hover:bg-red-400 px-5 py-3 rounded-xl"
+            >
+              {t("dashboard.logout")}
+            </button>
           </div>
-
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 hover:bg-red-400 px-5 py-3 rounded-xl"
-          >
-            Logout
-          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
