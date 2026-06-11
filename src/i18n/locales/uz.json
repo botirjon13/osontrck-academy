@@ -211,6 +211,20 @@
   "dashboard.challengedesc": "Amaliy topshiriqlar orqali bilimlarni mustahkamlang.",
 
   "dashboard.progress": "Progress",
-  "dashboard.progressdesc": "O'quv jarayonidagi natijalaringizni kuzating."
+  "dashboard.progressdesc": "O'quv jarayonidagi natijalaringizni kuzating.",
+"dashboard.path": "Backend Developer Yo'li",
+"dashboard.xp": "Tajriba ballari",
+"dashboard.level": "Daraja",
+"dashboard.beginner": "Boshlovchi",
+
+"dashboard.learningpath": "O'quv yo'li",
+
+"dashboard.restapi": "REST API Asoslari",
+"dashboard.postgresql": "PostgreSQL",
+"dashboard.nestjs": "NestJS",
+"dashboard.jwt": "JWT Authentication",
+
+"dashboard.reward": "Mukofot:"
+  
 
 }
