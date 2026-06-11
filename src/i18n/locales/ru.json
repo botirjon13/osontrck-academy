@@ -197,5 +197,20 @@
 
 "success.quote": "OsonTrack изменил мою карьеру. За 3 месяца я прошла путь от полного отсутствия знаний по backend до создания production API.",
 
-"success.author": "— Сара К., Full Stack разработчик"
+"success.author": "— Сара К., Full Stack разработчик",
+
+  "dashboard.playground": "Песочница",
+  "dashboard.mission1": "Миссия #1",
+  "dashboard.mission1desc": "Отправьте свой первый API-запрос через Swagger.",
+  "dashboard.startmission": "Начать миссию",
+
+  "dashboard.swagger": "Swagger Playground",
+  "dashboard.swaggerdesc": "Тестируйте API и изучайте ответы сервера.",
+
+  "dashboard.challenge": "Задания",
+  "dashboard.challengedesc": "Закрепляйте знания через практические упражнения.",
+
+  "dashboard.progress": "Прогресс",
+  "dashboard.progressdesc": "Отслеживайте свои результаты обучения."
+ 
 }
