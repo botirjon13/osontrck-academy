@@ -17,14 +17,9 @@ export default function App() {
 
       <Route path="/register" element={<Register />} />
 
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/dashboard" element={ <ProtectedRoute> <Dashboard /> </ProtectedRoute> } />
+      
+      <Route path="/playground" element={ <ProtectedRoute> <Playground /> </ProtectedRoute> } />
     </Routes>
   );
 }
