@@ -38,5 +38,20 @@
   "hero.courses": "View Courses",
   "hero.students": "Students Enrolled",
   "hero.lessons": "Video Lessons",
-  "hero.rating": "Average Rating"
+  "hero.rating": "Average Rating",
+
+  "why.badge": "WHY OSONTRACK",
+  "why.title": "Everything you need to master backend",
+  "why.feature1.title": "Interactive Lessons",
+  "why.feature1.desc": "Practice with real API endpoints in our built-in playground. No setup needed.",
+  "why.feature2.title": "Step-by-Step Curriculum",
+  "why.feature2.desc": "Structured learning path from HTTP basics to production-ready NestJS applications.",
+  "why.feature3.title": "Real-World Projects",
+  "why.feature3.desc": "Build portfolio-worthy projects: Task Manager API, Auth System, E-commerce Backend.",
+  "why.feature4.title": "Community Support",
+  "why.feature4.desc": "Join 12,000+ developers in our community and get help when needed.",
+  "why.feature5.title": "PostgreSQL Mastery",
+  "why.feature5.desc": "Go from SQL fundamentals to advanced querying, migrations, and database design.",
+  "why.feature6.title": "JWT & Security",
+  "why.feature6.desc": "Learn authentication, authorization, and security best practices the right way."
 }
