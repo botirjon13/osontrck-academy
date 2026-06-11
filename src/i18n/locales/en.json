@@ -28,5 +28,15 @@
   "nav.about": "About",
   "nav.blog": "Blog",
   "nav.signin": "Sign In",
-  "nav.getstarted": "Get Started"
+  "nav.getstarted": "Get Started",
+
+  "hero.badge": "OSONTRACK ACADEMY",
+  "hero.title1": "Learn Real Backend Development with",
+  "hero.title2": "APIs",
+  "hero.subtitle": "Hands-on courses in REST APIs, Swagger, PostgreSQL, NestJS and JWT Authentication.",
+  "hero.start": "Start Learning",
+  "hero.courses": "View Courses",
+  "hero.students": "Students Enrolled",
+  "hero.lessons": "Video Lessons",
+  "hero.rating": "Average Rating"
 }
