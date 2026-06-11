@@ -1,0 +1,16 @@
+{
+  "nav.signin": "Войти",
+  "nav.getstarted": "Начать",
+
+  "login.title": "Добро пожаловать",
+  "login.subtitle": "Войдите в аккаунт OsonTrack Academy",
+  "login.button": "Войти",
+
+  "register.title": "Создать аккаунт",
+  "register.subtitle": "Присоединяйтесь к OsonTrack Academy",
+  "register.button": "Регистрация",
+
+  "dashboard.title": "Панель управления",
+  "dashboard.welcome": "Добро пожаловать",
+  "dashboard.logout": "Выйти"
+}
