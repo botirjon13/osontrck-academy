@@ -162,7 +162,7 @@ export default function Pricing() {
                 </span>
                 {plan.price !== t("pricing.free") && (
                   <span className="text-sm ml-1" style={{ color: '#4A5A70' }}>
-                    /mo
+                    {t("pricing.perMonth")}
                   </span>
                 )}
               </div>
