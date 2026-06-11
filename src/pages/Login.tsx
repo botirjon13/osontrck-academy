@@ -76,7 +76,9 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block mb-2 text-sm">Password</label>
+            <label className="block mb-2 text-sm">
+              {t("login.password")}
+            </label>
 
             <input
               type="password"
@@ -91,7 +93,7 @@ export default function Login() {
             type="submit"
             className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-semibold py-3 rounded-xl transition"
           >
-            Login
+            {t("login.button")}
           </button>
         </form>
 
