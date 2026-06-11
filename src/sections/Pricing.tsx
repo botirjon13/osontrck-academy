@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 export default function Pricing() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [isYearly, setIsYearly] = useState(false);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -81,13 +84,13 @@ export default function Pricing() {
             className="text-xs font-medium uppercase tracking-[2px]"
             style={{ color: '#D4A853' }}
           >
-            PRICING
+            {t("pricing.badge")}
           </span>
           <h2
             className="font-serif text-3xl md:text-[44px] font-semibold mt-4 leading-[1.12]"
             style={{ color: '#F0EDE5', letterSpacing: '-1px' }}
           >
-            Simple, transparent pricing
+            {t("pricing.title")}
           </h2>
 
           {/* Toggle */}
@@ -96,7 +99,7 @@ export default function Pricing() {
               className="text-sm font-medium"
               style={{ color: isYearly ? '#4A5A70' : '#F0EDE5' }}
             >
-              Monthly
+              {t("pricing.monthly")}
             </span>
             <button
               onClick={() => setIsYearly(!isYearly)}
@@ -115,7 +118,7 @@ export default function Pricing() {
               className="text-sm font-medium"
               style={{ color: isYearly ? '#F0EDE5' : '#4A5A70' }}
             >
-              Yearly
+              {t("pricing.yearly")}
             </span>
           </div>
         </div>
@@ -142,7 +145,7 @@ export default function Pricing() {
                     color: '#0A1628',
                   }}
                 >
-                  Most Popular
+                  {t("pricing.popular")}
                 </div>
               )}
 
