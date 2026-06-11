@@ -113,5 +113,27 @@
   "cta.title": "Ready to build real backend skills?",
 "cta.subtitle": "Join 12,000+ developers learning APIs, PostgreSQL, and NestJS.",
 "cta.button": "Start Learning for Free",
-"cta.note": "No credit card required. Cancel anytime."
+"cta.note": "No credit card required. Cancel anytime.",
+
+  "footer.courses": "Courses",
+"footer.company": "Company",
+"footer.legal": "Legal",
+
+"footer.restapi": "REST API",
+"footer.postgresql": "PostgreSQL",
+"footer.nestjs": "NestJS",
+"footer.jwt": "JWT Auth",
+
+"footer.about": "About",
+"footer.blog": "Blog",
+"footer.careers": "Careers",
+"footer.contact": "Contact",
+
+"footer.privacy": "Privacy",
+"footer.terms": "Terms",
+"footer.cookies": "Cookies",
+
+"footer.description": "Making backend development accessible to everyone.",
+
+"footer.copyright": "© 2026 OsonTrack. All rights reserved."
 }
