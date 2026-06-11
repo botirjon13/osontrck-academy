@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 interface Course {
   image: string;
@@ -14,6 +15,7 @@ interface Course {
 export default function CourseShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,44 +33,44 @@ export default function CourseShowcase() {
 
   const courses: Course[] = [
     {
-      image: '/images/img-rest-api.jpg',
-      tag: 'REST API',
-      title: 'REST API Fundamentals',
-      desc: 'Learn HTTP methods, status codes, JSON handling, and build your first API.',
-      lessons: '16 Lessons',
-      rating: '4.9 Rating',
-      level: 'Beginner',
-      price: 'Free',
+    image: "/images/img-rest-api.jpg",
+    tag: t("courses.rest.tag"),
+    title: t("courses.rest.title"),
+    desc: t("courses.rest.desc"),
+    lessons: t("courses.rest.lessons"),
+    rating: t("courses.rest.rating"),
+    level: t("courses.rest.level"),
+    price: t("courses.rest.price"),
     },
     {
-      image: '/images/img-postgresql.jpg',
-      tag: 'Database',
-      title: 'PostgreSQL for Developers',
-      desc: 'Master SQL queries, database design, migrations, and performance optimization.',
-      lessons: '22 Lessons',
-      rating: '4.8 Rating',
-      level: 'Intermediate',
-      price: 'Free',
+    image: "/images/img-postgresql.jpg",
+    tag: t("courses.pg.tag"),
+    title: t("courses.pg.title"),
+    desc: t("courses.pg.desc"),
+    lessons: t("courses.pg.lessons"),
+    rating: t("courses.pg.rating"),
+    level: t("courses.pg.level"),
+    price: t("courses.pg.price"),
     },
     {
-      image: '/images/img-nestjs.jpg',
-      tag: 'Framework',
-      title: 'NestJS & TypeScript',
-      desc: 'Build scalable backends with NestJS modules, controllers, services, and decorators.',
-      lessons: '20 Lessons',
-      rating: '4.9 Rating',
-      level: 'Intermediate',
-      price: 'Free',
+    image: "/images/img-nestjs.jpg",
+    tag: t("courses.nest.tag"),
+    title: t("courses.nest.title"),
+    desc: t("courses.nest.desc"),
+    lessons: t("courses.nest.lessons"),
+    rating: t("courses.nest.rating"),
+    level: t("courses.nest.level"),
+    price: t("courses.nest.price"),
     },
     {
-      image: '/images/img-jwt.jpg',
-      tag: 'Security',
-      title: 'JWT Authentication',
-      desc: 'Implement secure login systems with JSON Web Tokens, refresh tokens, and middleware.',
-      lessons: '14 Lessons',
-      rating: '4.8 Rating',
-      level: 'Advanced',
-      price: 'Free',
+    image: "/images/img-jwt.jpg",
+    tag: t("courses.jwt.tag"),
+    title: t("courses.jwt.title"),
+    desc: t("courses.jwt.desc"),
+    lessons: t("courses.jwt.lessons"),
+    rating: t("courses.jwt.rating"),
+    level: t("courses.jwt.level"),
+    price: t("courses.jwt.price"),
     },
   ];
 
@@ -91,13 +93,13 @@ export default function CourseShowcase() {
             className="text-xs font-medium uppercase tracking-[2px]"
             style={{ color: '#D4A853' }}
           >
-            OUR COURSES
+            {t("courses.badge")}
           </span>
           <h2
             className="font-serif text-3xl md:text-[48px] font-semibold mt-4 leading-[1.12]"
             style={{ color: '#F0EDE5', letterSpacing: '-1px' }}
           >
-            From beginner to backend engineer
+            {t("courses.title")}
           </h2>
         </div>
 
