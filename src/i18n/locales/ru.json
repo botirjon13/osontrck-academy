@@ -53,5 +53,42 @@
   "why.feature5.title": "Мастерство PostgreSQL",
   "why.feature5.desc": "От основ SQL до сложных запросов и проектирования баз данных.",
   "why.feature6.title": "JWT и безопасность",
-  "why.feature6.desc": "Изучайте аутентификацию, авторизацию и лучшие практики безопасности."
+  "why.feature6.desc": "Изучайте аутентификацию, авторизацию и лучшие практики безопасности.",
+
+  "pricing.badge": "ТАРИФЫ",
+"pricing.title": "Простые и прозрачные тарифы",
+
+"pricing.monthly": "Ежемесячно",
+"pricing.yearly": "Ежегодно",
+
+"pricing.popular": "Самый популярный",
+
+"pricing.starter": "Старт",
+"pricing.pro": "Профессиональный",
+"pricing.team": "Команда",
+
+"pricing.free": "Бесплатно",
+
+"pricing.feature1": "Доступ ко всем основным курсам",
+"pricing.feature2": "Интерактивная API-песочница",
+"pricing.feature3": "Доступ к Discord-сообществу",
+"pricing.feature4": "Базовое отслеживание прогресса",
+
+"pricing.feature5": "Все возможности тарифа Старт",
+"pricing.feature6": "Подтверждённые сертификаты",
+"pricing.feature7": "Продвинутые проекты",
+"pricing.feature8": "Приоритетная поддержка",
+"pricing.feature9": "Загружаемые материалы",
+"pricing.feature10": "Эксклюзивные воркшопы",
+
+"pricing.feature11": "Все возможности тарифа Pro",
+"pricing.feature12": "Панель управления командой",
+"pricing.feature13": "Индивидуальные траектории обучения",
+"pricing.feature14": "Интеграция SSO",
+"pricing.feature15": "Аналитика и отчётность",
+"pricing.feature16": "Персональный менеджер аккаунта",
+
+"pricing.buttonStarter": "Начать",
+"pricing.buttonPro": "Начать пробный Pro",
+"pricing.buttonTeam": "Связаться с отделом продаж"
 }
