@@ -170,5 +170,23 @@
 "courses.jwt.lessons": "14 Lessons",
 "courses.jwt.rating": "4.8 Rating",
 "courses.jwt.level": "Advanced",
-"courses.jwt.price": "Free"
+"courses.jwt.price": "Free",
+
+  "how.badge": "HOW IT WORKS",
+"how.title": "Your path to backend mastery",
+
+"how.step1.title": "Sign Up",
+"how.step1.desc": "Create your free account and set your learning goals.",
+
+"how.step2.title": "Watch & Learn",
+"how.step2.desc": "Follow structured video lessons with hands-on examples.",
+
+"how.step3.title": "Code Along",
+"how.step3.desc": "Practice in our interactive API playground with real endpoints.",
+
+"how.step4.title": "Build Projects",
+"how.step4.desc": "Apply your skills with guided real-world projects.",
+
+"how.step5.title": "Get Certified",
+"how.step5.desc": "Earn certificates and showcase your backend skills."
 }
