@@ -96,14 +96,14 @@ export default function Login() {
         </form>
 
         <p className="text-sm text-gray-400 mt-6 text-center">
-          Don’t have an account?{" "}
+          {t("login.registerText")}{" "}
           <Link
-            to="/register"
-            className="text-yellow-400 hover:text-yellow-300"
+             to="/register"
+             className="text-yellow-400 hover:text-yellow-300"
           >
-            Register
+             {t("login.registerLink")}
           </Link>
-        </p>
+         </p>
       </div>
     </div>
   );
