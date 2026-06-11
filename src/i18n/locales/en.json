@@ -17,7 +17,7 @@
   "register.password": "Password",
   "register.button": "Create Account",
   "register.loginText": "Already have an account?",
-  "register.loginLink": "Login"
+  "register.loginLink": "Login",
 
   "dashboard.title": "Dashboard",
   "dashboard.welcome": "Welcome",
