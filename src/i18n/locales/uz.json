@@ -31,15 +31,11 @@
   "nav.getstarted": "Boshlash",
 
   "hero.badge": "OSONTRACK ACADEMY",
-
   "hero.title1": "Haqiqiy Backend Dasturlashni",
   "hero.title2": "API lar bilan o‘rganing",
-
   "hero.subtitle": "REST API, Swagger, PostgreSQL, NestJS va JWT Authentication bo‘yicha amaliy kurslar.",
-
   "hero.start": "O‘qishni boshlash",
   "hero.courses": "Kurslarni ko‘rish",
-
   "hero.students": "Talabalar",
   "hero.lessons": "Video darslar",
   "hero.rating": "O‘rtacha baho"
