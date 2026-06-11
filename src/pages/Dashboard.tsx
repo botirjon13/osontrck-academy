@@ -54,7 +54,6 @@ export default function Dashboard() {
   return (
 <> <Header />
 
-```
 <div className="min-h-screen bg-[#020817] text-white p-10">
   <div className="max-w-6xl mx-auto">
     {/* Top Bar */}
