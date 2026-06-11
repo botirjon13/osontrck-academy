@@ -113,5 +113,27 @@
   "cta.title": "Backend dasturlashni amaliy o'rganishga tayyormisiz?",
 "cta.subtitle": "API, PostgreSQL va NestJS o'rganayotgan 12 000+ dasturchilar safiga qo'shiling.",
 "cta.button": "Bepul boshlash",
-"cta.note": "Bank kartasi talab qilinmaydi. Istalgan vaqtda bekor qilishingiz mumkin."
+"cta.note": "Bank kartasi talab qilinmaydi. Istalgan vaqtda bekor qilishingiz mumkin.",
+
+  "footer.courses": "Kurslar",
+"footer.company": "Kompaniya",
+"footer.legal": "Huquqiy",
+
+"footer.restapi": "REST API",
+"footer.postgresql": "PostgreSQL",
+"footer.nestjs": "NestJS",
+"footer.jwt": "JWT Auth",
+
+"footer.about": "Biz haqimizda",
+"footer.blog": "Blog",
+"footer.careers": "Karyera",
+"footer.contact": "Aloqa",
+
+"footer.privacy": "Maxfiylik",
+"footer.terms": "Foydalanish shartlari",
+"footer.cookies": "Cookie siyosati",
+
+"footer.description": "Backend dasturlashni hamma uchun ochiq va qulay qilish.",
+
+"footer.copyright": "© 2026 OsonTrack. Barcha huquqlar himoyalangan."
 }
