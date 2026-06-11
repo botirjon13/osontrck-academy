@@ -17,7 +17,7 @@
   "register.password": "Пароль",
   "register.button": "Зарегистрироваться",
   "register.loginText": "Уже есть аккаунт?",
-  "register.loginLink": "Войти"
+  "register.loginLink": "Войти",
 
   "dashboard.title": "Панель управления",
   "dashboard.welcome": "Добро пожаловать",
