@@ -21,5 +21,12 @@
   
   "dashboard.title": "Boshqaruv paneli",
   "dashboard.welcome": "Xush kelibsiz",
-  "dashboard.logout": "Chiqish"
+  "dashboard.logout": "Chiqish",
+
+  "nav.courses": "Kurslar",
+  "nav.pricing": "Narxlar",
+  "nav.about": "Biz haqimizda",
+  "nav.blog": "Blog",
+  "nav.signin": "Kirish",
+  "nav.getstarted": "Boshlash"
 }
