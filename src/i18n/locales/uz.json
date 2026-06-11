@@ -39,4 +39,19 @@
   "hero.students": "Talabalar",
   "hero.lessons": "Video darslar",
   "hero.rating": "O‘rtacha baho"
+
+  "why.badge": "NEGA OSONTRACK",
+  "why.title": "Backend dasturlashni o‘rganish uchun kerak bo‘lgan hamma narsa",
+  "why.feature1.title": "Interaktiv darslar",
+  "why.feature1.desc": "Ichki playground orqali haqiqiy API endpointlar bilan ishlang. Hech qanday o‘rnatish talab qilinmaydi.",
+  "why.feature2.title": "Bosqichma-bosqich dastur",
+  "why.feature2.desc": "HTTP asoslaridan boshlab production darajadagi NestJS ilovalarigacha bo‘lgan tizimli yo‘l.",
+  "why.feature3.title": "Haqiqiy loyihalar",
+  "why.feature3.desc": "Task Manager API, Auth System va E-commerce Backend kabi portfolio loyihalar yarating.",
+  "why.feature4.title": "Hamjamiyat yordami",
+  "why.feature4.desc": "12 000+ dasturchilar bilan hamjamiyatga qo‘shiling. Savollar bering va tajriba almashing.",
+  "why.feature5.title": "PostgreSQL mukammalligi",
+  "why.feature5.desc": "SQL asoslaridan murakkab so‘rovlar va ma’lumotlar bazasi dizaynigacha o‘rganing.",
+  "why.feature6.title": "JWT va xavfsizlik",
+  "why.feature6.desc": "Autentifikatsiya, avtorizatsiya va xavfsizlikning eng yaxshi amaliyotlarini o‘rganing."
 }
