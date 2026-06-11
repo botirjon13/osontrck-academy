@@ -53,5 +53,42 @@
   "why.feature5.title": "PostgreSQL Mastery",
   "why.feature5.desc": "Go from SQL fundamentals to advanced querying, migrations, and database design.",
   "why.feature6.title": "JWT & Security",
-  "why.feature6.desc": "Learn authentication, authorization, and security best practices the right way."
+  "why.feature6.desc": "Learn authentication, authorization, and security best practices the right way.",
+
+  "pricing.badge": "PRICING",
+"pricing.title": "Simple, transparent pricing",
+
+"pricing.monthly": "Monthly",
+"pricing.yearly": "Yearly",
+
+"pricing.popular": "Most Popular",
+
+"pricing.starter": "Starter",
+"pricing.pro": "Pro",
+"pricing.team": "Team",
+
+"pricing.free": "Free",
+
+"pricing.feature1": "Access to all core courses",
+"pricing.feature2": "Interactive API playground",
+"pricing.feature3": "Community Discord access",
+"pricing.feature4": "Basic progress tracking",
+
+"pricing.feature5": "Everything in Starter",
+"pricing.feature6": "Verified certificates",
+"pricing.feature7": "Advanced projects",
+"pricing.feature8": "Priority support",
+"pricing.feature9": "Downloadable resources",
+"pricing.feature10": "Exclusive workshops",
+
+"pricing.feature11": "Everything in Pro",
+"pricing.feature12": "Team management dashboard",
+"pricing.feature13": "Custom learning paths",
+"pricing.feature14": "SSO integration",
+"pricing.feature15": "Analytics & reporting",
+"pricing.feature16": "Dedicated account manager",
+
+"pricing.buttonStarter": "Get Started",
+"pricing.buttonPro": "Start Pro Trial",
+"pricing.buttonTeam": "Contact Sales"
 }
