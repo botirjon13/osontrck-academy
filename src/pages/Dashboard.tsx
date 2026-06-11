@@ -81,6 +81,13 @@ export default function Dashboard() {
               className="bg-red-500 hover:bg-red-400 px-5 py-3 rounded-xl"
             >
               {t("dashboard.logout")}
+              
+              <button
+                onClick={() => navigate("/playground")}
+                className="bg-yellow-500 hover:bg-yellow-400 text-black px-5 py-3 rounded-xl mr-3"
+              >
+                  Open Playground
+                
             </button>
           </div>
         </div>
