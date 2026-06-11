@@ -89,20 +89,22 @@ export default function Navigation() {
         </div>
 
         <div className="flex items-center gap-4">
+          <LanguageSwitcher />
+
           <Link
             to="/login"
             className="text-[15px] font-medium text-text-secondary hover:text-text-primary transition-colors duration-200"
           >
-            {t("nav.signin")}
+           {t("nav.signin")}
           </Link>
 
           <Link
             to="/register"
             className="text-[15px] font-semibold px-6 py-2.5 rounded-full transition-all duration-200 hover:scale-[1.02]"
             style={{
-              backgroundColor: "#D4A853",
-              color: "#0A1628",
-            }}
+            backgroundColor: "#D4A853",
+            color: "#0A1628",
+           }}
           >
             {t("nav.getstarted")}
           </Link>
