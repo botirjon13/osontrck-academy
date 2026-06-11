@@ -1,0 +1,16 @@
+{
+  "nav.signin": "Kirish",
+  "nav.getstarted": "Boshlash",
+
+  "login.title": "Xush kelibsiz",
+  "login.subtitle": "OsonTrack Academy hisobingizga kiring",
+  "login.button": "Kirish",
+
+  "register.title": "Hisob yaratish",
+  "register.subtitle": "OsonTrack Academy ga qo‘shiling",
+  "register.button": "Ro‘yxatdan o‘tish",
+
+  "dashboard.title": "Dashboard",
+  "dashboard.welcome": "Xush kelibsiz",
+  "dashboard.logout": "Chiqish"
+}
