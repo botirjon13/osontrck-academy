@@ -90,5 +90,23 @@
 
 "pricing.buttonStarter": "Boshlash",
 "pricing.buttonPro": "Pro sinovini boshlash",
-"pricing.buttonTeam": "Sotuv bo‘limi bilan bog‘lanish"
+"pricing.buttonTeam": "Sotuv bo‘limi bilan bog‘lanish",
+
+  "faq.badge": "FAQ",
+"faq.title": "Ko'p so'raladigan savollar",
+
+"faq.q1": "OsonTrack haqiqatan ham bepulmi?",
+"faq.a1": "Ha. Barcha asosiy kurslar bepul. Professional tariflar qo'shimcha loyihalar va sertifikatlarni ochadi.",
+
+"faq.q2": "Dasturlash bo'yicha tajriba kerakmi?",
+"faq.a2": "Yo'q. Kurslar mutlaqo boshlang'ich darajadan boshlanadi. JavaScript asoslarini bilsangiz kifoya.",
+
+"faq.q3": "Bir kursni tugatish uchun qancha vaqt kerak?",
+"faq.a3": "Ko'pchilik talabalar haftasiga 5-10 soat ajratib, kursni 2-4 haftada tugatadi.",
+
+"faq.q4": "Sertifikat beriladimi?",
+"faq.a4": "Ha. Professional tarif foydalanuvchilari kursni tugatgach tasdiqlangan sertifikat oladilar.",
+
+"faq.q5": "API Playground mobil qurilmada ishlaydimi?",
+"faq.a5": "Eng yaxshi tajriba kompyuterda bo'ladi, ammo barcha video darslar va nazariy materiallar mobil qurilmalarda ham ishlaydi."
 }
