@@ -211,6 +211,20 @@
   "dashboard.challengedesc": "Закрепляйте знания через практические упражнения.",
 
   "dashboard.progress": "Прогресс",
-  "dashboard.progressdesc": "Отслеживайте свои результаты обучения."
+  "dashboard.progressdesc": "Отслеживайте свои результаты обучения.",
+
+  "dashboard.path": "Путь Backend Разработчика",
+"dashboard.xp": "Опыт",
+"dashboard.level": "Уровень",
+"dashboard.beginner": "Начинающий",
+
+"dashboard.learningpath": "Путь обучения",
+
+"dashboard.restapi": "Основы REST API",
+"dashboard.postgresql": "PostgreSQL",
+"dashboard.nestjs": "NestJS",
+"dashboard.jwt": "JWT Authentication",
+
+"dashboard.reward": "Награда:"
  
 }
