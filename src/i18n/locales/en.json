@@ -21,5 +21,12 @@
 
   "dashboard.title": "Dashboard",
   "dashboard.welcome": "Welcome",
-  "dashboard.logout": "Logout"
+  "dashboard.logout": "Logout",
+
+  "nav.courses": "Courses",
+  "nav.pricing": "Pricing",
+  "nav.about": "About",
+  "nav.blog": "Blog",
+  "nav.signin": "Sign In",
+  "nav.getstarted": "Get Started"
 }
