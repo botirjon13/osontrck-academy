@@ -3,6 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { useRef, useState, useEffect } from 'react';
+import { useTranslation } from "react-i18next";
 
 const IMAGE_LIST = [
   'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80',
@@ -225,6 +226,7 @@ function DirectionalLightPillar() {
 export default function ParticleCarousel() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -258,13 +260,13 @@ export default function ParticleCarousel() {
             className="text-xs font-medium uppercase tracking-[2px]"
             style={{ color: '#D4A853' }}
           >
-            STUDENT SUCCESS
+            {t("success.badge")}
           </span>
           <h2
             className="font-serif text-3xl md:text-[44px] font-semibold mt-4 leading-[1.12]"
             style={{ color: '#F0EDE5', letterSpacing: '-1px' }}
           >
-            Meet our graduates
+            {t("success.title")}
           </h2>
         </div>
 
@@ -302,10 +304,10 @@ export default function ParticleCarousel() {
             className="font-serif text-xl md:text-[28px] italic mx-auto max-w-[600px] leading-relaxed"
             style={{ color: '#8A9AB0' }}
           >
-            "OsonTrack transformed my career. I went from zero backend knowledge to building production APIs in 3 months."
+            {t("success.quote")}
           </blockquote>
           <p className="text-sm mt-4" style={{ color: '#4A5A70' }}>
-            — Sarah K., Full Stack Developer
+            {t("success.author")}
           </p>
         </div>
       </div>
