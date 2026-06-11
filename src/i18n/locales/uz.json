@@ -53,5 +53,42 @@
   "why.feature5.title": "PostgreSQL mukammalligi",
   "why.feature5.desc": "SQL asoslaridan murakkab so‘rovlar va ma’lumotlar bazasi dizaynigacha o‘rganing.",
   "why.feature6.title": "JWT va xavfsizlik",
-  "why.feature6.desc": "Autentifikatsiya, avtorizatsiya va xavfsizlikning eng yaxshi amaliyotlarini o‘rganing."
+  "why.feature6.desc": "Autentifikatsiya, avtorizatsiya va xavfsizlikning eng yaxshi amaliyotlarini o‘rganing.",
+
+  "pricing.badge": "NARXLAR",
+"pricing.title": "Oddiy va shaffof narxlar",
+
+"pricing.monthly": "Oylik",
+"pricing.yearly": "Yillik",
+
+"pricing.popular": "Eng mashhur",
+
+"pricing.starter": "Boshlang‘ich",
+"pricing.pro": "Professional",
+"pricing.team": "Jamoa",
+
+"pricing.free": "Bepul",
+
+"pricing.feature1": "Barcha asosiy kurslarga kirish",
+"pricing.feature2": "Interaktiv API playground",
+"pricing.feature3": "Discord hamjamiyatiga kirish",
+"pricing.feature4": "Asosiy progress kuzatuvi",
+
+"pricing.feature5": "Starter rejadagi barcha imkoniyatlar",
+"pricing.feature6": "Tasdiqlangan sertifikatlar",
+"pricing.feature7": "Murakkab loyihalar",
+"pricing.feature8": "Ustuvor yordam",
+"pricing.feature9": "Yuklab olinadigan materiallar",
+"pricing.feature10": "Eksklyuziv workshoplar",
+
+"pricing.feature11": "Pro rejadagi barcha imkoniyatlar",
+"pricing.feature12": "Jamoa boshqaruv paneli",
+"pricing.feature13": "Maxsus o‘quv yo‘llari",
+"pricing.feature14": "SSO integratsiyasi",
+"pricing.feature15": "Analitika va hisobotlar",
+"pricing.feature16": "Shaxsiy account manager",
+
+"pricing.buttonStarter": "Boshlash",
+"pricing.buttonPro": "Pro sinovini boshlash",
+"pricing.buttonTeam": "Sotuv bo‘limi bilan bog‘lanish"
 }
