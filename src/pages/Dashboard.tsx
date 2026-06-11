@@ -32,11 +32,7 @@ export default function Dashboard() {
           }
         );
 
-        console.log(response.status);
-
         const data = await response.json();
-
-        console.log(data);
 
         setUser(data);
       } catch (error) {
@@ -76,18 +72,38 @@ export default function Dashboard() {
               </p>
             </div>
 
-            <button
-              onClick={handleLogout}
-              className="bg-red-500 hover:bg-red-400 px-5 py-3 rounded-xl"
-            >
-              {t("dashboard.logout")}
-              
+            <div className="flex gap-3">
               <button
                 onClick={() => navigate("/playground")}
-                className="bg-yellow-500 hover:bg-yellow-400 text-black px-5 py-3 rounded-xl mr-3"
+                className="bg-yellow-500 hover:bg-yellow-400 text-black px-5 py-3 rounded-xl font-semibold"
               >
-                  Open Playground
-                
+                Open Playground
+              </button>
+
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 hover:bg-red-400 px-5 py-3 rounded-xl font-semibold"
+              >
+                {t("dashboard.logout")}
+              </button>
+            </div>
+          </div>
+
+          {/* Future Mission Card */}
+          <div className="mt-10 bg-white/5 border border-white/10 rounded-2xl p-6">
+            <h2 className="text-2xl font-bold">
+              Mission #1
+            </h2>
+
+            <p className="text-gray-400 mt-2">
+              Make your first API request using Swagger.
+            </p>
+
+            <button
+              onClick={() => navigate("/playground")}
+              className="mt-4 bg-yellow-500 hover:bg-yellow-400 text-black px-5 py-3 rounded-xl font-semibold"
+            >
+              Start Mission
             </button>
           </div>
         </div>
