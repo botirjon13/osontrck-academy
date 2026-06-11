@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 interface FAQItem {
   question: string;
@@ -9,6 +10,8 @@ export default function FAQ() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -26,29 +29,24 @@ export default function FAQ() {
 
   const faqs: FAQItem[] = [
     {
-      question: 'Is OsonTrack really free?',
-      answer:
-        'Yes! All our core courses are completely free. We believe quality backend education should be accessible to everyone. Pro plans unlock advanced projects and certifications.',
+      question: t("faq.q1"),
+      answer: t("faq.a1"),
     },
     {
-      question: 'Do I need prior coding experience?',
-      answer:
-        "Not at all. Our REST API Fundamentals course starts from the absolute basics. If you know basic JavaScript, you're ready to begin.",
+      question: t("faq.q2"),
+      answer: t("faq.a2"),
     },
     {
-      question: 'How long does it take to complete a course?',
-      answer:
-        'Most students complete a course in 2-4 weeks with 5-10 hours per week of study. You can learn at your own pace with lifetime access.',
+     question: t("faq.q3"),
+     answer: t("faq.a3"),
     },
     {
-      question: 'Will I get a certificate?',
-      answer:
-        'Yes, Pro plan users earn verified certificates upon course completion that can be shared on LinkedIn and resumes.',
+      question: t("faq.q4"),
+      answer: t("faq.a4"),
     },
     {
-      question: 'Can I access the API playground on mobile?',
-      answer:
-        'The playground works best on desktop, but all video lessons and theory content are fully mobile-responsive.',
+      question: t("faq.q5"),
+      answer: t("faq.a5"),
     },
   ];
 
@@ -70,13 +68,13 @@ export default function FAQ() {
             className="text-xs font-medium uppercase tracking-[2px]"
             style={{ color: '#D4A853' }}
           >
-            FAQ
+            {t("faq.badge")}
           </span>
           <h2
             className="font-serif text-3xl md:text-[44px] font-semibold mt-4 leading-[1.12]"
             style={{ color: '#F0EDE5', letterSpacing: '-1px' }}
           >
-            Frequently asked questions
+            {t("faq.title")}
           </h2>
         </div>
 
