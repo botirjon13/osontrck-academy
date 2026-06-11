@@ -195,5 +195,20 @@
 "success.badge": "STUDENT SUCCESS",
 "success.title": "Meet our graduates",
 "success.quote": "OsonTrack transformed my career. I went from zero backend knowledge to building production APIs in 3 months.",
-"success.author": "— Sarah K., Full Stack Developer"
+"success.author": "— Sarah K., Full Stack Developer",
+
+  "dashboard.playground": "Playground",
+  "dashboard.mission1": "Mission #1",
+  "dashboard.mission1desc": "Make your first API request using Swagger.",
+  "dashboard.startmission": "Start Mission",
+
+  "dashboard.swagger": "Swagger Playground",
+  "dashboard.swaggerdesc": "Test API endpoints and explore responses.",
+
+  "dashboard.challenge": "Challenges",
+  "dashboard.challengedesc": "Strengthen your skills with practical tasks.",
+
+  "dashboard.progress": "Progress",
+  "dashboard.progressdesc": "Track your learning achievements."
+  
 }
