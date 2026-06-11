@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const { login } = useAuth();
   const [password, setPassword] = useState("");
+  const { t } = useTranslation();
 
   const handleLogin = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -52,10 +54,10 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-[#020817] text-white flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur">
-        <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
+        <h1 className="text-3xl font-bold mb-2"> {t("login.title")} </h1>
 
         <p className="text-gray-400 mb-8">
-          Login to your OsonTrack Academy account
+          {t("login.subtitle")}
         </p>
 
         <form onSubmit={handleLogin} className="space-y-5">
