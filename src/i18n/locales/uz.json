@@ -198,7 +198,7 @@
 "success.quote": "OsonTrack faoliyatimni o'zgartirdi. 3 oy ichida backend bo'yicha mutlaqo tajribasiz holatdan ishlab chiqarish darajasidagi API lar yaratish darajasiga chiqdim.",
 
 "success.author": "— Sarah K., Full Stack dasturchi",
- {
+
   "dashboard.playground": "Playground",
   "dashboard.mission1": "Missiya #1",
   "dashboard.mission1desc": "Swagger orqali birinchi API so'rovingizni yuboring.",
@@ -212,5 +212,5 @@
 
   "dashboard.progress": "Progress",
   "dashboard.progressdesc": "O'quv jarayonidagi natijalaringizni kuzating."
-} 
+
 }
