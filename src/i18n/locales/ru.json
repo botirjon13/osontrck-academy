@@ -225,6 +225,16 @@
 "dashboard.nestjs": "NestJS",
 "dashboard.jwt": "JWT Authentication",
 
-"dashboard.reward": "Награда:"
+"dashboard.reward": "Награда:",
+
+  "playground.back": "Вернуться в Dashboard",
+"playground.title": "Swagger Playground",
+"playground.subtitle": "Тестируйте API и выполняйте миссии.",
+
+"playground.mission1": "Миссия #1",
+"playground.mission1desc": "Успешно выполните GET /health endpoint.",
+
+"playground.tip": "Совет",
+"playground.tipdesc": "Откройте endpoint, нажмите Try it out и затем Execute."
  
 }
