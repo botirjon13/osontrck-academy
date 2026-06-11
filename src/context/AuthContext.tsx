@@ -19,15 +19,13 @@ export function AuthProvider({
   children: React.ReactNode;
 }) {
   const [isAuthenticated, setIsAuthenticated] =
-    useState(false);
+  useState<boolean | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if (token) {
       setIsAuthenticated(true);
-    }
-  }, []);
+    }, []);
 
   const login = () => {
     setIsAuthenticated(true);
