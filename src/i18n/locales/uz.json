@@ -3,6 +3,8 @@
   "nav.getstarted": "Boshlash",
 
   "login.title": "Xush kelibsiz",
+  "login.email": "Email",
+  "login.password": "Parol",
   "login.subtitle": "OsonTrack Academy hisobingizga kiring",
   "login.button": "Kirish",
 
