@@ -2,13 +2,17 @@
   "nav.signin": "Sign In",
   "nav.getstarted": "Get Started",
 
-  "login.title": "Welcome Back",
-  "login.subtitle": "Login to your OsonTrack Academy account",
-  "login.button": "Login",
+  "login.title": "Welcome",
+  "login.email": "Email",
+  "login.password": "Enter your password",
+  "login.subtitle": "Sign in to your OsonTrack Academy account",
+  "login.button": "Sign In",
+  "login.registerText": "Don't have an account?",
+  "login.registerLink": "Register",
 
   "register.title": "Create Account",
-  "register.subtitle": "Join OsonTrack Academy today",
-  "register.button": "Register",
+  "register.subtitle": "Join OsonTrack Academy",
+  "register.button": "Create Account",
 
   "dashboard.title": "Dashboard",
   "dashboard.welcome": "Welcome",
