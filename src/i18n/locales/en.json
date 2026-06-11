@@ -90,5 +90,23 @@
 
 "pricing.buttonStarter": "Get Started",
 "pricing.buttonPro": "Start Pro Trial",
-"pricing.buttonTeam": "Contact Sales"
+"pricing.buttonTeam": "Contact Sales",
+
+  "faq.badge": "FAQ",
+"faq.title": "Frequently asked questions",
+
+"faq.q1": "Is OsonTrack really free?",
+"faq.a1": "Yes. All core courses are free. Professional plans unlock advanced projects and certifications.",
+
+"faq.q2": "Do I need prior coding experience?",
+"faq.a2": "No. Courses start from the absolute basics. Basic JavaScript knowledge is enough.",
+
+"faq.q3": "How long does it take to complete a course?",
+"faq.a3": "Most students complete a course in 2-4 weeks by studying 5-10 hours per week.",
+
+"faq.q4": "Will I get a certificate?",
+"faq.a4": "Yes. Professional plan users receive verified certificates after course completion.",
+
+"faq.q5": "Can I access the API Playground on mobile?",
+"faq.a5": "The best experience is on desktop, but all video lessons and theory content work on mobile devices as well."
 }
