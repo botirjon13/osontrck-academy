@@ -11,8 +11,13 @@
   "login.registerLink": "Register",
 
   "register.title": "Create Account",
-  "register.subtitle": "Join OsonTrack Academy",
+  "register.subtitle": "Join OsonTrack Academy today",
+  "register.fullName": "Full Name",
+  "register.email": "Email",
+  "register.password": "Password",
   "register.button": "Create Account",
+  "register.loginText": "Already have an account?",
+  "register.loginLink": "Login"
 
   "dashboard.title": "Dashboard",
   "dashboard.welcome": "Welcome",
