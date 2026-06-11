@@ -197,5 +197,20 @@
 
 "success.quote": "OsonTrack faoliyatimni o'zgartirdi. 3 oy ichida backend bo'yicha mutlaqo tajribasiz holatdan ishlab chiqarish darajasidagi API lar yaratish darajasiga chiqdim.",
 
-"success.author": "— Sarah K., Full Stack dasturchi"  
+"success.author": "— Sarah K., Full Stack dasturchi",
+ {
+  "dashboard.playground": "Playground",
+  "dashboard.mission1": "Missiya #1",
+  "dashboard.mission1desc": "Swagger orqali birinchi API so'rovingizni yuboring.",
+  "dashboard.startmission": "Missiyani boshlash",
+
+  "dashboard.swagger": "Swagger Playground",
+  "dashboard.swaggerdesc": "API endpointlarni sinab ko'ring va javoblarni o'rganing.",
+
+  "dashboard.challenge": "Challenge'lar",
+  "dashboard.challengedesc": "Amaliy topshiriqlar orqali bilimlarni mustahkamlang.",
+
+  "dashboard.progress": "Progress",
+  "dashboard.progressdesc": "O'quv jarayonidagi natijalaringizni kuzating."
+} 
 }
