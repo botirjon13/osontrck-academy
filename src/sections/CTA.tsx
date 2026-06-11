@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 export default function CTA() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -38,13 +41,13 @@ export default function CTA() {
           className="font-serif text-3xl md:text-[48px] font-semibold leading-[1.12]"
           style={{ color: '#F0EDE5', letterSpacing: '-1px' }}
         >
-          Ready to build real backend skills?
+          {t("cta.title")}
         </h2>
         <p
           className="text-lg mt-4"
           style={{ color: '#8A9AB0' }}
         >
-          Join 12,000+ developers learning APIs, PostgreSQL, and NestJS.
+          {t("cta.subtitle")}
         </p>
 
         <a
@@ -63,11 +66,11 @@ export default function CTA() {
             e.currentTarget.style.boxShadow = 'none';
           }}
         >
-          Start Learning for Free
+          {t("cta.button")}
         </a>
 
         <p className="text-[13px] mt-4" style={{ color: '#4A5A70' }}>
-          No credit card required. Cancel anytime.
+          {t("cta.note")}
         </p>
       </div>
     </section>
