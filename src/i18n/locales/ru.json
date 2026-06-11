@@ -113,5 +113,27 @@
   "cta.title": "Готовы освоить реальные backend-навыки?",
 "cta.subtitle": "Присоединяйтесь к более чем 12 000 разработчиков, изучающих API, PostgreSQL и NestJS.",
 "cta.button": "Начать бесплатно",
-"cta.note": "Банковская карта не требуется. Отменить можно в любое время."
+"cta.note": "Банковская карта не требуется. Отменить можно в любое время.",
+
+  "footer.courses": "Курсы",
+"footer.company": "Компания",
+"footer.legal": "Правовая информация",
+
+"footer.restapi": "REST API",
+"footer.postgresql": "PostgreSQL",
+"footer.nestjs": "NestJS",
+"footer.jwt": "JWT Auth",
+
+"footer.about": "О нас",
+"footer.blog": "Блог",
+"footer.careers": "Карьера",
+"footer.contact": "Контакты",
+
+"footer.privacy": "Конфиденциальность",
+"footer.terms": "Условия использования",
+"footer.cookies": "Политика Cookie",
+
+"footer.description": "Делаем backend-разработку доступной для каждого.",
+
+"footer.copyright": "© 2026 OsonTrack. Все права защищены."
 }
