@@ -135,5 +135,40 @@
 
 "footer.description": "Making backend development accessible to everyone.",
 
-"footer.copyright": "© 2026 OsonTrack. All rights reserved."
+"footer.copyright": "© 2026 OsonTrack. All rights reserved.",
+
+  "courses.badge": "OUR COURSES",
+"courses.title": "From beginner to backend engineer",
+
+"courses.rest.tag": "REST API",
+"courses.rest.title": "REST API Fundamentals",
+"courses.rest.desc": "Learn HTTP methods, status codes, JSON handling, and build your first API.",
+"courses.rest.lessons": "16 Lessons",
+"courses.rest.rating": "4.9 Rating",
+"courses.rest.level": "Beginner",
+"courses.rest.price": "Free",
+
+"courses.pg.tag": "Database",
+"courses.pg.title": "PostgreSQL for Developers",
+"courses.pg.desc": "Master SQL queries, database design, migrations, and performance optimization.",
+"courses.pg.lessons": "22 Lessons",
+"courses.pg.rating": "4.8 Rating",
+"courses.pg.level": "Intermediate",
+"courses.pg.price": "Free",
+
+"courses.nest.tag": "Framework",
+"courses.nest.title": "NestJS & TypeScript",
+"courses.nest.desc": "Build scalable backends with NestJS modules, controllers, services, and decorators.",
+"courses.nest.lessons": "20 Lessons",
+"courses.nest.rating": "4.9 Rating",
+"courses.nest.level": "Intermediate",
+"courses.nest.price": "Free",
+
+"courses.jwt.tag": "Security",
+"courses.jwt.title": "JWT Authentication",
+"courses.jwt.desc": "Implement secure login systems with JSON Web Tokens, refresh tokens, and middleware.",
+"courses.jwt.lessons": "14 Lessons",
+"courses.jwt.rating": "4.8 Rating",
+"courses.jwt.level": "Advanced",
+"courses.jwt.price": "Free"
 }
