@@ -12,7 +12,12 @@
 
   "register.title": "Создать аккаунт",
   "register.subtitle": "Присоединяйтесь к OsonTrack Academy",
+  "register.fullName": "Полное имя",
+  "register.email": "Электронная почта",
+  "register.password": "Пароль",
   "register.button": "Зарегистрироваться",
+  "register.loginText": "Уже есть аккаунт?",
+  "register.loginLink": "Войти"
 
   "dashboard.title": "Панель управления",
   "dashboard.welcome": "Добро пожаловать",
