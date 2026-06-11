@@ -223,6 +223,17 @@
 "dashboard.nestjs": "NestJS",
 "dashboard.jwt": "JWT Authentication",
 
-"dashboard.reward": "Reward:"
+"dashboard.reward": "Reward:",
+
+  "playground.back": "Back to Dashboard",
+"playground.title": "Swagger Playground",
+"playground.subtitle": "Test API endpoints and complete missions.",
+
+"playground.mission1": "Mission #1",
+"playground.mission1desc": "Successfully execute GET /health endpoint.",
+
+"playground.tip": "Tip",
+"playground.tipdesc": "Open endpoint, click Try it out and then Execute."
+
   
 }
