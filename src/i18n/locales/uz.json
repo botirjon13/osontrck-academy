@@ -12,8 +12,13 @@
 
   "register.title": "Hisob yaratish",
   "register.subtitle": "OsonTrack Academy ga qo‘shiling",
+  "register.fullName": "To‘liq ism",
+  "register.email": "Elektron pochta",
+  "register.password": "Parol",
   "register.button": "Ro‘yxatdan o‘tish",
-
+  "register.loginText": "Hisobingiz bormi?",
+  "register.loginLink": "Kirish",
+  
   "dashboard.title": "Boshqaruv paneli",
   "dashboard.welcome": "Xush kelibsiz",
   "dashboard.logout": "Chiqish"
