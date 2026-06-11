@@ -24,44 +24,47 @@ export default function Pricing() {
 
   const plans = [
     {
-      name: 'Starter',
-      price: 'Free',
-      yearlyPrice: 'Free',
-      features: [
-        'Access to all core courses',
-        'Interactive API playground',
-        'Community Discord access',
-        'Basic progress tracking',
+      name: t("pricing.starter"),
+    price: t("pricing.free"),
+    yearlyPrice: t("pricing.free"),
+    features: [
+      t("pricing.feature1"),
+      t("pricing.feature2"),
+      t("pricing.feature3"),
+      t("pricing.feature4"),
       ],
       featured: false,
+      button: t("pricing.buttonStarter"),
     },
     {
-      name: 'Pro',
-      price: '$19/mo',
-      yearlyPrice: '$15/mo',
-      features: [
-        'Everything in Starter',
-        'Verified certificates',
-        'Advanced projects',
-        'Priority support',
-        'Downloadable resources',
-        'Exclusive workshops',
+      name: t("pricing.pro"),
+    price: "$19",
+    yearlyPrice: "$15",
+    features: [
+      t("pricing.feature5"),
+      t("pricing.feature6"),
+      t("pricing.feature7"),
+      t("pricing.feature8"),
+      t("pricing.feature9"),
+      t("pricing.feature10"),
       ],
       featured: true,
+      button: t("pricing.buttonPro"),
     },
     {
-      name: 'Team',
-      price: '$49/mo',
-      yearlyPrice: '$39/mo',
-      features: [
-        'Everything in Pro',
-        'Team management dashboard',
-        'Custom learning paths',
-        'SSO integration',
-        'Analytics & reporting',
-        'Dedicated account manager',
+      name: t("pricing.team"),
+    price: "$49",
+    yearlyPrice: "$39",
+    features: [
+      t("pricing.feature11"),
+      t("pricing.feature12"),
+      t("pricing.feature13"),
+      t("pricing.feature14"),
+      t("pricing.feature15"),
+      t("pricing.feature16"),
       ],
       featured: false,
+      button: t("pricing.buttonTeam"),
     },
   ];
 
@@ -157,7 +160,7 @@ export default function Pricing() {
                 <span className="font-serif text-5xl font-medium" style={{ color: '#F0EDE5' }}>
                   {isYearly ? plan.yearlyPrice : plan.price}
                 </span>
-                {plan.price !== 'Free' && (
+                {plan.price !== t("pricing.free") && (
                   <span className="text-sm ml-1" style={{ color: '#4A5A70' }}>
                     /mo
                   </span>
@@ -195,11 +198,7 @@ export default function Pricing() {
                   border: plan.featured ? 'none' : '1px solid #4A5A70',
                 }}
               >
-                {plan.name === 'Starter'
-                  ? 'Get Started'
-                  : plan.name === 'Pro'
-                    ? 'Start Pro Trial'
-                    : 'Contact Sales'}
+                {plan.button}
               </button>
             </div>
           ))}
