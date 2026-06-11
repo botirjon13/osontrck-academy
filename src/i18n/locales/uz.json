@@ -135,5 +135,40 @@
 
 "footer.description": "Backend dasturlashni hamma uchun ochiq va qulay qilish.",
 
-"footer.copyright": "© 2026 OsonTrack. Barcha huquqlar himoyalangan."
+"footer.copyright": "© 2026 OsonTrack. Barcha huquqlar himoyalangan.",
+
+  "courses.badge": "KURSLAR",
+"courses.title": "Boshlang'ichdan backend muhandisigacha",
+
+"courses.rest.tag": "REST API",
+"courses.rest.title": "REST API Asoslari",
+"courses.rest.desc": "HTTP metodlari, status kodlari, JSON va ilk API yaratishni o'rganing.",
+"courses.rest.lessons": "16 ta dars",
+"courses.rest.rating": "4.9 reyting",
+"courses.rest.level": "Boshlang'ich",
+"courses.rest.price": "Bepul",
+
+"courses.pg.tag": "Ma'lumotlar bazasi",
+"courses.pg.title": "Dasturchilar uchun PostgreSQL",
+"courses.pg.desc": "SQL, baza dizayni, migratsiyalar va optimizatsiyani o'rganing.",
+"courses.pg.lessons": "22 ta dars",
+"courses.pg.rating": "4.8 reyting",
+"courses.pg.level": "O'rta",
+"courses.pg.price": "Bepul",
+
+"courses.nest.tag": "Framework",
+"courses.nest.title": "NestJS va TypeScript",
+"courses.nest.desc": "NestJS modullari, controller, service va decoratorlar bilan backend yarating.",
+"courses.nest.lessons": "20 ta dars",
+"courses.nest.rating": "4.9 reyting",
+"courses.nest.level": "O'rta",
+"courses.nest.price": "Bepul",
+
+"courses.jwt.tag": "Xavfsizlik",
+"courses.jwt.title": "JWT Autentifikatsiyasi",
+"courses.jwt.desc": "JWT, refresh token va middleware orqali xavfsiz login tizimlari yarating.",
+"courses.jwt.lessons": "14 ta dars",
+"courses.jwt.rating": "4.8 reyting",
+"courses.jwt.level": "Yuqori",
+"courses.jwt.price": "Bepul"
 }
