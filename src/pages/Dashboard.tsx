@@ -265,12 +265,23 @@ export default function Dashboard() {
         🚀 {t("dashboard.mission1Guide")}
       </h2>
 
+      <p className="text-gray-400 mb-6">
+         Ushbu missiyada siz:
+      </p>
+
+      <ul className="list-disc ml-5 text-gray-300 space-y-2">
+        <li>REST API nima ekanligini tushunasiz</li>
+        <li>JWT token bilan ishlaysiz</li>
+        <li>Swagger orqali API chaqirasiz</li>
+        <li>Authorization qanday ishlashini ko'rasiz</li>
+      </ul>
+
       <div className="space-y-3 text-gray-300">
-        <p>1️⃣ POST /auth/register</p>
-        <p>2️⃣ POST /auth/login</p>
-        <p>3️⃣ Swagger Authorize</p>
-        <p>4️⃣ GET /auth/profile</p>
-        <p>5️⃣ POST /challenges/complete/mission1</p>
+        <p>1️⃣ POST /auth/register Yangi account yarating.</p>
+        <p>2️⃣ POST /auth/login Tizimga kiring va JWT token oling.</p>
+        <p>3️⃣ Swagger Authorize Olingan JWT tokenni Swagger Authorize tugmasiga joylashtiring.</p>
+        <p>4️⃣ GET /auth/profile Token ishlayotganini tekshiring.</p>
+        <p>5️⃣ POST /challenges/complete/mission1 Missiyani yakunlang va 10 XP oling.</p>
 
         <p className="text-yellow-400 font-semibold">
           Mukofot: +10 XP
@@ -309,7 +320,7 @@ export default function Dashboard() {
       <div className="aspect-video">
         <iframe
           className="w-full h-full rounded-xl"
-          src="https://www.youtube.com/embed/abc123xyz"
+          alert("Video tez orada qo'shiladi");
           title="Mission 1"
           allowFullScreen
         />
