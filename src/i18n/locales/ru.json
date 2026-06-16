@@ -199,7 +199,7 @@
 
 "success.author": "— Сара К., Full Stack разработчик",
 
-  "dashboard.playground": "Песочница",
+  "dashboard.playground": "Playground",
   "dashboard.mission1": "Миссия #1",
   "dashboard.mission1desc": "Отправьте свой первый API-запрос через Swagger.",
   "dashboard.startmission": "Начать миссию",
