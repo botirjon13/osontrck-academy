@@ -40,6 +40,14 @@ className="mb-6 text-left text-yellow-400 hover:text-yellow-300"
       <div className="mt-5 text-yellow-400 font-semibold">
         +10 XP
       </div>
+        <button
+          onClick={() => {
+            alert("Mission completed!");
+          }}
+          className="w-full mt-4 bg-green-600 hover:bg-green-500 text-white py-3 rounded-xl font-semibold transition"
+        >
+         {t("playground.complete")}
+        </button>
     </div>
 
     <div className="mt-6 bg-white/5 border border-white/10 rounded-2xl p-5">
