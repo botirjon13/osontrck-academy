@@ -8,6 +8,8 @@ interface User {
   id: string;
   email: string;
   fullName: string;
+  xp: number;
+  mission1: boolean;
 }
 
 export default function Dashboard() {
@@ -107,7 +109,7 @@ export default function Dashboard() {
           </p>
 
           <h3 className="text-4xl font-bold text-yellow-400">
-            0 XP
+            {user?.xp ?? 0} XP
           </h3>
         </div>
 
