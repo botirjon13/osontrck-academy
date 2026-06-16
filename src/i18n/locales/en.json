@@ -235,7 +235,10 @@
 "playground.tip": "Tip",
 "playground.tipdesc": "Open endpoint, click Try it out and then Execute.",
 "playground.complete": "Mission Complete",
-"dashboard.missionCompleted": "Mission Completed"   
+"dashboard.missionCompleted": "Mission Completed",
+
+"dashboard.guide": "Read Guide",
+"dashboard.video": "Смотреть видео"
 
   
 }
