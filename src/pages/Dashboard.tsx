@@ -19,6 +19,10 @@ export default function Dashboard() {
   const { t } = useTranslation();
 
   const [user, setUser] = useState<User | null>(null);
+
+  const [guideOpen, setGuideOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+  
   const progress = Math.min((user?.xp ?? 0) / 2, 100);
 
   useEffect(() => {
@@ -191,6 +195,23 @@ export default function Dashboard() {
         {t("dashboard.startmission")}
       </button>
     )}
+
+<div className="flex gap-3 mt-4">
+  <button
+    onClick={() => setGuideOpen(true)}
+    className="bg-blue-600 hover:bg-blue-500 px-5 py-3 rounded-xl font-semibold"
+  >
+    📖 {t("dashboard.guide")}
+  </button>
+
+  <button
+    onClick={() => setVideoOpen(true)}
+    className="bg-red-600 hover:bg-red-500 px-5 py-3 rounded-xl font-semibold"
+  >
+    🎥 {t("dashboard.video")}
+  </button>
+</div>
+      
     </div>
 
     {/* Feature Cards */}
@@ -235,6 +256,70 @@ export default function Dashboard() {
     </div>
   </div>
 </div>
+
+{guideOpen && (
+  <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+    <div className="bg-[#0f172a] max-w-3xl w-full rounded-2xl p-8 text-white">
+
+      <h2 className="text-3xl font-bold mb-4">
+        🚀 {t("dashboard.mission1Guide")}
+      </h2>
+
+      <div className="space-y-3 text-gray-300">
+        <p>1️⃣ POST /auth/register</p>
+        <p>2️⃣ POST /auth/login</p>
+        <p>3️⃣ Swagger Authorize</p>
+        <p>4️⃣ GET /auth/profile</p>
+        <p>5️⃣ POST /challenges/complete/mission1</p>
+
+        <p className="text-yellow-400 font-semibold">
+          Mukofot: +10 XP
+        </p>
+      </div>
+
+      <button
+        onClick={() => setGuideOpen(false)}
+        className="mt-6 bg-yellow-500 text-black px-5 py-3 rounded-xl"
+      >
+        {t("common.close")}
+      </button>
+
+    </div>
+  </div>
+)}
+
+  {videoOpen && (
+  <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+
+    <div className="bg-[#0f172a] rounded-2xl p-4 max-w-5xl w-full">
+
+      <div className="flex justify-between mb-4">
+        <h2 className="text-white font-bold">
+          🎥 {t("dashboard.mission1Video")}
+        </h2>
+
+        <button
+          onClick={() => setVideoOpen(false)}
+          className="text-red-400"
+        >
+          ✕
+        </button>
+      </div>
+
+      <div className="aspect-video">
+        <iframe
+          className="w-full h-full rounded-xl"
+          src="https://www.youtube.com/embed/abc123xyz"
+          title="Mission 1"
+          allowFullScreen
+        />
+      </div>
+
+    </div>
+
+  </div>
+)}
+  
 </>
 );
 }
