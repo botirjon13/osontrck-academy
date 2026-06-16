@@ -238,7 +238,8 @@
 "dashboard.missionCompleted": "Mission Completed",
 
 "dashboard.guide": "Read Guide",
-"dashboard.video": "Смотреть видео"
+"dashboard.video": "Watch Video",
+"dashboard.mission1Guide": "Mission #1 Guide"  
 
   
 }
