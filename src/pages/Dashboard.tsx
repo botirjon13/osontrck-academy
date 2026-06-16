@@ -318,12 +318,9 @@ export default function Dashboard() {
       </div>
 
       <div className="aspect-video">
-        <iframe
-          className="w-full h-full rounded-xl"
-          alert("Video tez orada qo'shiladi");
-          title="Mission 1"
-          allowFullScreen
-        />
+        <div className="aspect-video flex items-center justify-center text-gray-300">
+            Video tez orada qo'shiladi 🎥
+        </div>
       </div>
 
     </div>
