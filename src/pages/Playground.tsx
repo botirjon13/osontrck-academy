@@ -161,7 +161,6 @@ return ( <div className="h-screen bg-[#020817] text-white flex">
   </div>
 
 </div>
-```
-
+        
 );
 }
