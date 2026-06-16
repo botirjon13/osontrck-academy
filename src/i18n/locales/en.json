@@ -233,7 +233,8 @@
 "playground.mission1desc": "Successfully execute GET /health endpoint.",
 
 "playground.tip": "Tip",
-"playground.tipdesc": "Open endpoint, click Try it out and then Execute."
+"playground.tipdesc": "Open endpoint, click Try it out and then Execute.",
+"playground": "complete": "Mission Complete"
 
   
 }
