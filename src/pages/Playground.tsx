@@ -9,7 +9,6 @@ const completeMission = async () => {
 try {
 const token = localStorage.getItem("token");
 
-```
   const response = await fetch(
     "https://api.osontrack.uz/challenges/complete/mission1",
     {
@@ -31,13 +30,11 @@ const token = localStorage.getItem("token");
   console.error(error);
   alert("Something went wrong");
 }
-```
 
 };
 
 return ( <div className="h-screen bg-[#020817] text-white flex">
 
-```
   {/* Left Sidebar */}
   <div className="w-[380px] border-r border-white/10 p-6 flex flex-col overflow-y-auto">
 
