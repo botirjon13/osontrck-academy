@@ -236,6 +236,7 @@
 
 "playground.tip": "Совет",
 "playground.tipdesc": "Откройте endpoint, нажмите Try it out и затем Execute.",
-"playground.complete": "Я выполнил миссию"
- 
+"playground.complete": "Я выполнил миссию",
+  
+ "dashboard.missionCompleted": "Миссия выполнена"
 }
