@@ -240,6 +240,7 @@
 "dashboard.missionCompleted": "Missiya bajarildi",
 "dashboard.guide": "Qo'llanmani o'qish",
 "dashboard.video": "Video orqali ko'rish",
-"dashboard.mission1Guide": "Missiya #1 Qo'llanma"  
+"dashboard.mission1Guide": "Missiya #1 Qo'llanma",
+"common.close": "Yopish"  
 
 }
