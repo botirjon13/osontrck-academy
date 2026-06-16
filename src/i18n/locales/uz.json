@@ -237,6 +237,8 @@
 "playground.tipdesc": "Swagger ichida endpoint ustiga bosib, Try it out → Execute ni tanlang.",
 "playground.complete": "Missiyani yakunladim",
 
-"dashboard.missionCompleted": "Missiya bajarildi"
+"dashboard.missionCompleted": "Missiya bajarildi",
+"dashboard.guide": "Qo'llanmani o'qish",
+"dashboard.video": ""Video orqali ko'rish"
 
 }
