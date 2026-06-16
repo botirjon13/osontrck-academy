@@ -19,6 +19,7 @@ export default function Dashboard() {
   const { t } = useTranslation();
 
   const [user, setUser] = useState<User | null>(null);
+  const progress = Math.min((user?.xp ?? 0) / 2, 100);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -127,11 +128,14 @@ export default function Dashboard() {
       <div className="mt-6">
         <div className="flex justify-between text-sm text-gray-400 mb-2">
           <span>{t("dashboard.progress")}</span>
-          <span>5%</span>
+          <span>{progress}%</span>
         </div>
 
         <div className="w-full bg-white/10 rounded-full h-3">
-          <div className="bg-yellow-500 h-3 rounded-full w-[5%]" />
+          <div
+            className="bg-yellow-500 h-3 rounded-full"
+            style={{ width: `${progress}%` }}
+          />
         </div>
       </div>
     </div>
