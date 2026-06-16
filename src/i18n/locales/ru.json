@@ -238,5 +238,8 @@
 "playground.tipdesc": "Откройте endpoint, нажмите Try it out и затем Execute.",
 "playground.complete": "Я выполнил миссию",
   
- "dashboard.missionCompleted": "Миссия выполнена"
+ "dashboard.missionCompleted": "Миссия выполнена",
+ "dashboard.guide": "Открыть руководство",
+ "dashboard.video": "Смотреть видео"
+  
 }
