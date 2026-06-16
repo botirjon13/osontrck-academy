@@ -4,6 +4,33 @@ import { useTranslation } from "react-i18next";
 export default function Playground() {
 const navigate = useNavigate();
 const { t } = useTranslation();
+    
+const completeMission = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(
+      "https://api.osontrack.uz/challenges/complete/mission1",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert(`Mission completed! +${data.xp} XP`);
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong");
+  }
+};
 
 return ( <div className="h-screen bg-[#020817] text-white flex">
 {/* Left Sidebar */} <div className="w-[380px] border-r border-white/10 p-6 flex flex-col">
@@ -41,9 +68,7 @@ className="mb-6 text-left text-yellow-400 hover:text-yellow-300"
         +10 XP
       </div>
         <button
-          onClick={() => {
-            alert("Mission completed!");
-          }}
+          onClick={completeMission}
           className="w-full mt-4 bg-green-600 hover:bg-green-500 text-white py-3 rounded-xl font-semibold transition"
         >
          {t("playground.complete")}
