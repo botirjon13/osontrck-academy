@@ -181,7 +181,7 @@ export default function Dashboard() {
 
     {user?.mission1 ? (
       <div className="mt-4 bg-green-600 text-white px-5 py-3 rounded-xl font-semibold inline-block">
-        ✅ Mission Completed
+        ✅ {t("dashboard.missionCompleted")}
       </div>
     ) : (
       <button
