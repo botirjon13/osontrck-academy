@@ -235,6 +235,7 @@
 "playground.mission1desc": "Успешно выполните GET /health endpoint.",
 
 "playground.tip": "Совет",
-"playground.tipdesc": "Откройте endpoint, нажмите Try it out и затем Execute."
+"playground.tipdesc": "Откройте endpoint, нажмите Try it out и затем Execute.",
+"playground": "complete": "Я выполнил миссию"
  
 }
