@@ -240,6 +240,7 @@
   
  "dashboard.missionCompleted": "Миссия выполнена",
  "dashboard.guide": "Открыть руководство",
- "dashboard.video": "Смотреть видео"
+ "dashboard.video": "Смотреть видео",
+ "dashboard.mission1Guide": "Руководство по Миссии #1" 
   
 }
