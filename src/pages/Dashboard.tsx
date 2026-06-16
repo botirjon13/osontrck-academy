@@ -163,26 +163,30 @@ export default function Dashboard() {
 
     {/* Mission Card */}
     <div className="mt-10 bg-white/5 border border-white/10 rounded-2xl p-6">
-      <h2 className="text-2xl font-bold">
-        {t("dashboard.mission1")}
-      </h2>
+    <h2 className="text-2xl font-bold">
+      {t("dashboard.mission1")}
+    </h2>
 
-      <p className="text-yellow-400 mt-3">
-        {t("dashboard.reward")} +10 XP
-      </p>
+    <p className="text-yellow-400 mt-3">
+      {t("dashboard.reward")} +10 XP
+    </p>
 
-      <p className="text-gray-400 mt-2">
-        {t("dashboard.mission1desc")}
-      </p>
+    <p className="text-gray-400 mt-2">
+      {t("dashboard.mission1desc")}
+    </p>
 
+    {user?.mission1 ? (
+      <div className="mt-4 bg-green-600 text-white px-5 py-3 rounded-xl font-semibold inline-block">
+        ✅ Mission Completed
+      </div>
+    ) : (
       <button
-        onClick={() =>
-          navigate("/playground")
-          }
+        onClick={() => navigate("/playground")}
         className="mt-4 bg-yellow-500 hover:bg-yellow-400 text-black px-5 py-3 rounded-xl font-semibold"
       >
         {t("dashboard.startmission")}
       </button>
+    )}
     </div>
 
     {/* Feature Cards */}
