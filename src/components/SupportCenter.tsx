@@ -505,13 +505,6 @@ export default function SupportCenter({ role }: { role: UserRole }) {
         <p className="mt-5 border-t border-white/10 pt-4 text-xs leading-5 text-slate-400">
           {t("support.roadmapNote")}
         </p>
-        <a
-          href="mailto:support@osontrack.uz"
-          className="mt-4 inline-flex items-center gap-1 text-xs text-yellow-200 hover:text-yellow-100"
-        >
-          {t("support.contactFallback")}
-          <ExternalLink size={13} aria-hidden="true" />
-        </a>
       </aside>
     </div>
   );
