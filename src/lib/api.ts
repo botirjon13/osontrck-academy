@@ -36,6 +36,60 @@ export interface Course {
   status: CourseStatus;
 }
 
+export interface CourseResource {
+  id?: string;
+  title: string;
+  url: string;
+  position?: number;
+}
+
+export interface CourseLesson {
+  id?: string;
+  title: string;
+  content: string;
+  videoUrl: string | null;
+  position?: number;
+  resources: CourseResource[];
+}
+
+export interface CourseDetails extends Course {
+  lessons: Array<Pick<CourseLesson, "id" | "title" | "position">>;
+}
+
+export interface ManagedCourse extends Course {
+  reviewFeedback: string | null;
+  instructor: {
+    id: string;
+    fullName: string | null;
+    email?: string;
+  } | null;
+  lessons: CourseLesson[];
+}
+
+export interface LearningCourse {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  level: string;
+  instructor: { fullName: string | null } | null;
+  lessons: CourseLesson[];
+}
+
+export interface CourseInput {
+  slug: string;
+  title: string;
+  description: string;
+  level: string;
+  isFree: boolean;
+  lessons: Array<{
+    title: string;
+    content: string;
+    videoUrl?: string;
+    resources: Array<{ title: string; url: string }>;
+  }>;
+}
+
 export interface CourseEnrollment {
   enrolledAt: string;
   course: Course;
@@ -184,6 +238,70 @@ async function request<T>(
 
 export function fetchPublishedCourses(): Promise<Course[]> {
   return request<Course[]>("/courses");
+}
+
+export function fetchPublishedCourse(slug: string): Promise<CourseDetails> {
+  return request<CourseDetails>(`/courses/${encodeURIComponent(slug)}`);
+}
+
+export function fetchCourseContent(
+  token: string,
+  slug: string
+): Promise<LearningCourse> {
+  return request<LearningCourse>(
+    `/courses/${encodeURIComponent(slug)}/content`,
+    token
+  );
+}
+
+export function fetchManagedCourses(token: string): Promise<ManagedCourse[]> {
+  return request<ManagedCourse[]>("/courses/manage", token);
+}
+
+export function createManagedCourse(
+  token: string,
+  input: CourseInput
+): Promise<ManagedCourse> {
+  return request<ManagedCourse>("/courses/manage", token, {
+    method: "POST",
+    body: JSON.stringify(input),
+  });
+}
+
+export function updateManagedCourse(
+  token: string,
+  courseId: string,
+  input: CourseInput
+): Promise<ManagedCourse> {
+  return request<ManagedCourse>(
+    `/courses/manage/${encodeURIComponent(courseId)}`,
+    token,
+    { method: "PATCH", body: JSON.stringify(input) }
+  );
+}
+
+export function submitManagedCourse(
+  token: string,
+  courseId: string
+): Promise<ManagedCourse> {
+  return request<ManagedCourse>(
+    `/courses/manage/${encodeURIComponent(courseId)}/submit`,
+    token,
+    { method: "POST" }
+  );
+}
+
+export function updateManagedCourseStatus(
+  token: string,
+  courseId: string,
+  status: CourseStatus,
+  options: { feedback?: string } = {}
+): Promise<ManagedCourse> {
+  return request<ManagedCourse>(
+    `/courses/manage/${encodeURIComponent(courseId)}/status`,
+    token,
+    { method: "PATCH", body: JSON.stringify({ status, ...options }) }
+  );
 }
 
 export function fetchMyCourses(token: string): Promise<CourseEnrollment[]> {

@@ -5,17 +5,17 @@ import Navigation from "../sections/Navigation";
 import { useAuth } from "../context/auth-context";
 import {
   enrollInCourse,
+  fetchPublishedCourse,
   fetchMyCourses,
-  fetchPublishedCourses,
 } from "../lib/api";
-import type { Course } from "../lib/api";
+import type { CourseDetails } from "../lib/api";
 
 export default function CourseDetails() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const { status } = useAuth();
   const { t } = useTranslation();
-  const [course, setCourse] = useState<Course | null>(null);
+  const [course, setCourse] = useState<CourseDetails | null>(null);
   const [enrolled, setEnrolled] = useState(false);
   const [loading, setLoading] = useState(true);
   const [enrolling, setEnrolling] = useState(false);
@@ -27,8 +27,7 @@ export default function CourseDetails() {
 
     const load = async () => {
       try {
-        const courses = await fetchPublishedCourses();
-        const selectedCourse = courses.find((item) => item.slug === slug) ?? null;
+        const selectedCourse = slug ? await fetchPublishedCourse(slug) : null;
         if (active) setCourse(selectedCourse);
 
         const token = localStorage.getItem("token");
@@ -73,7 +72,9 @@ export default function CourseDetails() {
     setError(null);
     try {
       await enrollInCourse(token, course.slug);
-      navigate("/learning");
+      navigate(
+        course.slug === "rest-api-basics" ? "/learning" : `/learn/${course.slug}`
+      );
     } catch (enrollError: unknown) {
       setError(
         enrollError instanceof Error
@@ -146,6 +147,20 @@ export default function CourseDetails() {
               </div>
             )}
 
+            {course.lessons.length > 0 && (
+              <div className="mt-8 border-t border-white/10 pt-6">
+                <h2 className="text-xl font-semibold">{t("courses.manage.lessons")}</h2>
+                <ol className="mt-4 space-y-2 text-gray-300">
+                  {course.lessons.map((lesson, index) => (
+                    <li key={lesson.id} className="flex gap-3">
+                      <span className="text-yellow-300">{index + 1}.</span>
+                      {lesson.title}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
             {error && (
               <p className="mt-5 text-sm text-red-300" role="alert">
                 {error}
@@ -156,7 +171,13 @@ export default function CourseDetails() {
               {enrolled ? (
                 <button
                   type="button"
-                  onClick={() => navigate("/learning")}
+                  onClick={() =>
+                    navigate(
+                      course.slug === "rest-api-basics"
+                        ? "/learning"
+                        : `/learn/${course.slug}`
+                    )
+                  }
                   className="rounded-xl bg-yellow-500 px-6 py-3 font-semibold text-[#0A1628] transition hover:bg-yellow-400"
                 >
                   {t("courses.openCourse")}

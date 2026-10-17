@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth-context";
+import CourseManagement from "../components/CourseManagement";
 import {
   archiveChallenge,
   createChallenge,
@@ -219,6 +220,10 @@ export default function AdminDashboard() {
           <p className="mt-2 text-gray-300">
             Tizimga {user?.email} manzili bilan ADMIN rolida kirgansiz.
           </p>
+        </section>
+
+        <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <CourseManagement role="ADMIN" />
         </section>
 
         <section className="mt-8">

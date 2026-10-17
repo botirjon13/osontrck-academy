@@ -4,6 +4,7 @@ import {
   ArrowRight,
   Award,
   BookOpen,
+  BookPlus,
   CheckCircle2,
   Clock3,
   LifeBuoy,
@@ -15,6 +16,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/auth-context";
 import SupportCenter from "../components/SupportCenter";
+import CourseManagement from "../components/CourseManagement";
 import {
   ApiError,
   fetchCurrentUser,
@@ -24,7 +26,12 @@ import {
 } from "../lib/api";
 import type { Course, CourseEnrollment } from "../lib/api";
 
-type AccountTab = "courses" | "profile" | "certificates" | "support";
+type AccountTab =
+  | "courses"
+  | "profile"
+  | "certificates"
+  | "support"
+  | "course-management";
 
 const tabs: Array<{
   id: AccountTab;
@@ -35,6 +42,11 @@ const tabs: Array<{
   { id: "profile", label: "account.profile", icon: UserRound },
   { id: "certificates", label: "account.certificates", icon: Award },
   { id: "support", label: "account.support", icon: LifeBuoy },
+  {
+    id: "course-management",
+    label: "account.courseManagement",
+    icon: BookPlus,
+  },
 ];
 
 export default function AccountDashboard() {
@@ -43,7 +55,11 @@ export default function AccountDashboard() {
   const { t, i18n } = useTranslation();
   const { user, updateUser, logout } = useAuth();
   const selectedTab = searchParams.get("tab");
-  const activeTab: AccountTab = tabs.some((tab) => tab.id === selectedTab)
+  const availableTabs =
+    user?.role === "MODERATOR"
+      ? tabs
+      : tabs.filter((tab) => tab.id !== "course-management");
+  const activeTab: AccountTab = availableTabs.some((tab) => tab.id === selectedTab)
     ? (selectedTab as AccountTab)
     : "courses";
 
@@ -155,7 +171,7 @@ export default function AccountDashboard() {
             aria-label={t("account.navigation")}
             className="mt-7 flex gap-2 overflow-x-auto md:flex-col"
           >
-            {tabs.map(({ id, label, icon: Icon }) => (
+            {availableTabs.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
                 type="button"
@@ -345,7 +361,13 @@ export default function AccountDashboard() {
                         <button
                           type="button"
                           onClick={() =>
-                            navigate(enrolled ? "/learning" : `/courses/${course.slug}`)
+                            navigate(
+                              enrolled
+                                ? course.slug === "rest-api-basics"
+                                  ? "/learning"
+                                  : `/learn/${course.slug}`
+                                : `/courses/${course.slug}`
+                            )
                           }
                           className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-yellow-400 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-yellow-300"
                         >
@@ -438,6 +460,10 @@ export default function AccountDashboard() {
 
           {activeTab === "support" && (
             <SupportCenter role={user?.role ?? "STUDENT"} />
+          )}
+
+          {activeTab === "course-management" && user?.role === "MODERATOR" && (
+            <CourseManagement role="MODERATOR" />
           )}
 
           <footer className="mt-12 border-t border-white/10 pt-5 text-xs text-slate-500">
