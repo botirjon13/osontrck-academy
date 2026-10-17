@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/auth-context";
+import SupportCenter from "../components/SupportCenter";
 import {
   ApiError,
   fetchCurrentUser,
@@ -168,11 +169,6 @@ export default function AccountDashboard() {
               >
                 <Icon size={18} aria-hidden="true" />
                 {t(label)}
-                {id === "support" && (
-                  <span className="ml-auto rounded-full bg-white/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-slate-300">
-                    {t("account.comingSoon")}
-                  </span>
-                )}
               </button>
             ))}
           </nav>
@@ -441,19 +437,7 @@ export default function AccountDashboard() {
           )}
 
           {activeTab === "support" && (
-            <div className="max-w-3xl rounded-2xl border border-white/10 bg-white/[0.03] p-7 sm:p-10">
-              <div className="grid size-12 place-items-center rounded-2xl bg-sky-300/10 text-sky-200">
-                <LifeBuoy size={24} aria-hidden="true" />
-              </div>
-              <h2 className="mt-5 text-xl font-semibold">{t("account.support")}</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-400">{t("account.supportComingSoon")}</p>
-              <div className="mt-6 rounded-xl border border-white/10 p-4 text-sm text-slate-300">
-                {t("account.supportPreview")}
-              </div>
-              <span className="mt-5 inline-flex rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300">
-                {t("account.comingSoon")}
-              </span>
-            </div>
+            <SupportCenter role={user?.role ?? "STUDENT"} />
           )}
 
           <footer className="mt-12 border-t border-white/10 pt-5 text-xs text-slate-500">

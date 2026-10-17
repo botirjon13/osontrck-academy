@@ -10,6 +10,20 @@ export type CourseStatus =
   | "APPROVED"
   | "PUBLISHED"
   | "REJECTED";
+export type TicketCategory =
+  | "INSTRUCTOR_APPLICATION"
+  | "TECHNICAL_ISSUE"
+  | "COURSE_QUESTION"
+  | "SUGGESTION"
+  | "FEEDBACK"
+  | "OTHER";
+export type TicketStatus =
+  | "OPEN"
+  | "IN_REVIEW"
+  | "NEEDS_INFORMATION"
+  | "CLOSED"
+  | "APPROVED"
+  | "REJECTED";
 
 export interface Course {
   id: string;
@@ -25,6 +39,48 @@ export interface Course {
 export interface CourseEnrollment {
   enrolledAt: string;
   course: Course;
+}
+
+export interface SupportTicketMessage {
+  id: string;
+  body: string;
+  createdAt: string;
+  sender: {
+    id: string;
+    fullName: string | null;
+    email: string;
+    role: UserRole;
+  };
+}
+
+export interface SupportTicket {
+  id: string;
+  category: TicketCategory;
+  status: TicketStatus;
+  subject: string;
+  instructorSpecialty: string | null;
+  instructorExperience: string | null;
+  instructorPortfolio: string | null;
+  instructorCourseIdea: string | null;
+  createdAt: string;
+  updatedAt: string;
+  requester: {
+    id: string;
+    fullName: string | null;
+    email: string;
+    role: UserRole;
+  };
+  messages: SupportTicketMessage[];
+}
+
+export interface CreateSupportTicketInput {
+  category: TicketCategory;
+  subject: string;
+  message: string;
+  instructorSpecialty?: string;
+  instructorExperience?: string;
+  instructorPortfolio?: string;
+  instructorCourseIdea?: string;
 }
 
 export interface CurrentUser {
@@ -142,6 +198,44 @@ export function updateCurrentUser(
     method: "PATCH",
     body: JSON.stringify({ fullName }),
   });
+}
+
+export function fetchSupportTickets(token: string): Promise<SupportTicket[]> {
+  return request<SupportTicket[]>("/support/tickets", token);
+}
+
+export function createSupportTicket(
+  token: string,
+  input: CreateSupportTicketInput
+): Promise<SupportTicket> {
+  return request<SupportTicket>("/support/tickets", token, {
+    method: "POST",
+    body: JSON.stringify(input),
+  });
+}
+
+export function addSupportTicketMessage(
+  token: string,
+  ticketId: string,
+  body: string
+): Promise<SupportTicket> {
+  return request<SupportTicket>(
+    `/support/tickets/${encodeURIComponent(ticketId)}/messages`,
+    token,
+    { method: "POST", body: JSON.stringify({ body }) }
+  );
+}
+
+export function updateSupportTicketStatus(
+  token: string,
+  ticketId: string,
+  status: TicketStatus
+): Promise<SupportTicket> {
+  return request<SupportTicket>(
+    `/support/tickets/${encodeURIComponent(ticketId)}/status`,
+    token,
+    { method: "PATCH", body: JSON.stringify({ status }) }
+  );
 }
 
 export function enrollInCourse(
