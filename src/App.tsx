@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import AccountDashboard from "./pages/AccountDashboard";
 import Playground from "./pages/Playground";
 import AdminDashboard from "./pages/AdminDashboard";
 
@@ -24,6 +25,15 @@ export default function App() {
 
       <Route
         path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <AccountDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/learning"
         element={
           <ProtectedRoute>
             <CourseAccessRoute>

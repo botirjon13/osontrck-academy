@@ -81,6 +81,12 @@ export default function Dashboard() {
       </div>
 
       <div className="flex gap-3">
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="bg-white/10 hover:bg-white/15 px-5 py-3 rounded-xl font-semibold"
+        >
+          {t("account.portal")}
+        </button>
         {currentUser?.role === "ADMIN" && (
           <button
             onClick={() => navigate("/admin")}

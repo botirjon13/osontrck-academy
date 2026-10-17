@@ -40,7 +40,7 @@ return ( <div className="h-screen bg-[#020817] text-white flex">
   <div className="w-[380px] border-r border-white/10 p-6 flex flex-col overflow-y-auto">
 
     <button
-      onClick={() => navigate("/dashboard")}
+      onClick={() => navigate("/learning")}
       className="mb-6 text-left text-yellow-400 hover:text-yellow-300"
     >
       ← {t("playground.back")}

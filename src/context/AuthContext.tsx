@@ -78,6 +78,7 @@ export function AuthProvider({
         user,
         error,
         login,
+        updateUser: setUser,
         logout,
       }}
     >

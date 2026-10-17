@@ -134,6 +134,16 @@ export function fetchMyCourses(token: string): Promise<CourseEnrollment[]> {
   return request<CourseEnrollment[]>("/courses/mine", token);
 }
 
+export function updateCurrentUser(
+  token: string,
+  fullName: string
+): Promise<CurrentUser> {
+  return request<CurrentUser>("/users/me", token, {
+    method: "PATCH",
+    body: JSON.stringify({ fullName }),
+  });
+}
+
 export function enrollInCourse(
   token: string,
   slug: string

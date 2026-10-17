@@ -73,7 +73,7 @@ export default function CourseDetails() {
     setError(null);
     try {
       await enrollInCourse(token, course.slug);
-      navigate("/dashboard");
+      navigate("/learning");
     } catch (enrollError: unknown) {
       setError(
         enrollError instanceof Error
@@ -156,7 +156,7 @@ export default function CourseDetails() {
               {enrolled ? (
                 <button
                   type="button"
-                  onClick={() => navigate("/dashboard")}
+                  onClick={() => navigate("/learning")}
                   className="rounded-xl bg-yellow-500 px-6 py-3 font-semibold text-[#0A1628] transition hover:bg-yellow-400"
                 >
                   {t("courses.openCourse")}

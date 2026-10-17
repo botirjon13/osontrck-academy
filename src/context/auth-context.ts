@@ -8,6 +8,7 @@ export type AuthContextType = {
   user: CurrentUser | null;
   error: string | null;
   login: (token: string) => Promise<void>;
+  updateUser: (user: CurrentUser) => void;
   logout: () => void;
 };
 
