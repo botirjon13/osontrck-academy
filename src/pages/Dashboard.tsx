@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
+import { useAuth } from "../context/auth-context";
+import { API_BASE_URL } from "../lib/api";
 
 interface User {
   id: string;
@@ -15,7 +16,7 @@ interface User {
 export default function Dashboard() {
   const navigate = useNavigate();
 
-  const { logout } = useAuth();
+  const { logout, user: currentUser } = useAuth();
   const { t } = useTranslation();
 
   const [user, setUser] = useState<User | null>(null);
@@ -31,7 +32,7 @@ export default function Dashboard() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "https://api-playground-backend-v8sd.onrender.com/auth/profile",
+          `${API_BASE_URL}/auth/profile`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -80,6 +81,14 @@ export default function Dashboard() {
       </div>
 
       <div className="flex gap-3">
+        {currentUser?.role === "ADMIN" && (
+          <button
+            onClick={() => navigate("/admin")}
+            className="bg-blue-600 hover:bg-blue-500 px-5 py-3 rounded-xl font-semibold"
+          >
+            Admin panel
+          </button>
+        )}
         <button
           onClick={() =>
             navigate("/playground")}
@@ -219,7 +228,7 @@ export default function Dashboard() {
       <div
         onClick={() =>
           window.open(
-            "https://api.osontrack.uz/api/docs",
+            `${API_BASE_URL}/api/docs`,
             "_blank"
           )
         }

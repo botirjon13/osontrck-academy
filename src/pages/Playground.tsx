@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { API_BASE_URL } from "../lib/api";
 
 export default function Playground() {
 const navigate = useNavigate();
@@ -10,7 +11,7 @@ try {
 const token = localStorage.getItem("token");
 
   const response = await fetch(
-    "https://api.osontrack.uz/challenges/complete/mission1",
+    `${API_BASE_URL}/challenges/complete/mission1`,
     {
       method: "POST",
       headers: {
@@ -151,7 +152,7 @@ return ( <div className="h-screen bg-[#020817] text-white flex">
   {/* Swagger */}
   <div className="flex-1">
     <iframe
-      src="https://api.osontrack.uz/api/docs"
+      src={`${API_BASE_URL}/api/docs`}
       title="Swagger"
       className="w-full h-full border-0"
     />

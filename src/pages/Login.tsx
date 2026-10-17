@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/auth-context";
 import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
+import { API_BASE_URL } from "../lib/api";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function Login() {
 
     try {
       const response = await fetch(
-        "https://api-playground-backend-v8sd.onrender.com/auth/login",
+        `${API_BASE_URL}/auth/login`,
         {
           method: "POST",
           headers: {
@@ -38,12 +39,7 @@ export default function Login() {
 
       const data = await response.json();
 
-      localStorage.setItem(
-        "token",
-        data.access_token
-      );
-
-      login();
+      await login(data.access_token);
 
       navigate("/dashboard");
     } catch (error) {
