@@ -159,22 +159,32 @@ export default function Dashboard() {
         {t("dashboard.learningpath")}
       </h2>
 
-      <div className="grid md:grid-cols-4 gap-4">
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-          🚀 {t("dashboard.restapi")}
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="rounded-xl border border-yellow-500/30 bg-yellow-500/5 p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-yellow-400">
+            {t("courses.available")}
+          </p>
+          <p className="mt-2 font-semibold">{t("dashboard.restapi")}</p>
+          <p className="mt-2 text-sm text-gray-400">{t("courses.rest.desc")}</p>
         </div>
 
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-          ⏳ {t("dashboard.postgresql")}
-        </div>
-
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-          ⏳ {t("dashboard.nestjs")}
-        </div>
-
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-          ⏳ {t("dashboard.jwt")}
-        </div>
+        {[
+          ["dashboard.postgresql", "courses.pg.title"],
+          ["dashboard.nestjs", "courses.nest.title"],
+          ["dashboard.jwt", "courses.jwt.title"],
+          ["dashboard.testing", "courses.testing.title"],
+        ].map(([tag, title]) => (
+          <div
+            key={tag}
+            className="group rounded-xl border border-white/10 bg-white/5 p-4 transition hover:border-yellow-400/30 hover:animate-gentle-wiggle motion-reduce:animate-none"
+            title={t("courses.comingSoon")}
+          >
+            <p className="text-xs font-semibold uppercase tracking-wide text-yellow-300">
+              {t("courses.comingSoon")}
+            </p>
+            <p className="mt-2 font-semibold">{t(title)}</p>
+          </div>
+        ))}
       </div>
     </div>
 

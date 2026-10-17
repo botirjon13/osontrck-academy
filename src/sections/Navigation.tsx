@@ -29,19 +29,19 @@ export default function Navigation() {
   const navLinks = [
     {
       key: "nav.courses",
-      href: "#courses",
+      href: "/#courses",
     },
     {
       key: "nav.pricing",
-      href: "#pricing",
+      href: "/#pricing",
     },
     {
       key: "nav.about",
-      href: "#about",
+      href: "/#about",
     },
     {
       key: "nav.blog",
-      href: "#blog",
+      href: "/#blog",
     },
   ];
 

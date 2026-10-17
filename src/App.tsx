@@ -9,6 +9,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
+import CourseAccessRoute from "./components/CourseAccessRoute";
+import CourseDetails from "./pages/CourseDetails";
 
 export default function App() {
   return (
@@ -18,10 +20,29 @@ export default function App() {
       <Route path="/login" element={<Login />} />
 
       <Route path="/register" element={<Register />} />
+      <Route path="/courses/:slug" element={<CourseDetails />} />
 
-      <Route path="/dashboard" element={ <ProtectedRoute> <Dashboard /> </ProtectedRoute> } />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <CourseAccessRoute>
+              <Dashboard />
+            </CourseAccessRoute>
+          </ProtectedRoute>
+        }
+      />
       
-      <Route path="/playground" element={ <ProtectedRoute> <Playground /> </ProtectedRoute> } />
+      <Route
+        path="/playground"
+        element={
+          <ProtectedRoute>
+            <CourseAccessRoute>
+              <Playground />
+            </CourseAccessRoute>
+          </ProtectedRoute>
+        }
+      />
 
       <Route
         path="/admin"

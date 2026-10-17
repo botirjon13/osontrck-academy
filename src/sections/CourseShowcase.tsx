@@ -1,20 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { fetchPublishedCourses } from "../lib/api";
+import type { Course } from "../lib/api";
 
-interface Course {
+interface RoadmapCourse {
+  key: string;
+  slug: string;
   image: string;
   tag: string;
   title: string;
-  desc: string;
-  lessons: string;
-  rating: string;
-  level: string;
-  price: string;
+  description: string;
 }
 
 export default function CourseShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [coursesLoading, setCoursesLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState<string | null>(null);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -31,46 +35,62 @@ export default function CourseShowcase() {
     return () => observer.disconnect();
   }, []);
 
-  const courses: Course[] = [
+  useEffect(() => {
+    let active = true;
+    fetchPublishedCourses()
+      .then((publishedCourses) => {
+        if (active) setCourses(publishedCourses);
+      })
+      .catch((loadError: unknown) => {
+        if (active) {
+          setCatalogError(
+            loadError instanceof Error
+              ? loadError.message
+              : t("courses.catalogError")
+          );
+        }
+      })
+      .finally(() => {
+        if (active) setCoursesLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [t]);
+
+  const roadmap: RoadmapCourse[] = [
     {
-    image: "/images/img-rest-api.jpg",
-    tag: t("courses.rest.tag"),
-    title: t("courses.rest.title"),
-    desc: t("courses.rest.desc"),
-    lessons: t("courses.rest.lessons"),
-    rating: t("courses.rest.rating"),
-    level: t("courses.rest.level"),
-    price: t("courses.rest.price"),
+      key: "pg",
+      slug: "postgresql-for-developers",
+      image: "/images/img-postgresql.jpg",
+      tag: t("courses.pg.tag"),
+      title: t("courses.pg.title"),
+      description: t("courses.pg.desc"),
     },
     {
-    image: "/images/img-postgresql.jpg",
-    tag: t("courses.pg.tag"),
-    title: t("courses.pg.title"),
-    desc: t("courses.pg.desc"),
-    lessons: t("courses.pg.lessons"),
-    rating: t("courses.pg.rating"),
-    level: t("courses.pg.level"),
-    price: t("courses.pg.price"),
+      key: "nestjs",
+      slug: "nestjs-typescript",
+      image: "/images/img-nestjs.jpg",
+      tag: t("courses.nest.tag"),
+      title: t("courses.nest.title"),
+      description: t("courses.nest.desc"),
     },
     {
-    image: "/images/img-nestjs.jpg",
-    tag: t("courses.nest.tag"),
-    title: t("courses.nest.title"),
-    desc: t("courses.nest.desc"),
-    lessons: t("courses.nest.lessons"),
-    rating: t("courses.nest.rating"),
-    level: t("courses.nest.level"),
-    price: t("courses.nest.price"),
+      key: "jwt",
+      slug: "jwt-authentication",
+      image: "/images/img-jwt.jpg",
+      tag: t("courses.jwt.tag"),
+      title: t("courses.jwt.title"),
+      description: t("courses.jwt.desc"),
     },
     {
-    image: "/images/img-jwt.jpg",
-    tag: t("courses.jwt.tag"),
-    title: t("courses.jwt.title"),
-    desc: t("courses.jwt.desc"),
-    lessons: t("courses.jwt.lessons"),
-    rating: t("courses.jwt.rating"),
-    level: t("courses.jwt.level"),
-    price: t("courses.jwt.price"),
+      key: "testing",
+      slug: "testing-deployment",
+      image: "/images/img-rest-api.jpg",
+      tag: t("courses.testing.tag"),
+      title: t("courses.testing.title"),
+      description: t("courses.testing.desc"),
     },
   ];
 
@@ -78,101 +98,150 @@ export default function CourseShowcase() {
     <section
       id="courses"
       ref={sectionRef}
-      className="py-24 md:py-[100px] px-6"
-      style={{ backgroundColor: '#0A1628' }}
+      className="px-6 py-24 md:py-[100px]"
+      style={{ backgroundColor: "#0A1628" }}
     >
-      <div className="max-w-[1100px] mx-auto">
+      <div className="mx-auto max-w-[1100px]">
         <div
           className="transition-all duration-700"
           style={{
             opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(30px)',
+            transform: visible ? "translateY(0)" : "translateY(30px)",
           }}
         >
           <span
             className="text-xs font-medium uppercase tracking-[2px]"
-            style={{ color: '#D4A853' }}
+            style={{ color: "#D4A853" }}
           >
             {t("courses.badge")}
           </span>
           <h2
-            className="font-serif text-3xl md:text-[48px] font-semibold mt-4 leading-[1.12]"
-            style={{ color: '#F0EDE5', letterSpacing: '-1px' }}
+            className="mt-4 font-serif text-3xl font-semibold leading-[1.12] md:text-[48px]"
+            style={{ color: "#F0EDE5", letterSpacing: "-1px" }}
           >
             {t("courses.title")}
           </h2>
+          <p className="mt-4 max-w-2xl text-[15px]" style={{ color: "#8A9AB0" }}>
+            {t("courses.subtitle")}
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mt-14">
-          {courses.map((course, i) => (
-            <div
-              key={i}
-              className="rounded-[20px] overflow-hidden group transition-all duration-400"
+        {coursesLoading ? (
+          <p className="mt-10 text-gray-300" role="status">
+            {t("courses.loading")}
+          </p>
+        ) : catalogError ? (
+          <p className="mt-10 text-red-300" role="alert">
+            {catalogError}
+          </p>
+        ) : (
+          <div className="mt-10 grid grid-cols-1 gap-7 md:grid-cols-2">
+            {courses.map((course, index) => (
+              <Link
+                key={course.id}
+                to={`/courses/${encodeURIComponent(course.slug)}`}
+                className="group overflow-hidden rounded-[20px] border border-yellow-500/30 bg-[#162236] transition duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,0,0,0.25)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-yellow-400"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? undefined : "translateY(30px)",
+                  transition: `opacity 700ms ease ${100 + index * 100}ms, transform 700ms ease ${100 + index * 100}ms`,
+                }}
+              >
+                <div className="relative h-[220px] overflow-hidden">
+                  <img
+                    src={
+                      course.slug === "rest-api-basics"
+                        ? "/images/img-rest-api.jpg"
+                        : "/images/img-nestjs.jpg"
+                    }
+                    alt={
+                      course.slug === "rest-api-basics"
+                        ? t("courses.rest.title")
+                        : course.title
+                    }
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <span className="absolute left-5 top-5 rounded-full bg-emerald-500/90 px-3 py-1 text-xs font-semibold text-white">
+                    {t("courses.available")}
+                  </span>
+                </div>
+                <div className="p-7 pb-8">
+                  <span className="inline-block rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-medium text-yellow-400">
+                    {course.slug === "rest-api-basics"
+                      ? t("courses.rest.tag")
+                      : t("courses.available")}
+                  </span>
+                  <h3 className="mt-3 text-[22px] font-semibold text-[#F0EDE5]">
+                    {course.slug === "rest-api-basics"
+                      ? t("courses.rest.title")
+                      : course.title}
+                  </h3>
+                  <p className="mt-2 text-[15px] text-[#8A9AB0]">
+                    {course.slug === "rest-api-basics"
+                      ? t("courses.rest.desc")
+                      : course.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-3 text-sm text-[#AAB6C6]">
+                    <span>
+                      {course.slug === "rest-api-basics"
+                        ? t("courses.rest.level")
+                        : course.level}
+                    </span>
+                    <span aria-hidden="true">·</span>
+                    <span>
+                      {course.isFree ? t("courses.free") : t("courses.paid")}
+                    </span>
+                  </div>
+                  <span className="mt-6 inline-flex rounded-xl bg-yellow-500 px-5 py-3 font-semibold text-[#0A1628] transition group-hover:bg-yellow-400">
+                    {t("courses.viewCourse")}
+                  </span>
+                </div>
+              </Link>
+            ))}
+
+            {roadmap
+              .filter(
+                (plannedCourse) =>
+                  !courses.some((course) => course.slug === plannedCourse.slug)
+              )
+              .map((course, index) => (
+            <article
+              key={course.key}
+              aria-label={`${course.title}: ${t("courses.comingSoon")}`}
+              className="group relative overflow-hidden rounded-[20px] border border-white/10 bg-[#162236] opacity-80 transition duration-300 hover:opacity-100 motion-reduce:transition-none"
+              title={t("courses.comingSoon")}
               style={{
-                backgroundColor: '#162236',
-                opacity: visible ? 1 : 0,
-                transform: visible ? 'translateY(0)' : 'translateY(30px)',
-                transition: `opacity 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94) ${100 + i * 100}ms, transform 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94) ${100 + i * 100}ms, box-shadow 300ms`,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,0.25)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
+                opacity: visible ? undefined : 0,
+                transform: visible ? "translateY(0)" : "translateY(30px)",
+                transition: `opacity 700ms ease ${200 + index * 100}ms, transform 700ms ease ${200 + index * 100}ms`,
               }}
             >
-              <div className="overflow-hidden h-[220px]">
+              <div className="relative h-[220px] overflow-hidden">
                 <img
                   src={course.image}
-                  alt={course.title}
-                  className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-105"
+                  alt=""
+                  aria-hidden="true"
+                  className="h-full w-full object-cover grayscale transition duration-300 group-hover:scale-105 group-hover:animate-gentle-wiggle motion-reduce:animate-none"
                 />
+                <span className="absolute right-5 top-5 rounded-full border border-yellow-400/40 bg-[#0A1628]/90 px-3 py-1 text-xs font-semibold text-yellow-300">
+                  {t("courses.comingSoon")}
+                </span>
               </div>
               <div className="p-7 pb-8">
-                <span
-                  className="inline-block text-xs font-medium px-3 py-1 rounded-full"
-                  style={{
-                    backgroundColor: 'rgba(212, 168, 83, 0.12)',
-                    color: '#D4A853',
-                  }}
-                >
+                <span className="inline-block rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-gray-300">
                   {course.tag}
                 </span>
-                <h3 className="text-[22px] font-semibold mt-3" style={{ color: '#F0EDE5', letterSpacing: '-0.3px' }}>
+                <h3 className="mt-3 text-[22px] font-semibold text-[#F0EDE5]">
                   {course.title}
                 </h3>
-                <p className="text-[15px] mt-2 line-clamp-2" style={{ color: '#8A9AB0' }}>
-                  {course.desc}
+                <p className="mt-2 text-[15px] text-[#8A9AB0]">
+                  {course.description}
                 </p>
-                <div className="flex items-center gap-6 mt-5">
-                  <span className="text-sm flex items-center gap-1.5" style={{ color: '#4A5A70' }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                    </svg>
-                    {course.lessons}
-                  </span>
-                  <span className="text-sm flex items-center gap-1.5" style={{ color: '#4A5A70' }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                    {course.rating}
-                  </span>
-                  <span className="text-sm flex items-center gap-1.5" style={{ color: '#4A5A70' }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-                    </svg>
-                    {course.level}
-                  </span>
-                </div>
-                <div className="flex justify-end mt-4">
-                  <span className="text-lg font-bold" style={{ color: '#D4A853' }}>
-                    {course.price}
-                  </span>
-                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            </article>
+              ))}
+          </div>
+        )}
       </div>
     </section>
   );

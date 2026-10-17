@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/auth-context";
 import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
-import { API_BASE_URL } from "../lib/api";
+import { API_BASE_URL, enrollInCourse } from "../lib/api";
 
 export default function Login() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { login } = useAuth();
   const { t } = useTranslation();
+  const courseSlug = searchParams.get("course");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,6 +42,10 @@ export default function Login() {
       const data = await response.json();
 
       await login(data.access_token);
+
+      if (courseSlug) {
+        await enrollInCourse(data.access_token, courseSlug);
+      }
 
       navigate("/dashboard");
     } catch (error) {
@@ -103,7 +109,7 @@ export default function Login() {
           <p className="text-sm text-gray-400 mt-6 text-center">
             {t("login.registerText")}{" "}
             <Link
-              to="/register"
+              to={`/register${courseSlug ? `?course=${encodeURIComponent(courseSlug)}` : ""}`}
               className="text-yellow-400 hover:text-yellow-300"
             >
               {t("login.registerLink")}

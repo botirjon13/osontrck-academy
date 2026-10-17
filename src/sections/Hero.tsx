@@ -23,16 +23,16 @@ export default function Hero() {
 
   const stats = [
     {
-      number: "12,000+",
-      label: t("hero.students"),
+      number: "1",
+      label: t("hero.availableCourses"),
     },
     {
-      number: "85+",
-      label: t("hero.lessons"),
+      number: "Swagger",
+      label: t("hero.practice"),
     },
     {
-      number: "4.9",
-      label: t("hero.rating"),
+      number: t("courses.free"),
+      label: t("hero.currentCourse"),
     },
   ];
 
@@ -154,7 +154,7 @@ export default function Hero() {
             </Link>
 
             <Link
-              to="/login"
+              to="/#courses"
               className="px-9 py-4 rounded-full font-semibold text-base border transition-all duration-200 hover:border-accent-gold hover:text-accent-gold"
               style={{
                 borderColor: "#4A5A70",

@@ -1,3 +1,13 @@
+@keyframes gentle-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-1deg); }
+  75% { transform: rotate(1deg); }
+}
+
+.animate-gentle-wiggle {
+  animation: gentle-wiggle 350ms ease-in-out;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

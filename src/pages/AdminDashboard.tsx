@@ -232,11 +232,12 @@ export default function AdminDashboard() {
             <p className="mt-4 text-gray-300" role="status">Statistika yuklanmoqda...</p>
           ) : overview ? (
             <>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
                 {[
                   ["Jami foydalanuvchi", overview.stats.totalUsers],
                   ["O‘quvchilar", overview.stats.students],
                   ["Adminlar", overview.stats.admins],
+                  ["Moderatorlar", overview.stats.moderators],
                   ["Mission tugatganlar", overview.stats.mission1Completed],
                   ["Jami XP", overview.stats.totalXp],
                 ].map(([label, value]) => (

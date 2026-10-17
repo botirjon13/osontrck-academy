@@ -2,8 +2,30 @@ export const API_BASE_URL = (
   import.meta.env.VITE_API_BASE_URL || "https://api.osontrack.uz"
 ).replace(/\/+$/, "");
 
-export type UserRole = "ADMIN" | "STUDENT";
+export type UserRole = "ADMIN" | "MODERATOR" | "STUDENT";
 export type ChallengeDifficulty = "EASY" | "MEDIUM" | "HARD";
+export type CourseStatus =
+  | "DRAFT"
+  | "PENDING_REVIEW"
+  | "APPROVED"
+  | "PUBLISHED"
+  | "REJECTED";
+
+export interface Course {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  level: string;
+  isFree: boolean;
+  priceCents: number | null;
+  status: CourseStatus;
+}
+
+export interface CourseEnrollment {
+  enrolledAt: string;
+  course: Course;
+}
 
 export interface CurrentUser {
   id: string;
@@ -36,6 +58,7 @@ export interface AdminOverview {
   stats: {
     totalUsers: number;
     admins: number;
+    moderators: number;
     students: number;
     mission1Completed: number;
     totalXp: number;
@@ -63,14 +86,14 @@ export class ApiError extends Error {
 
 async function request<T>(
   path: string,
-  token: string,
+  token?: string,
   options: RequestInit = {}
 ): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
     headers: {
       ...(options.body ? { "Content-Type": "application/json" } : {}),
-      Authorization: "Bearer " + token,
+      ...(token ? { Authorization: "Bearer " + token } : {}),
       ...options.headers,
     },
   });
@@ -101,6 +124,25 @@ async function request<T>(
   }
 
   return body as T;
+}
+
+export function fetchPublishedCourses(): Promise<Course[]> {
+  return request<Course[]>("/courses");
+}
+
+export function fetchMyCourses(token: string): Promise<CourseEnrollment[]> {
+  return request<CourseEnrollment[]>("/courses/mine", token);
+}
+
+export function enrollInCourse(
+  token: string,
+  slug: string
+): Promise<CourseEnrollment> {
+  return request<CourseEnrollment>(
+    `/courses/${encodeURIComponent(slug)}/enroll`,
+    token,
+    { method: "POST" }
+  );
 }
 
 export async function fetchChallenges(token: string): Promise<Challenge[]> {
@@ -153,7 +195,9 @@ function isCurrentUser(value: unknown): value is CurrentUser {
     "fullName" in value &&
     (typeof value.fullName === "string" || value.fullName === null) &&
     "role" in value &&
-    (value.role === "ADMIN" || value.role === "STUDENT") &&
+    (value.role === "ADMIN" ||
+      value.role === "MODERATOR" ||
+      value.role === "STUDENT") &&
     "xp" in value &&
     typeof value.xp === "number" &&
     "mission1" in value &&
