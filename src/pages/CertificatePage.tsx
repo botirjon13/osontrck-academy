@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Award, BadgeCheck, Download, ShieldCheck } from "lucide-react";
+import { BadgeCheck, Download, ShieldCheck } from "lucide-react";
 import { verifyCertificate } from "../lib/api";
 import type { VerifiedCertificate } from "../lib/api";
 import { createQrMatrix } from "../lib/qr-code";
@@ -14,7 +14,7 @@ function CertificateQrCode({ matrix }: { matrix: boolean[][] }) {
       role="img"
       aria-label="Sertifikatning haqiqiyligini tekshirish QR-kodi"
       viewBox={`0 0 ${dimension} ${dimension}`}
-      className="size-32 print:size-36"
+      className="size-24"
       shapeRendering="crispEdges"
     >
       <rect width={dimension} height={dimension} fill="white" />
@@ -36,6 +36,25 @@ function CertificateQrCode({ matrix }: { matrix: boolean[][] }) {
   );
 }
 
+function formatUzbekDate(value: string): string {
+  const date = new Date(value);
+  const months = [
+    "yanvar",
+    "fevral",
+    "mart",
+    "aprel",
+    "may",
+    "iyun",
+    "iyul",
+    "avgust",
+    "sentabr",
+    "oktabr",
+    "noyabr",
+    "dekabr",
+  ];
+  return `${date.getUTCDate()}-${months[date.getUTCMonth()]}, ${date.getUTCFullYear()}`;
+}
+
 function CertificatePaper({
   certificate,
   verificationUrl,
@@ -45,64 +64,76 @@ function CertificatePaper({
   verificationUrl: string;
   qrMatrix: boolean[][];
 }) {
-  const issueDate = new Intl.DateTimeFormat("uz-UZ", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(certificate.issuedAt));
+  const issueDate = formatUzbekDate(certificate.issuedAt);
 
   return (
-    <article className="certificate-paper relative mx-auto flex min-h-[650px] w-full max-w-5xl flex-col items-center justify-center overflow-hidden border-[12px] border-double border-[#c69a44] bg-white px-8 py-12 text-center text-[#132238] shadow-2xl sm:px-16 print:min-h-0 print:max-w-none print:shadow-none">
-      <div
-        className="absolute inset-3 border border-[#c69a44]/50"
+    <article className="certificate-paper relative mx-auto aspect-[918/648] w-full max-w-6xl overflow-hidden bg-white text-[#14243d] shadow-2xl print:max-w-none print:shadow-none">
+      <span
+        className="absolute left-[6%] top-0 h-[3px] w-[7%] bg-[#b18b4c]"
         aria-hidden="true"
       />
-      <div className="relative flex flex-col items-center">
-        <div className="grid size-16 place-items-center rounded-full border-2 border-[#c69a44] text-[#a87b22]">
-          <Award size={36} aria-hidden="true" />
-        </div>
-        <p className="mt-5 text-xs font-bold uppercase tracking-[0.35em] text-[#8a6727]">
+      <span
+        className="absolute bottom-[2%] left-[6%] right-[6%] h-[2px] bg-[#b18b4c]"
+        aria-hidden="true"
+      />
+      <div className="absolute left-[6%] right-[38%] top-[17%] h-px bg-[#d6dce5]" />
+
+      <img
+        src="/images/osontrack-certificate-emblem.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute right-[3.5%] top-[4%] z-0 h-[48%] w-[39%] object-contain"
+      />
+
+      <header className="absolute left-[6%] top-[7%] z-10 w-[56%]">
+        <p className="font-serif text-[clamp(15px,2.55vw,30px)] leading-tight">
           OsonTrack Academy
         </p>
-        <h1 className="mt-5 font-serif text-3xl font-bold uppercase tracking-wide sm:text-5xl">
+      </header>
+
+      <section className="absolute left-[6%] right-[6%] top-[24%] z-10">
+        <h1 className="font-serif text-[clamp(30px,6.2vw,58px)] uppercase leading-none tracking-wide text-[#ad884d]">
           Sertifikat
         </h1>
-        <p className="mt-5 text-sm text-slate-600">
+        <p className="mt-[3.5%] text-[clamp(9px,1.35vw,13px)] text-[#53627a]">
           Ushbu sertifikat quyidagi tinglovchiga taqdim etiladi
         </p>
-        <p className="mt-3 max-w-3xl border-b border-[#c69a44] px-5 pb-3 font-serif text-2xl font-semibold sm:text-4xl">
-          {certificate.recipientName}
+        <p className="mt-[1.5%] w-full border-b border-[#b18b4c] pb-[1.1%] font-serif text-[clamp(22px,4.4vw,40px)] leading-tight">
+          <span className="inline-block max-w-[90%]">
+            {certificate.recipientName}
+          </span>
         </p>
-        <p className="mt-5 text-sm text-slate-600">
+        <p className="mt-[3.2%] text-[clamp(9px,1.35vw,13px)] text-[#53627a]">
           kursni muvaffaqiyatli yakunlaganini tasdiqlaydi
         </p>
-        <h2 className="mt-2 max-w-3xl font-serif text-xl font-semibold text-[#8a6727] sm:text-2xl">
+        <h2 className="mt-[1.6%] max-w-[85%] font-serif text-[clamp(15px,2.8vw,25px)] leading-tight">
           {certificate.course.title}
         </h2>
+      </section>
 
-        <div className="mt-8 flex w-full max-w-3xl flex-col items-center justify-between gap-6 border-t border-slate-200 pt-6 sm:flex-row sm:text-left">
-          <div className="space-y-2 text-xs text-slate-600">
-            <p>
-              Berilgan sana:{" "}
-              <strong className="text-slate-800">{issueDate}</strong>
-            </p>
-            <p>
-              Sertifikat kodi:{" "}
-              <strong className="font-mono text-slate-800">
-                {certificate.code}
-              </strong>
-            </p>
-            <p className="max-w-md break-all text-[10px]">{verificationUrl}</p>
+      <footer className="absolute bottom-[8%] left-[6%] right-[6%] z-10 grid grid-cols-[1fr_auto] items-center gap-x-5 border-t border-[#d6dce5] pt-[2.4%]">
+        <div className="grid grid-cols-2 gap-x-8 text-[clamp(8px,1.05vw,10px)]">
+          <div>
+            <p className="text-[#53627a]">Berilgan sana:</p>
+            <p className="mt-1 font-semibold text-[#14243d]">{issueDate}</p>
           </div>
-          <div className="flex flex-col items-center gap-1">
-            <CertificateQrCode matrix={qrMatrix} />
-            <span className="text-[10px] font-medium text-slate-500">
-              Haqiqiyligini tekshirish
-            </span>
+          <div>
+            <p className="text-[#53627a]">Sertifikat kodi:</p>
+            <p className="mt-1 font-mono font-semibold uppercase text-[#14243d]">
+              {certificate.code}
+            </p>
           </div>
+          <p className="col-span-2 mt-[5%] break-all text-[clamp(7px,0.9vw,9px)] text-[#53627a]">
+            {verificationUrl}
+          </p>
         </div>
-      </div>
+        <div className="flex flex-col items-center gap-1">
+          <CertificateQrCode matrix={qrMatrix} />
+          <span className="text-[clamp(7px,0.85vw,9px)] font-medium text-[#53627a]">
+            Haqiqiyligini tekshirish
+          </span>
+        </div>
+      </footer>
     </article>
   );
 }
@@ -177,11 +208,12 @@ export default function CertificatePage({
   return (
     <main className="certificate-page min-h-screen bg-[#07111f] px-4 py-8 text-white sm:px-8 print:min-h-0 print:bg-white print:p-0">
       <style>{`
-        @page { size: A4 landscape; margin: 12mm; }
+        @page { size: A4 landscape; margin: 0; }
         @media print {
           body { background: #fff !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
           .no-print { display: none !important; }
-          .certificate-paper { width: 100%; height: 186mm; min-height: 0; border-width: 8px; }
+          .certificate-page { width: 297mm; height: 210mm; min-height: 0; padding: 12mm !important; }
+          .certificate-paper { width: 273mm; height: 192.5mm; aspect-ratio: auto; }
         }
       `}</style>
       <div className="no-print mx-auto mb-6 flex max-w-5xl flex-wrap items-center justify-between gap-3">
@@ -235,11 +267,7 @@ export default function CertificatePage({
             </p>
             <p className="mt-2 text-slate-300">{certificate.course.title}</p>
             <p className="mt-3 text-sm text-slate-400">
-              Berilgan sana:{" "}
-              {new Intl.DateTimeFormat("uz-UZ", {
-                dateStyle: "long",
-                timeZone: "UTC",
-              }).format(new Date(certificate.issuedAt))}
+              Berilgan sana: {formatUzbekDate(certificate.issuedAt)}
             </p>
             <p className="mt-4 font-mono text-xs text-slate-400">
               Kod: {certificate.code}
