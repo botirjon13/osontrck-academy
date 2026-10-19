@@ -14,7 +14,7 @@ function CertificateQrCode({ matrix }: { matrix: boolean[][] }) {
       role="img"
       aria-label="Sertifikatning haqiqiyligini tekshirish QR-kodi"
       viewBox={`0 0 ${dimension} ${dimension}`}
-      className="size-24"
+      className="size-[clamp(64px,12vw,120px)]"
       shapeRendering="crispEdges"
     >
       <rect width={dimension} height={dimension} fill="white" />
@@ -82,7 +82,7 @@ function CertificatePaper({
         src="/images/osontrack-certificate-emblem.png"
         alt=""
         aria-hidden="true"
-        className="absolute right-[3.5%] top-[4%] z-0 h-[48%] w-[39%] object-contain"
+        className="absolute right-[2%] top-[2%] z-0 h-[44%] w-[38%] object-contain"
       />
 
       <header className="absolute left-[6%] top-[7%] z-10 w-[56%]">
@@ -111,28 +111,32 @@ function CertificatePaper({
         </h2>
       </section>
 
-      <footer className="absolute bottom-[8%] left-[6%] right-[6%] z-10 grid grid-cols-[1fr_auto] items-center gap-x-5 border-t border-[#d6dce5] pt-[2.4%]">
-        <div className="grid grid-cols-2 gap-x-8 text-[clamp(8px,1.05vw,10px)]">
-          <div>
-            <p className="text-[#53627a]">Berilgan sana:</p>
-            <p className="mt-1 font-semibold text-[#14243d]">{issueDate}</p>
-          </div>
-          <div>
-            <p className="text-[#53627a]">Sertifikat kodi:</p>
-            <p className="mt-1 font-mono font-semibold uppercase text-[#14243d]">
-              {certificate.code}
-            </p>
-          </div>
-          <p className="col-span-2 mt-[5%] break-all text-[clamp(7px,0.9vw,9px)] text-[#53627a]">
-            {verificationUrl}
+      <footer className="absolute bottom-[3%] left-[6%] right-[6%] z-10 grid grid-cols-[1fr_1fr_clamp(64px,12vw,120px)] items-center gap-x-4 border-t border-[#d6dce5] pt-[1.5%]">
+        <div className="self-center">
+          <p className="text-[clamp(9px,1.2vw,12px)] text-[#53627a]">
+            Berilgan sana:
+          </p>
+          <p className="mt-1 text-[clamp(10px,1.5vw,15px)] font-semibold text-[#14243d]">
+            {issueDate}
+          </p>
+        </div>
+        <div className="self-center">
+          <p className="text-[clamp(9px,1.2vw,12px)] text-[#53627a]">
+            Sertifikat kodi:
+          </p>
+          <p className="mt-1 break-all font-mono text-[clamp(10px,1.5vw,15px)] font-semibold uppercase text-[#14243d]">
+            {certificate.code}
           </p>
         </div>
         <div className="flex flex-col items-center gap-1">
           <CertificateQrCode matrix={qrMatrix} />
-          <span className="text-[clamp(7px,0.85vw,9px)] font-medium text-[#53627a]">
+          <span className="text-center text-[clamp(8px,0.95vw,10px)] font-medium text-[#53627a]">
             Haqiqiyligini tekshirish
           </span>
         </div>
+        <p className="absolute bottom-0 left-0 break-all text-[clamp(8px,0.95vw,10px)] text-[#53627a]">
+          {verificationUrl}
+        </p>
       </footer>
     </article>
   );
