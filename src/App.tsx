@@ -13,6 +13,7 @@ import AdminRoute from "./components/AdminRoute";
 import CourseAccessRoute from "./components/CourseAccessRoute";
 import CourseDetails from "./pages/CourseDetails";
 import CourseLearning from "./pages/CourseLearning";
+import CertificatePage from "./pages/CertificatePage";
 
 export default function App() {
   return (
@@ -23,6 +24,11 @@ export default function App() {
 
       <Route path="/register" element={<Register />} />
       <Route path="/courses/:slug" element={<CourseDetails />} />
+      <Route
+        path="/certificates/verify/:code"
+        element={<CertificatePage verificationOnly />}
+      />
+      <Route path="/certificates/:code" element={<CertificatePage />} />
       <Route
         path="/learn/:slug"
         element={
@@ -51,7 +57,7 @@ export default function App() {
           </ProtectedRoute>
         }
       />
-      
+
       <Route
         path="/playground"
         element={

@@ -10,6 +10,7 @@ import {
   LifeBuoy,
   LogOut,
   Mail,
+  Megaphone,
   ShieldCheck,
   UserRound,
 } from "lucide-react";
@@ -17,6 +18,10 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/auth-context";
 import SupportCenter from "../components/SupportCenter";
 import CourseManagement from "../components/CourseManagement";
+import AdsManagement from "../components/AdsManagement";
+import AdvertisementCarousel from "../components/AdvertisementCarousel";
+import CertificatesPanel from "../components/CertificatesPanel";
+import CourseReviewQueue from "../components/CourseReviewQueue";
 import {
   ApiError,
   fetchCurrentUser,
@@ -31,7 +36,8 @@ type AccountTab =
   | "profile"
   | "certificates"
   | "support"
-  | "course-management";
+  | "course-management"
+  | "ads";
 
 const tabs: Array<{
   id: AccountTab;
@@ -47,6 +53,7 @@ const tabs: Array<{
     label: "account.courseManagement",
     icon: BookPlus,
   },
+  { id: "ads", label: "Reklamalar", icon: Megaphone },
 ];
 
 export default function AccountDashboard() {
@@ -58,18 +65,22 @@ export default function AccountDashboard() {
   const availableTabs =
     user?.role === "MODERATOR"
       ? tabs
-      : tabs.filter((tab) => tab.id !== "course-management");
-  const activeTab: AccountTab = availableTabs.some((tab) => tab.id === selectedTab)
+      : tabs.filter(
+          (tab) => tab.id !== "course-management" && tab.id !== "ads",
+        );
+  const activeTab: AccountTab = availableTabs.some(
+    (tab) => tab.id === selectedTab,
+  )
     ? (selectedTab as AccountTab)
     : "courses";
 
   const [courses, setCourses] = useState<Course[]>([]);
   const [enrollments, setEnrollments] = useState<CourseEnrollment[]>([]);
   const [coursesLoading, setCoursesLoading] = useState(() =>
-    Boolean(localStorage.getItem("token"))
+    Boolean(localStorage.getItem("token")),
   );
   const [coursesError, setCoursesError] = useState<string | null>(() =>
-    localStorage.getItem("token") ? null : "sessionExpired"
+    localStorage.getItem("token") ? null : "sessionExpired",
   );
   const [name, setName] = useState(user?.fullName ?? "");
   const [profileSaving, setProfileSaving] = useState(false);
@@ -98,7 +109,7 @@ export default function AccountDashboard() {
         setCoursesError(
           loadError instanceof Error
             ? loadError.message
-            : t("account.coursesLoadError")
+            : t("account.coursesLoadError"),
         );
       })
       .finally(() => {
@@ -136,7 +147,7 @@ export default function AccountDashboard() {
           ? t("account.sessionExpired")
           : saveError instanceof Error
             ? saveError.message
-            : t("account.profileSaveError")
+            : t("account.profileSaveError"),
       );
     } finally {
       setProfileSaving(false);
@@ -149,7 +160,7 @@ export default function AccountDashboard() {
   };
 
   const enrolledSlugs = new Set(
-    enrollments.map((enrollment) => enrollment.course.slug)
+    enrollments.map((enrollment) => enrollment.course.slug),
   );
   const completedCourses =
     enrolledSlugs.has("rest-api-basics") && user?.mission1 ? 1 : 0;
@@ -226,6 +237,7 @@ export default function AccountDashboard() {
         </aside>
 
         <section className="min-w-0 flex-1 px-5 py-7 sm:px-8 md:px-10 md:py-10">
+          <AdvertisementCarousel />
           <header className="mb-8 flex flex-col gap-4 border-b border-white/10 pb-7 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-sm font-medium text-yellow-300">
@@ -266,7 +278,9 @@ export default function AccountDashboard() {
 
               <div className="mb-5 flex items-end justify-between gap-4">
                 <div>
-                  <h2 className="text-xl font-semibold">{t("account.myCourses")}</h2>
+                  <h2 className="text-xl font-semibold">
+                    {t("account.myCourses")}
+                  </h2>
                   <p className="mt-1 text-sm text-slate-400">
                     {t("account.myCoursesHint")}
                   </p>
@@ -274,7 +288,10 @@ export default function AccountDashboard() {
               </div>
 
               {coursesLoading ? (
-                <p className="rounded-2xl border border-white/10 p-6 text-slate-300" role="status">
+                <p
+                  className="rounded-2xl border border-white/10 p-6 text-slate-300"
+                  role="status"
+                >
                   {t("account.loadingCourses")}
                 </p>
               ) : coursesError ? (
@@ -294,15 +311,24 @@ export default function AccountDashboard() {
                 </div>
               ) : courses.length === 0 ? (
                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
-                  <BookOpen className="mx-auto text-yellow-300" size={28} aria-hidden="true" />
+                  <BookOpen
+                    className="mx-auto text-yellow-300"
+                    size={28}
+                    aria-hidden="true"
+                  />
                   <p className="mt-4 font-semibold">{t("account.noCourses")}</p>
-                  <p className="mt-2 text-sm text-slate-400">{t("account.noCoursesHint")}</p>
+                  <p className="mt-2 text-sm text-slate-400">
+                    {t("account.noCoursesHint")}
+                  </p>
                 </div>
               ) : (
                 <div className="grid gap-5 lg:grid-cols-2">
                   {courses.map((course) => {
                     const enrolled = enrolledSlugs.has(course.slug);
-                    const completed = enrolled && course.slug === "rest-api-basics" && Boolean(user?.mission1);
+                    const completed =
+                      enrolled &&
+                      course.slug === "rest-api-basics" &&
+                      Boolean(user?.mission1);
                     return (
                       <article
                         key={course.id}
@@ -314,7 +340,9 @@ export default function AccountDashboard() {
                               ? t("courses.rest.level")
                               : course.level}
                           </span>
-                          <span className={`inline-flex items-center gap-1.5 text-xs ${completed ? "text-emerald-300" : enrolled ? "text-sky-200" : "text-slate-400"}`}>
+                          <span
+                            className={`inline-flex items-center gap-1.5 text-xs ${completed ? "text-emerald-300" : enrolled ? "text-sky-200" : "text-slate-400"}`}
+                          >
                             {completed ? (
                               <CheckCircle2 size={15} aria-hidden="true" />
                             ) : enrolled ? (
@@ -366,7 +394,7 @@ export default function AccountDashboard() {
                                 ? course.slug === "rest-api-basics"
                                   ? "/learning"
                                   : `/learn/${course.slug}`
-                                : `/courses/${course.slug}`
+                                : `/courses/${course.slug}`,
                             )
                           }
                           className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-yellow-400 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-yellow-300"
@@ -389,14 +417,21 @@ export default function AccountDashboard() {
           {activeTab === "profile" && (
             <div className="max-w-3xl">
               <div className="mb-6">
-                <h2 className="text-xl font-semibold">{t("account.profile")}</h2>
-                <p className="mt-1 text-sm text-slate-400">{t("account.profileHint")}</p>
+                <h2 className="text-xl font-semibold">
+                  {t("account.profile")}
+                </h2>
+                <p className="mt-1 text-sm text-slate-400">
+                  {t("account.profileHint")}
+                </p>
               </div>
               <form
                 onSubmit={(event) => void handleSaveProfile(event)}
                 className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7"
               >
-                <label htmlFor="profile-name" className="mb-2 block text-sm font-medium text-slate-200">
+                <label
+                  htmlFor="profile-name"
+                  className="mb-2 block text-sm font-medium text-slate-200"
+                >
                   {t("account.fullName")}
                 </label>
                 <input
@@ -412,7 +447,10 @@ export default function AccountDashboard() {
                 />
 
                 <div className="mt-5">
-                  <label htmlFor="profile-email" className="mb-2 block text-sm font-medium text-slate-200">
+                  <label
+                    htmlFor="profile-email"
+                    className="mb-2 block text-sm font-medium text-slate-200"
+                  >
                     {t("account.email")}
                   </label>
                   <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-[#07111f]/70 px-4 py-3 text-slate-400">
@@ -425,49 +463,58 @@ export default function AccountDashboard() {
                       className="min-w-0 flex-1 bg-transparent text-sm outline-none"
                     />
                   </div>
-                  <p className="mt-2 text-xs text-slate-500">{t("account.emailReadOnly")}</p>
+                  <p className="mt-2 text-xs text-slate-500">
+                    {t("account.emailReadOnly")}
+                  </p>
                 </div>
 
                 {profileError && (
-                  <p className="mt-4 text-sm text-red-300" role="alert">{profileError}</p>
+                  <p className="mt-4 text-sm text-red-300" role="alert">
+                    {profileError}
+                  </p>
                 )}
                 {profileMessage && (
-                  <p className="mt-4 text-sm text-emerald-300" role="status">{profileMessage}</p>
+                  <p className="mt-4 text-sm text-emerald-300" role="status">
+                    {profileMessage}
+                  </p>
                 )}
                 <button
                   type="submit"
-                  disabled={profileSaving || name.trim().length < 2 || name.trim() === (user?.fullName ?? "")}
+                  disabled={
+                    profileSaving ||
+                    name.trim().length < 2 ||
+                    name.trim() === (user?.fullName ?? "")
+                  }
                   className="mt-6 rounded-xl bg-yellow-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  {profileSaving ? t("account.saving") : t("account.saveProfile")}
+                  {profileSaving
+                    ? t("account.saving")
+                    : t("account.saveProfile")}
                 </button>
               </form>
             </div>
           )}
 
-          {activeTab === "certificates" && (
-            <div className="max-w-3xl rounded-2xl border border-white/10 bg-white/[0.03] p-7 sm:p-10">
-              <div className="grid size-12 place-items-center rounded-2xl bg-yellow-300/10 text-yellow-200">
-                <Award size={24} aria-hidden="true" />
-              </div>
-              <h2 className="mt-5 text-xl font-semibold">{t("account.certificates")}</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-400">{t("account.certificatesEmpty")}</p>
-              <span className="mt-5 inline-flex rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300">
-                {t("account.comingSoon")}
-              </span>
-            </div>
-          )}
+          {activeTab === "certificates" && <CertificatesPanel />}
 
           {activeTab === "support" && (
             <SupportCenter role={user?.role ?? "STUDENT"} />
           )}
 
           {activeTab === "course-management" && user?.role === "MODERATOR" && (
-            <CourseManagement role="MODERATOR" />
+            <div className="space-y-8">
+              <CourseManagement role="MODERATOR" />
+              <CourseReviewQueue />
+            </div>
+          )}
+
+          {activeTab === "ads" && user?.role === "MODERATOR" && (
+            <AdsManagement role="MODERATOR" />
           )}
 
           <footer className="mt-12 border-t border-white/10 pt-5 text-xs text-slate-500">
-            {t("account.footer")} · {new Intl.DateTimeFormat(i18n.language).format(new Date())}
+            {t("account.footer")} ·{" "}
+            {new Intl.DateTimeFormat(i18n.language).format(new Date())}
             {user?.role === "ADMIN" && (
               <button
                 type="button"

@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth-context";
 import CourseManagement from "../components/CourseManagement";
+import AdsManagement from "../components/AdsManagement";
+import AdvertisementCarousel from "../components/AdvertisementCarousel";
 import {
   archiveChallenge,
   createChallenge,
@@ -67,7 +69,7 @@ export default function AdminDashboard() {
           setError(
             loadError instanceof Error
               ? loadError.message
-              : "Challenge’larni yuklash amalga oshmadi."
+              : "Challenge’larni yuklash amalga oshmadi.",
           );
         }
       })
@@ -91,7 +93,7 @@ export default function AdminDashboard() {
           setOverviewError(
             loadError instanceof Error
               ? loadError.message
-              : "Foydalanuvchilar statistikasi yuklanmadi."
+              : "Foydalanuvchilar statistikasi yuklanmadi.",
           );
         }
       })
@@ -113,7 +115,7 @@ export default function AdminDashboard() {
       setError(
         loadError instanceof Error
           ? loadError.message
-          : "Challenge’larni yuklash amalga oshmadi."
+          : "Challenge’larni yuklash amalga oshmadi.",
       );
     } finally {
       setLoading(false);
@@ -152,7 +154,7 @@ export default function AdminDashboard() {
       setError(
         saveError instanceof Error
           ? saveError.message
-          : "Challenge’ni saqlash amalga oshmadi."
+          : "Challenge’ni saqlash amalga oshmadi.",
       );
     } finally {
       setSaving(false);
@@ -185,14 +187,14 @@ export default function AdminDashboard() {
     try {
       await archiveChallenge(token, challenge.id);
       setChallenges((current) =>
-        current.filter((item) => item.id !== challenge.id)
+        current.filter((item) => item.id !== challenge.id),
       );
       if (editingId === challenge.id) resetForm();
     } catch (archiveError) {
       setError(
         archiveError instanceof Error
           ? archiveError.message
-          : "Challenge’ni arxivlash amalga oshmadi."
+          : "Challenge’ni arxivlash amalga oshmadi.",
       );
     }
   };
@@ -200,6 +202,7 @@ export default function AdminDashboard() {
   return (
     <main className="min-h-screen bg-[#020817] p-8 text-white">
       <div className="mx-auto max-w-5xl">
+        <AdvertisementCarousel />
         <header className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6">
           <div>
             <p className="text-sm uppercase tracking-widest text-yellow-400">
@@ -226,15 +229,26 @@ export default function AdminDashboard() {
           <CourseManagement role="ADMIN" />
         </section>
 
+        <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <AdsManagement role="ADMIN" />
+        </section>
+
         <section className="mt-8">
-          <h2 className="text-xl font-semibold">Foydalanuvchilar statistikasi</h2>
+          <h2 className="text-xl font-semibold">
+            Foydalanuvchilar statistikasi
+          </h2>
           {overviewError && (
-            <p className="mt-4 rounded-lg bg-red-500/10 p-3 text-sm text-red-300" role="alert">
+            <p
+              className="mt-4 rounded-lg bg-red-500/10 p-3 text-sm text-red-300"
+              role="alert"
+            >
               {overviewError}
             </p>
           )}
           {overviewLoading ? (
-            <p className="mt-4 text-gray-300" role="status">Statistika yuklanmoqda...</p>
+            <p className="mt-4 text-gray-300" role="status">
+              Statistika yuklanmoqda...
+            </p>
           ) : overview ? (
             <>
               <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
@@ -258,10 +272,45 @@ export default function AdminDashboard() {
                 ))}
               </div>
 
+              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  ["Kurslar", overview.stats.courses.total],
+                  ["Faol kurslar", overview.stats.courses.published],
+                  [
+                    "Yakunlangan kurslar",
+                    overview.stats.courses.completedEnrollments,
+                  ],
+                  ["Sertifikatlar", overview.stats.certificatesIssued],
+                  ["Barcha tiketlar", overview.stats.tickets.total],
+                  ["Ochiq tiketlar", overview.stats.tickets.open],
+                  ["Faol reklamalar", overview.stats.ads.active],
+                  [
+                    "Tasdiq kutilayotgan reklama",
+                    overview.stats.ads.pendingReview,
+                  ],
+                  ["Reklama ko‘rishlari", overview.stats.ads.impressions],
+                  ["Reklama bosishlari", overview.stats.ads.clicks],
+                ].map(([label, value]) => (
+                  <article
+                    key={label}
+                    className="rounded-xl border border-white/10 bg-white/5 p-5"
+                  >
+                    <p className="text-sm text-gray-400">{label}</p>
+                    <p className="mt-2 text-2xl font-bold text-yellow-400">
+                      {value}
+                    </p>
+                  </article>
+                ))}
+              </div>
+
               <div className="mt-6 overflow-x-auto rounded-2xl border border-white/10 bg-white/5 p-6">
-                <h3 className="text-lg font-semibold">Yaqinda qo‘shilgan o‘quvchilar</h3>
+                <h3 className="text-lg font-semibold">
+                  Yaqinda qo‘shilgan o‘quvchilar
+                </h3>
                 {overview.recentStudents.length === 0 ? (
-                  <p className="mt-4 text-gray-400">Hozircha o‘quvchilar yo‘q.</p>
+                  <p className="mt-4 text-gray-400">
+                    Hozircha o‘quvchilar yo‘q.
+                  </p>
                 ) : (
                   <table className="mt-4 w-full min-w-[640px] text-left text-sm">
                     <thead className="text-gray-400">
@@ -275,8 +324,13 @@ export default function AdminDashboard() {
                     </thead>
                     <tbody>
                       {overview.recentStudents.map((student) => (
-                        <tr key={student.id} className="border-t border-white/10">
-                          <td className="py-3 pr-4">{student.fullName || "—"}</td>
+                        <tr
+                          key={student.id}
+                          className="border-t border-white/10"
+                        >
+                          <td className="py-3 pr-4">
+                            {student.fullName || "—"}
+                          </td>
                           <td className="py-3 pr-4">{student.email}</td>
                           <td className="py-3 pr-4">{student.xp}</td>
                           <td className="py-3 pr-4">
@@ -306,7 +360,10 @@ export default function AdminDashboard() {
               {editingId ? "Challenge’ni tahrirlash" : "Yangi challenge"}
             </h2>
 
-            <label className="mt-5 block text-sm text-gray-300" htmlFor="challenge-title">
+            <label
+              className="mt-5 block text-sm text-gray-300"
+              htmlFor="challenge-title"
+            >
               Nomi
             </label>
             <input
@@ -320,7 +377,10 @@ export default function AdminDashboard() {
               className="mt-2 w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-white"
             />
 
-            <label className="mt-4 block text-sm text-gray-300" htmlFor="challenge-description">
+            <label
+              className="mt-4 block text-sm text-gray-300"
+              htmlFor="challenge-description"
+            >
               Tavsif
             </label>
             <textarea
@@ -335,7 +395,10 @@ export default function AdminDashboard() {
               className="mt-2 w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-white"
             />
 
-            <label className="mt-4 block text-sm text-gray-300" htmlFor="challenge-category">
+            <label
+              className="mt-4 block text-sm text-gray-300"
+              htmlFor="challenge-category"
+            >
               Kategoriya
             </label>
             <input
@@ -349,7 +412,10 @@ export default function AdminDashboard() {
               className="mt-2 w-full rounded-lg border border-white/15 bg-black/20 px-3 py-2 text-white"
             />
 
-            <label className="mt-4 block text-sm text-gray-300" htmlFor="challenge-difficulty">
+            <label
+              className="mt-4 block text-sm text-gray-300"
+              htmlFor="challenge-difficulty"
+            >
               Qiyinlik
             </label>
             <select
@@ -369,7 +435,10 @@ export default function AdminDashboard() {
             </select>
 
             {error && (
-              <p className="mt-4 rounded-lg bg-red-500/10 p-3 text-sm text-red-300" role="alert">
+              <p
+                className="mt-4 rounded-lg bg-red-500/10 p-3 text-sm text-red-300"
+                role="alert"
+              >
                 {error}
               </p>
             )}
@@ -412,9 +481,13 @@ export default function AdminDashboard() {
             </div>
 
             {loading ? (
-              <p className="mt-6 text-gray-300" role="status">Yuklanmoqda...</p>
+              <p className="mt-6 text-gray-300" role="status">
+                Yuklanmoqda...
+              </p>
             ) : challenges.length === 0 ? (
-              <p className="mt-6 text-gray-400">Hozircha faol challenge yo‘q.</p>
+              <p className="mt-6 text-gray-400">
+                Hozircha faol challenge yo‘q.
+              </p>
             ) : (
               <ul className="mt-5 space-y-3">
                 {challenges.map((challenge) => (

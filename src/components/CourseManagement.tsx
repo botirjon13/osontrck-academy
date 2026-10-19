@@ -24,6 +24,17 @@ const newLesson = (): CourseInput["lessons"][number] => ({
   resources: [],
 });
 
+const newFinalQuestion = (): NonNullable<
+  CourseInput["finalQuestions"]
+>[number] => ({
+  prompt: "",
+  optionA: "",
+  optionB: "",
+  optionC: "",
+  optionD: "",
+  correctOption: 0,
+});
+
 const emptyCourse: CourseInput = {
   slug: "",
   title: "",
@@ -31,6 +42,8 @@ const emptyCourse: CourseInput = {
   level: "",
   isFree: true,
   lessons: [newLesson()],
+  passingScore: 70,
+  finalQuestions: [],
 };
 
 const statusTranslation: Record<CourseStatus, string> = {
@@ -87,7 +100,7 @@ export default function CourseManagement({ role }: { role: UserRole }) {
           setError(
             loadError instanceof Error
               ? loadError.message
-              : t("courses.manage.loadError")
+              : t("courses.manage.loadError"),
           );
         }
       })
@@ -146,13 +159,13 @@ export default function CourseManagement({ role }: { role: UserRole }) {
       setMessage(
         submitForReview
           ? t("courses.manage.submitted")
-          : t("courses.manage.saved")
+          : t("courses.manage.saved"),
       );
     } catch (saveError: unknown) {
       setError(
         saveError instanceof Error
           ? saveError.message
-          : t("courses.manage.saveError")
+          : t("courses.manage.saveError"),
       );
     } finally {
       setSaving(false);
@@ -172,13 +185,27 @@ export default function CourseManagement({ role }: { role: UserRole }) {
       description: course.description,
       level: course.level,
       isFree: course.isFree,
+      passingScore: course.passingScore ?? 70,
+      finalQuestions: course.finalQuestions.map(
+        ({ prompt, optionA, optionB, optionC, optionD, correctOption }) => ({
+          prompt,
+          optionA,
+          optionB,
+          optionC,
+          optionD,
+          correctOption,
+        }),
+      ),
       lessons:
         course.lessons.length > 0
           ? course.lessons.map((lesson: CourseLesson) => ({
               title: lesson.title,
               content: lesson.content,
               videoUrl: lesson.videoUrl ?? "",
-              resources: lesson.resources.map(({ title, url }) => ({ title, url })),
+              resources: lesson.resources.map(({ title, url }) => ({
+                title,
+                url,
+              })),
             }))
           : [newLesson()],
     });
@@ -197,14 +224,14 @@ export default function CourseManagement({ role }: { role: UserRole }) {
     try {
       const updated = await submitManagedCourse(token, courseId);
       setCourses((current) =>
-        current.map((course) => (course.id === updated.id ? updated : course))
+        current.map((course) => (course.id === updated.id ? updated : course)),
       );
       setMessage(t("courses.manage.submitted"));
     } catch (submitError: unknown) {
       setError(
         submitError instanceof Error
           ? submitError.message
-          : t("courses.manage.saveError")
+          : t("courses.manage.saveError"),
       );
     } finally {
       setSaving(false);
@@ -225,7 +252,7 @@ export default function CourseManagement({ role }: { role: UserRole }) {
         feedback: status === "REJECTED" ? feedback[courseId] : undefined,
       });
       setCourses((current) =>
-        current.map((course) => (course.id === updated.id ? updated : course))
+        current.map((course) => (course.id === updated.id ? updated : course)),
       );
       setFeedback((current) => ({ ...current, [courseId]: "" }));
       setMessage(t(`courses.manage.action.${status}`));
@@ -233,7 +260,7 @@ export default function CourseManagement({ role }: { role: UserRole }) {
       setError(
         statusError instanceof Error
           ? statusError.message
-          : t("courses.manage.saveError")
+          : t("courses.manage.saveError"),
       );
     } finally {
       setSaving(false);
@@ -242,12 +269,12 @@ export default function CourseManagement({ role }: { role: UserRole }) {
 
   const updateLesson = (
     lessonIndex: number,
-    update: Partial<CourseInput["lessons"][number]>
+    update: Partial<CourseInput["lessons"][number]>,
   ) => {
     setForm((current) => ({
       ...current,
       lessons: current.lessons.map((lesson, index) =>
-        index === lessonIndex ? { ...lesson, ...update } : lesson
+        index === lessonIndex ? { ...lesson, ...update } : lesson,
       ),
     }));
   };
@@ -256,12 +283,12 @@ export default function CourseManagement({ role }: { role: UserRole }) {
     lessonIndex: number,
     resourceIndex: number,
     key: "title" | "url",
-    value: string
+    value: string,
   ) => {
     const lesson = form.lessons[lessonIndex];
     updateLesson(lessonIndex, {
       resources: lesson.resources.map((resource, index) =>
-        index === resourceIndex ? { ...resource, [key]: value } : resource
+        index === resourceIndex ? { ...resource, [key]: value } : resource,
       ),
     });
   };
@@ -270,7 +297,9 @@ export default function CourseManagement({ role }: { role: UserRole }) {
     <div className="space-y-6">
       <header>
         <h2 className="text-xl font-semibold">
-          {isAdmin ? t("courses.manage.reviewTitle") : t("courses.manage.title")}
+          {isAdmin
+            ? t("courses.manage.reviewTitle")
+            : t("courses.manage.title")}
         </h2>
         <p className="mt-1 text-sm text-slate-400">
           {isAdmin
@@ -280,12 +309,18 @@ export default function CourseManagement({ role }: { role: UserRole }) {
       </header>
 
       {error && (
-        <p className="rounded-xl border border-red-400/30 bg-red-400/5 p-3 text-sm text-red-200" role="alert">
+        <p
+          className="rounded-xl border border-red-400/30 bg-red-400/5 p-3 text-sm text-red-200"
+          role="alert"
+        >
           {error}
         </p>
       )}
       {message && (
-        <p className="rounded-xl border border-emerald-400/30 bg-emerald-400/5 p-3 text-sm text-emerald-200" role="status">
+        <p
+          className="rounded-xl border border-emerald-400/30 bg-emerald-400/5 p-3 text-sm text-emerald-200"
+          role="status"
+        >
           {message}
         </p>
       )}
@@ -400,7 +435,9 @@ export default function CourseManagement({ role }: { role: UserRole }) {
               >
                 <div className="flex items-center justify-between gap-3">
                   <h5 className="font-medium">
-                    {t("courses.manage.lessonNumber", { number: lessonIndex + 1 })}
+                    {t("courses.manage.lessonNumber", {
+                      number: lessonIndex + 1,
+                    })}
                   </h5>
                   {form.lessons.length > 1 && (
                     <button
@@ -409,7 +446,7 @@ export default function CourseManagement({ role }: { role: UserRole }) {
                         setForm((current) => ({
                           ...current,
                           lessons: current.lessons.filter(
-                            (_, index) => index !== lessonIndex
+                            (_, index) => index !== lessonIndex,
                           ),
                         }))
                       }
@@ -453,7 +490,9 @@ export default function CourseManagement({ role }: { role: UserRole }) {
                     type="url"
                     value={lesson.videoUrl ?? ""}
                     onChange={(event) =>
-                      updateLesson(lessonIndex, { videoUrl: event.target.value })
+                      updateLesson(lessonIndex, {
+                        videoUrl: event.target.value,
+                      })
                     }
                     placeholder="https://youtube.com/..."
                     className={inputClass}
@@ -493,7 +532,7 @@ export default function CourseManagement({ role }: { role: UserRole }) {
                             lessonIndex,
                             resourceIndex,
                             "title",
-                            event.target.value
+                            event.target.value,
                           )
                         }
                         placeholder={t("courses.manage.fileTitle")}
@@ -508,7 +547,7 @@ export default function CourseManagement({ role }: { role: UserRole }) {
                             lessonIndex,
                             resourceIndex,
                             "url",
-                            event.target.value
+                            event.target.value,
                           )
                         }
                         placeholder="https://drive.google.com/..."
@@ -519,7 +558,7 @@ export default function CourseManagement({ role }: { role: UserRole }) {
                         onClick={() =>
                           updateLesson(lessonIndex, {
                             resources: lesson.resources.filter(
-                              (_, index) => index !== resourceIndex
+                              (_, index) => index !== resourceIndex,
                             ),
                           })
                         }
@@ -534,6 +573,149 @@ export default function CourseManagement({ role }: { role: UserRole }) {
               </section>
             ))}
           </div>
+          <section className="space-y-4 rounded-2xl border border-white/10 bg-black/10 p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h4 className="font-semibold">Yakuniy test</h4>
+                <p className="mt-1 text-xs text-slate-400">
+                  Test savollarisiz kursda barcha darslar tugagach yakunlanadi.
+                </p>
+              </div>
+              <label className="text-sm text-slate-300">
+                O‘tish foizi
+                <input
+                  type="number"
+                  min={1}
+                  max={100}
+                  required
+                  value={form.passingScore ?? 70}
+                  onChange={(event) =>
+                    setForm((current) => ({
+                      ...current,
+                      passingScore: Number(event.target.value),
+                    }))
+                  }
+                  className={inputClass}
+                />
+              </label>
+              <button
+                type="button"
+                onClick={() =>
+                  setForm((current) => ({
+                    ...current,
+                    finalQuestions: [
+                      ...(current.finalQuestions ?? []),
+                      newFinalQuestion(),
+                    ],
+                  }))
+                }
+                className="rounded-lg border border-white/15 px-3 py-2 text-sm hover:bg-white/5"
+              >
+                Savol qo‘shish
+              </button>
+            </div>
+            {(form.finalQuestions ?? []).map((question, questionIndex) => (
+              <div
+                key={questionIndex}
+                className="space-y-3 rounded-xl border border-white/10 p-4"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <h5 className="font-medium">Savol {questionIndex + 1}</h5>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setForm((current) => ({
+                        ...current,
+                        finalQuestions: (current.finalQuestions ?? []).filter(
+                          (_, index) => index !== questionIndex,
+                        ),
+                      }))
+                    }
+                    aria-label="Savolni o‘chirish"
+                    className="rounded-lg p-2 text-red-300 hover:bg-red-400/10"
+                  >
+                    <Trash2 size={16} aria-hidden="true" />
+                  </button>
+                </div>
+                <label className="block text-sm text-slate-300">
+                  Savol matni
+                  <textarea
+                    required
+                    minLength={5}
+                    maxLength={2000}
+                    rows={2}
+                    value={question.prompt}
+                    onChange={(event) =>
+                      setForm((current) => ({
+                        ...current,
+                        finalQuestions: (current.finalQuestions ?? []).map(
+                          (item, index) =>
+                            index === questionIndex
+                              ? { ...item, prompt: event.target.value }
+                              : item,
+                        ),
+                      }))
+                    }
+                    className={inputClass}
+                  />
+                </label>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {(["optionA", "optionB", "optionC", "optionD"] as const).map(
+                    (key, optionIndex) => (
+                      <label key={key} className="text-sm text-slate-300">
+                        Javob {String.fromCharCode(65 + optionIndex)}
+                        <input
+                          required
+                          maxLength={1000}
+                          value={question[key]}
+                          onChange={(event) =>
+                            setForm((current) => ({
+                              ...current,
+                              finalQuestions: (
+                                current.finalQuestions ?? []
+                              ).map((item, index) =>
+                                index === questionIndex
+                                  ? { ...item, [key]: event.target.value }
+                                  : item,
+                              ),
+                            }))
+                          }
+                          className={inputClass}
+                        />
+                      </label>
+                    ),
+                  )}
+                </div>
+                <label className="block text-sm text-slate-300">
+                  To‘g‘ri javob
+                  <select
+                    value={question.correctOption}
+                    onChange={(event) =>
+                      setForm((current) => ({
+                        ...current,
+                        finalQuestions: (current.finalQuestions ?? []).map(
+                          (item, index) =>
+                            index === questionIndex
+                              ? {
+                                  ...item,
+                                  correctOption: Number(event.target.value),
+                                }
+                              : item,
+                        ),
+                      }))
+                    }
+                    className={inputClass}
+                  >
+                    {["A", "B", "C", "D"].map((option, index) => (
+                      <option key={option} value={index}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+            ))}
+          </section>
           <p className="text-xs leading-5 text-slate-400">
             {t("courses.manage.linkNotice")}
           </p>
@@ -573,7 +755,9 @@ export default function CourseManagement({ role }: { role: UserRole }) {
 
       <section className="space-y-3">
         <h3 className="text-lg font-semibold">
-          {isAdmin ? t("courses.manage.reviewQueue") : t("courses.manage.myCourses")}
+          {isAdmin
+            ? t("courses.manage.reviewQueue")
+            : t("courses.manage.myCourses")}
         </h3>
         {loading ? (
           <p className="text-sm text-slate-400" role="status">
@@ -593,7 +777,9 @@ export default function CourseManagement({ role }: { role: UserRole }) {
                 <div>
                   <h4 className="font-semibold">{course.title}</h4>
                   <p className="mt-1 text-xs text-slate-400">
-                    {course.instructor?.fullName || course.instructor?.email || ""}
+                    {course.instructor?.fullName ||
+                      course.instructor?.email ||
+                      ""}
                     {" · "}
                     {course.lessons.length} {t("courses.manage.lessonsShort")}
                   </p>
@@ -652,7 +838,10 @@ export default function CourseManagement({ role }: { role: UserRole }) {
                       />
                       <button
                         type="button"
-                        disabled={saving || (feedback[course.id] ?? "").trim().length < 5}
+                        disabled={
+                          saving ||
+                          (feedback[course.id] ?? "").trim().length < 5
+                        }
                         onClick={() => void changeStatus(course.id, "REJECTED")}
                         className="rounded-lg border border-red-300/30 px-3 py-2 text-sm text-red-200 hover:bg-red-400/10 disabled:opacity-50"
                       >

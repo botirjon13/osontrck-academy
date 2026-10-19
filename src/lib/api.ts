@@ -5,11 +5,7 @@ export const API_BASE_URL = (
 export type UserRole = "ADMIN" | "MODERATOR" | "STUDENT";
 export type ChallengeDifficulty = "EASY" | "MEDIUM" | "HARD";
 export type CourseStatus =
-  | "DRAFT"
-  | "PENDING_REVIEW"
-  | "APPROVED"
-  | "PUBLISHED"
-  | "REJECTED";
+  "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "PUBLISHED" | "REJECTED";
 export type TicketCategory =
   | "INSTRUCTOR_APPLICATION"
   | "TECHNICAL_ISSUE"
@@ -34,6 +30,94 @@ export interface Course {
   isFree: boolean;
   priceCents: number | null;
   status: CourseStatus;
+  passingScore?: number;
+  finalQuestions?: LearningQuestion[];
+}
+
+export interface CourseCompletionReview {
+  id: string;
+  createdAt: string;
+  status: string;
+  feedback: string | null;
+  user: { id: string; fullName: string | null; email: string };
+  course: { id: string; title: string; slug: string; isFree: boolean };
+}
+
+export interface FinalTestReview {
+  id: string;
+  createdAt: string;
+  score: number;
+  status: string;
+  reviewFeedback: string | null;
+  user: { id: string; fullName: string | null; email: string };
+  course: { id: string; title: string; slug: string };
+}
+
+export interface Certificate {
+  id: string;
+  code: string;
+  issuedAt: string;
+  recipientName: string;
+  course: { id: string; slug: string; title: string };
+}
+
+export type VerifiedCertificate = Omit<Certificate, "id" | "course"> & {
+  course: { title: string };
+};
+
+export function fetchCompletionReviews(
+  token: string,
+): Promise<CourseCompletionReview[]> {
+  return request<CourseCompletionReview[]>(
+    "/courses/reviews/completions",
+    token,
+  );
+}
+
+export function fetchFinalTestReviews(
+  token: string,
+): Promise<FinalTestReview[]> {
+  return request<FinalTestReview[]>("/courses/reviews/final-tests", token);
+}
+
+export function reviewCompletion(
+  token: string,
+  reviewId: string,
+  status: "APPROVED" | "REJECTED",
+  feedback?: string,
+): Promise<CourseCompletionReview> {
+  return request<CourseCompletionReview>(
+    `/courses/reviews/completions/${encodeURIComponent(reviewId)}`,
+    token,
+    { method: "PATCH", body: JSON.stringify({ status, feedback }) },
+  );
+}
+
+export function reviewFinalTest(
+  token: string,
+  attemptId: string,
+  status: "APPROVED" | "REJECTED",
+  feedback?: string,
+): Promise<FinalTestReview> {
+  return request<FinalTestReview>(
+    `/courses/reviews/final-tests/${encodeURIComponent(attemptId)}`,
+    token,
+    { method: "PATCH", body: JSON.stringify({ status, feedback }) },
+  );
+}
+
+export interface Advertisement {
+  id: string;
+  title: string;
+  imageUrl: string;
+  targetUrl: string;
+  startsAt: string;
+  endsAt: string;
+  durationDays: number;
+  status: "ACTIVE" | "PENDING_REVIEW" | "REJECTED" | "EXPIRED";
+  proposedBy?: { id: string; fullName: string | null; email: string } | null;
+  reviewFeedback?: string | null;
+  analytics?: { impressions: number; clicks: number };
 }
 
 export interface CourseResource {
@@ -41,6 +125,89 @@ export interface CourseResource {
   title: string;
   url: string;
   position?: number;
+}
+
+export function markCourseLessonComplete(
+  token: string,
+  slug: string,
+  lessonId: string,
+): Promise<{
+  completedLessons: number;
+  totalLessons: number;
+  completion: string;
+}> {
+  return request(
+    `/courses/${encodeURIComponent(slug)}/lessons/${encodeURIComponent(lessonId)}/complete`,
+    token,
+    { method: "POST" },
+  );
+}
+
+export function submitCourseFinalTest(
+  token: string,
+  slug: string,
+  answers: number[],
+): Promise<{ id: string; score: number; status: string; completion: string }> {
+  return request(`/courses/${encodeURIComponent(slug)}/final-test`, token, {
+    method: "POST",
+    body: JSON.stringify({ answers }),
+  });
+}
+
+export function fetchMyCertificates(token: string): Promise<Certificate[]> {
+  return request<Certificate[]>("/certificates/mine", token);
+}
+
+export function verifyCertificate(code: string): Promise<VerifiedCertificate> {
+  return request<VerifiedCertificate>(
+    `/certificates/verify/${encodeURIComponent(code)}`,
+  );
+}
+
+export function fetchActiveAds(): Promise<Advertisement[]> {
+  return request<Advertisement[]>("/ads/active");
+}
+
+export function trackAdEvent(
+  adId: string,
+  type: "IMPRESSION" | "CLICK",
+): Promise<{ recorded: boolean }> {
+  return request(`/ads/${encodeURIComponent(adId)}/events`, undefined, {
+    method: "POST",
+    body: JSON.stringify({ type }),
+  });
+}
+
+export function fetchManagedAds(token: string): Promise<Advertisement[]> {
+  return request<Advertisement[]>("/ads/manage", token);
+}
+
+export function createManagedAd(
+  token: string,
+  input: {
+    title: string;
+    imageUrl: string;
+    targetUrl: string;
+    durationDays: number;
+  },
+): Promise<Advertisement> {
+  return request<Advertisement>("/ads/manage", token, {
+    method: "POST",
+    body: JSON.stringify(input),
+  });
+}
+
+export function reviewManagedAd(
+  token: string,
+  adId: string,
+  approve: boolean,
+  feedback?: string,
+): Promise<Advertisement> {
+  return request<Advertisement>(
+    `/ads/manage/${encodeURIComponent(adId)}/review`,
+    token,
+    { method: "POST", body: JSON.stringify({ approve, feedback }) },
+  );
 }
 
 export interface CourseLesson {
@@ -64,6 +231,7 @@ export interface ManagedCourse extends Course {
     email?: string;
   } | null;
   lessons: CourseLesson[];
+  finalQuestions: Array<LearningQuestion & { correctOption: number }>;
 }
 
 export interface LearningCourse {
@@ -72,8 +240,34 @@ export interface LearningCourse {
   title: string;
   description: string;
   level: string;
+  isFree: boolean;
   instructor: { fullName: string | null } | null;
-  lessons: CourseLesson[];
+  passingScore: number;
+  lessons: Array<
+    Omit<CourseLesson, "id"> & {
+      id: string;
+      completions: Array<{ lessonId: string }>;
+    }
+  >;
+  finalQuestions: LearningQuestion[];
+  finalTestAttempts: Array<{
+    id: string;
+    score: number;
+    status: string;
+    reviewFeedback: string | null;
+  }>;
+  completionReviews: Array<{
+    id: string;
+    status: string;
+    feedback: string | null;
+  }>;
+  enrollments: Array<{ status: string }>;
+  certificates: Array<{
+    id: string;
+    code: string;
+    issuedAt: string;
+    recipientName: string;
+  }>;
 }
 
 export interface CourseInput {
@@ -88,6 +282,25 @@ export interface CourseInput {
     videoUrl?: string;
     resources: Array<{ title: string; url: string }>;
   }>;
+  passingScore?: number;
+  finalQuestions?: Array<{
+    prompt: string;
+    optionA: string;
+    optionB: string;
+    optionC: string;
+    optionD: string;
+    correctOption: number;
+  }>;
+}
+
+export interface LearningQuestion {
+  id: string;
+  prompt: string;
+  optionA: string;
+  optionB: string;
+  optionC: string;
+  optionD: string;
+  position: number;
 }
 
 export interface CourseEnrollment {
@@ -172,6 +385,20 @@ export interface AdminOverview {
     students: number;
     mission1Completed: number;
     totalXp: number;
+    courses: {
+      total: number;
+      published: number;
+      pendingReview: number;
+      completedEnrollments: number;
+    };
+    tickets: { total: number; open: number; inReview: number; closed: number };
+    ads: {
+      active: number;
+      pendingReview: number;
+      impressions: number;
+      clicks: number;
+    };
+    certificatesIssued: number;
   };
   recentStudents: Array<{
     id: string;
@@ -197,7 +424,7 @@ export class ApiError extends Error {
 async function request<T>(
   path: string,
   token?: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
@@ -229,7 +456,7 @@ async function request<T>(
         : Array.isArray(message)
           ? message.join(", ")
           : `API so‘rovi bajarilmadi (${response.status}).`,
-      response.status
+      response.status,
     );
   }
 
@@ -246,11 +473,11 @@ export function fetchPublishedCourse(slug: string): Promise<CourseDetails> {
 
 export function fetchCourseContent(
   token: string,
-  slug: string
+  slug: string,
 ): Promise<LearningCourse> {
   return request<LearningCourse>(
     `/courses/${encodeURIComponent(slug)}/content`,
-    token
+    token,
   );
 }
 
@@ -260,7 +487,7 @@ export function fetchManagedCourses(token: string): Promise<ManagedCourse[]> {
 
 export function createManagedCourse(
   token: string,
-  input: CourseInput
+  input: CourseInput,
 ): Promise<ManagedCourse> {
   return request<ManagedCourse>("/courses/manage", token, {
     method: "POST",
@@ -271,23 +498,23 @@ export function createManagedCourse(
 export function updateManagedCourse(
   token: string,
   courseId: string,
-  input: CourseInput
+  input: CourseInput,
 ): Promise<ManagedCourse> {
   return request<ManagedCourse>(
     `/courses/manage/${encodeURIComponent(courseId)}`,
     token,
-    { method: "PATCH", body: JSON.stringify(input) }
+    { method: "PATCH", body: JSON.stringify(input) },
   );
 }
 
 export function submitManagedCourse(
   token: string,
-  courseId: string
+  courseId: string,
 ): Promise<ManagedCourse> {
   return request<ManagedCourse>(
     `/courses/manage/${encodeURIComponent(courseId)}/submit`,
     token,
-    { method: "POST" }
+    { method: "POST" },
   );
 }
 
@@ -295,12 +522,12 @@ export function updateManagedCourseStatus(
   token: string,
   courseId: string,
   status: CourseStatus,
-  options: { feedback?: string } = {}
+  options: { feedback?: string } = {},
 ): Promise<ManagedCourse> {
   return request<ManagedCourse>(
     `/courses/manage/${encodeURIComponent(courseId)}/status`,
     token,
-    { method: "PATCH", body: JSON.stringify({ status, ...options }) }
+    { method: "PATCH", body: JSON.stringify({ status, ...options }) },
   );
 }
 
@@ -310,7 +537,7 @@ export function fetchMyCourses(token: string): Promise<CourseEnrollment[]> {
 
 export function updateCurrentUser(
   token: string,
-  fullName: string
+  fullName: string,
 ): Promise<CurrentUser> {
   return request<CurrentUser>("/users/me", token, {
     method: "PATCH",
@@ -324,7 +551,7 @@ export function fetchSupportTickets(token: string): Promise<SupportTicket[]> {
 
 export function createSupportTicket(
   token: string,
-  input: CreateSupportTicketInput
+  input: CreateSupportTicketInput,
 ): Promise<SupportTicket> {
   return request<SupportTicket>("/support/tickets", token, {
     method: "POST",
@@ -335,49 +562,49 @@ export function createSupportTicket(
 export function addSupportTicketMessage(
   token: string,
   ticketId: string,
-  body: string
+  body: string,
 ): Promise<SupportTicket> {
   return request<SupportTicket>(
     `/support/tickets/${encodeURIComponent(ticketId)}/messages`,
     token,
-    { method: "POST", body: JSON.stringify({ body }) }
+    { method: "POST", body: JSON.stringify({ body }) },
   );
 }
 
 export function updateSupportTicketStatus(
   token: string,
   ticketId: string,
-  status: TicketStatus
+  status: TicketStatus,
 ): Promise<SupportTicket> {
   return request<SupportTicket>(
     `/support/tickets/${encodeURIComponent(ticketId)}/status`,
     token,
-    { method: "PATCH", body: JSON.stringify({ status }) }
+    { method: "PATCH", body: JSON.stringify({ status }) },
   );
 }
 
 export function enrollInCourse(
   token: string,
-  slug: string
+  slug: string,
 ): Promise<CourseEnrollment> {
   return request<CourseEnrollment>(
     `/courses/${encodeURIComponent(slug)}/enroll`,
     token,
-    { method: "POST" }
+    { method: "POST" },
   );
 }
 
 export async function fetchChallenges(token: string): Promise<Challenge[]> {
   const result = await request<{ data: Challenge[] }>(
     "/challenges?page=1&limit=50&sort=desc",
-    token
+    token,
   );
   return result.data;
 }
 
 export function createChallenge(
   token: string,
-  challenge: ChallengeInput
+  challenge: ChallengeInput,
 ): Promise<Challenge> {
   return request<Challenge>("/challenges", token, {
     method: "POST",
@@ -388,7 +615,7 @@ export function createChallenge(
 export function updateChallenge(
   token: string,
   id: string,
-  challenge: ChallengeInput
+  challenge: ChallengeInput,
 ): Promise<Challenge> {
   return request<Challenge>(`/challenges/${encodeURIComponent(id)}`, token, {
     method: "PATCH",
