@@ -47,6 +47,8 @@
   "account.loadingCourses": "Loading courses...",
   "account.coursesLoadError": "Could not load your course list.",
   "account.sessionExpired": "Your session has expired. Please sign in again.",
+  "account.sessionChecking": "Checking account...",
+  "account.sessionCheckError": "Could not verify account",
   "account.retry": "Try again",
   "account.noCourses": "No courses are available yet",
   "account.noCoursesHint": "Published courses will appear here.",

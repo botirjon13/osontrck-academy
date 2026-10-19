@@ -47,6 +47,8 @@
   "account.loadingCourses": "Kurslar yuklanmoqda...",
   "account.coursesLoadError": "Kurslar ro‘yxatini yuklab bo‘lmadi.",
   "account.sessionExpired": "Kirish muddati tugagan. Iltimos, qayta kiring.",
+  "account.sessionChecking": "Akkaunt tekshirilmoqda...",
+  "account.sessionCheckError": "Akkauntni tekshirishda xatolik",
   "account.retry": "Qayta urinish",
   "account.noCourses": "Hozircha kurslar mavjud emas",
   "account.noCoursesHint": "Yangi kurslar e’lon qilinganda shu yerda ko‘rinadi.",

@@ -47,6 +47,8 @@
   "account.loadingCourses": "Загрузка курсов...",
   "account.coursesLoadError": "Не удалось загрузить список курсов.",
   "account.sessionExpired": "Срок действия входа истёк. Войдите снова.",
+  "account.sessionChecking": "Проверка аккаунта...",
+  "account.sessionCheckError": "Не удалось проверить аккаунт",
   "account.retry": "Повторить",
   "account.noCourses": "Пока нет доступных курсов",
   "account.noCoursesHint": "Опубликованные курсы появятся здесь.",

@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/auth-context";
 
 export default function CTA() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   const { t } = useTranslation();
+  const { status, user } = useAuth();
+  const isAuthenticated = status === "authenticated" && user;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -50,8 +54,14 @@ export default function CTA() {
           {t("cta.subtitle")}
         </p>
 
-        <a
-          href="#courses"
+        <Link
+          to={
+            isAuthenticated
+              ? user.role === "ADMIN"
+                ? "/admin"
+                : "/dashboard"
+              : "/#courses"
+          }
           className="inline-block mt-8 px-11 py-[18px] rounded-full font-semibold text-[17px] transition-all duration-200 hover:scale-[1.03]"
           style={{
             backgroundColor: '#D4A853',
@@ -66,12 +76,16 @@ export default function CTA() {
             e.currentTarget.style.boxShadow = 'none';
           }}
         >
-          {t("cta.button")}
-        </a>
+          {isAuthenticated
+            ? t(user.role === "ADMIN" ? "account.adminPanel" : "account.portal")
+            : t("cta.button")}
+        </Link>
 
-        <p className="text-[13px] mt-4" style={{ color: '#4A5A70' }}>
-          {t("cta.note")}
-        </p>
+        {!isAuthenticated && (
+          <p className="text-[13px] mt-4" style={{ color: '#4A5A70' }}>
+            {t("cta.note")}
+          </p>
+        )}
       </div>
     </section>
   );

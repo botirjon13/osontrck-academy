@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { useFluidLineGrid } from "../hooks/useFluidLineGrid";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../context/auth-context";
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -9,6 +10,7 @@ export default function Hero() {
   useFluidLineGrid(canvasRef);
 
   const { t } = useTranslation();
+  const { status, user } = useAuth();
 
   const [visible, setVisible] = useState(false);
 
@@ -143,14 +145,26 @@ export default function Hero() {
             }}
           >
             <Link
-              to="/register"
+              to={
+                status === "authenticated" && user
+                  ? user.role === "ADMIN"
+                    ? "/admin"
+                    : "/dashboard"
+                  : "/register"
+              }
               className="px-9 py-4 rounded-full font-semibold text-base transition-all duration-200 hover:scale-[1.02]"
               style={{
                 backgroundColor: "#D4A853",
                 color: "#0A1628",
               }}
             >
-              {t("hero.start")}
+              {status === "authenticated" && user
+                ? t(
+                    user.role === "ADMIN"
+                      ? "account.adminPanel"
+                      : "account.portal",
+                  )
+                : t("hero.start")}
             </Link>
 
             <Link
