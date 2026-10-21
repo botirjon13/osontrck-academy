@@ -346,6 +346,10 @@
 
 "success.badge": "TALABALAR MUVAFFAQIYATI",
 "success.title": "Bitiruvchilarimiz bilan tanishing",
+"success.carouselLabel": "Bitiruvchilar galereyasi",
+"success.carouselHint": "Suratlarni sudrab aylantiring yoki tugmalar orqali ko‘ring.",
+"success.carouselPrevious": "Oldingi surat",
+"success.carouselNext": "Keyingi surat",
 
 "success.quote": "OsonTrack faoliyatimni o'zgartirdi. 3 oy ichida backend bo'yicha mutlaqo tajribasiz holatdan ishlab chiqarish darajasidagi API lar yaratish darajasiga chiqdim.",
 

@@ -346,6 +346,10 @@
 
   "success.badge": "УСПЕХИ СТУДЕНТОВ",
 "success.title": "Познакомьтесь с нашими выпускниками",
+"success.carouselLabel": "Галерея выпускников",
+"success.carouselHint": "Перетаскивайте изображения или листайте кнопками.",
+"success.carouselPrevious": "Предыдущее изображение",
+"success.carouselNext": "Следующее изображение",
 
 "success.quote": "OsonTrack изменил мою карьеру. За 3 месяца я прошла путь от полного отсутствия знаний по backend до создания production API.",
 

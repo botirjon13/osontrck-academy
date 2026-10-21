@@ -1,9 +1,10 @@
-import { Suspense, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { forwardRef, Suspense, useCallback, useImperativeHandle } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { useRef, useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const IMAGE_LIST = [
   'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80',
@@ -23,87 +24,205 @@ const IMAGE_LIST = [
 function CarouselCard({
   index,
   texture,
+  width,
+  height,
   radius,
   angleStep,
+  onDragStart,
+  onFocus,
 }: {
   index: number;
   texture: THREE.Texture;
+  width: number;
+  height: number;
   radius: number;
   angleStep: number;
+  onDragStart: (event: PointerEvent) => void;
+  onFocus: (index: number) => void;
 }) {
   const angle = index * angleStep;
-  const x = Math.cos(angle) * radius;
-  const z = Math.sin(angle) * radius;
+  const x = Math.sin(angle) * radius;
+  const z = Math.cos(angle) * radius;
 
   return (
-    <mesh position={[x, 0, z]} rotation={[0, -angle, 0]}>
-      <planeGeometry args={[1.2, 1.6]} />
+    <mesh
+      position={[x, 0, z]}
+      rotation={[0, angle, 0]}
+      onPointerDown={(event) => {
+        event.stopPropagation();
+        onDragStart(event.nativeEvent);
+      }}
+      onClick={(event) => {
+        event.stopPropagation();
+        onFocus(index);
+      }}
+    >
+      <planeGeometry args={[width, height]} />
       <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
     </mesh>
   );
 }
 
-function Carousel() {
-  const groupRef = useRef<THREE.Group>(null);
-  const wheelDelta = useRef(0);
+export type CarouselHandle = {
+  moveBy: (offset: number) => void;
+};
+
+type CarouselProps = {
+  onSelectedIndexChange: (index: number) => void;
+  onItemCountChange: (count: number) => void;
+};
+
+const Carousel = forwardRef<CarouselHandle, CarouselProps>(function Carousel(
+  { onSelectedIndexChange, onItemCountChange },
+  ref,
+) {
+  const targetRotation = useRef(0);
+  const velocity = useRef(0);
   const isDragging = useRef(false);
-  const dragStart = useRef(0);
-  const dragCurrent = useRef(0);
+  const hasInteracted = useRef(false);
+  const lastPointerX = useRef(0);
+  const lastPointerTime = useRef(0);
+  const activePointerId = useRef<number | null>(null);
+  const [dragging, setDragging] = useState(false);
+  const groupRef = useRef<THREE.Group>(null);
+  const viewportWidth = useThree((state) => state.size.width);
+  const isCompact = viewportWidth < 640;
+  const itemCount = isCompact ? 8 : IMAGE_LIST.length;
+  const textures = useTexture(IMAGE_LIST.slice(0, itemCount));
+  const radius = isCompact ? 1.25 : 3.5;
+  const cardWidth = isCompact ? 0.85 : 1.2;
+  const cardHeight = cardWidth * (4 / 3);
+  const angleStep = (2 * Math.PI) / textures.length;
+  const selectedIndexRef = useRef(0);
 
-  const textures = useTexture(IMAGE_LIST);
-  const radius = 3.5;
-  const angleStep = (2 * Math.PI) / 12;
+  const focusCard = useCallback(
+    (index: number) => {
+      hasInteracted.current = true;
+      velocity.current = 0;
+      const desiredRotation = -index * angleStep;
+      targetRotation.current += Math.atan2(
+        Math.sin(desiredRotation - targetRotation.current),
+        Math.cos(desiredRotation - targetRotation.current),
+      );
+      selectedIndexRef.current = index;
+      onSelectedIndexChange(index);
+    },
+    [angleStep, onSelectedIndexChange],
+  );
 
-  useFrame(() => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += 0.001;
-      groupRef.current.rotation.y += wheelDelta.current * 0.001;
-      wheelDelta.current *= 0.95;
+  useImperativeHandle(
+    ref,
+    () => ({
+      moveBy(offset) {
+        const nextIndex =
+          (selectedIndexRef.current + offset + textures.length) %
+          textures.length;
+        focusCard(nextIndex);
+      },
+    }),
+    [focusCard, textures.length],
+  );
 
-      if (isDragging.current) {
-        const deltaX = dragCurrent.current - dragStart.current;
-        groupRef.current.rotation.y += deltaX * 0.005;
-        dragStart.current = dragCurrent.current;
-      }
-    }
-  });
+  useEffect(() => {
+    selectedIndexRef.current = 0;
+    targetRotation.current = 0;
+    velocity.current = 0;
+    hasInteracted.current = false;
+    onSelectedIndexChange(0);
+    onItemCountChange(itemCount);
+  }, [itemCount, onItemCountChange, onSelectedIndexChange]);
 
-  const handleWheel = (e: WheelEvent) => {
-    wheelDelta.current += e.deltaY * 0.001;
-  };
-
-  const handlePointerDown = (e: PointerEvent) => {
+  const startDrag = (event: PointerEvent) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    activePointerId.current = event.pointerId;
+    lastPointerX.current = event.clientX;
+    lastPointerTime.current = performance.now();
     isDragging.current = true;
-    dragStart.current = e.clientX;
-    dragCurrent.current = e.clientX;
-  };
-
-  const handlePointerMove = (e: PointerEvent) => {
-    if (isDragging.current) {
-      dragCurrent.current = e.clientX;
-    }
-  };
-
-  const handlePointerUp = () => {
-    isDragging.current = false;
+    hasInteracted.current = true;
+    setDragging(true);
   };
 
   useEffect(() => {
-    const canvas = document.querySelector('canvas');
-    if (!canvas) return;
+    if (!dragging) return;
 
-    canvas.addEventListener('wheel', handleWheel, { passive: true });
-    canvas.addEventListener('pointerdown', handlePointerDown);
-    canvas.addEventListener('pointermove', handlePointerMove);
-    canvas.addEventListener('pointerup', handlePointerUp);
+    const handlePointerMove = (event: PointerEvent) => {
+      if (event.pointerId !== activePointerId.current) return;
+      const now = performance.now();
+      const deltaX = event.clientX - lastPointerX.current;
+      const elapsed = Math.max((now - lastPointerTime.current) / 1000, 0.001);
+      targetRotation.current += deltaX * 0.008;
+      velocity.current = THREE.MathUtils.clamp(
+        (deltaX * 0.008) / elapsed,
+        -2.5,
+        2.5,
+      );
+      lastPointerX.current = event.clientX;
+      lastPointerTime.current = now;
+    };
+
+    const finishDrag = (event: PointerEvent) => {
+      if (event.pointerId !== activePointerId.current) return;
+      activePointerId.current = null;
+      isDragging.current = false;
+      setDragging(false);
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', finishDrag);
+    window.addEventListener('pointercancel', finishDrag);
 
     return () => {
-      canvas.removeEventListener('wheel', handleWheel);
-      canvas.removeEventListener('pointerdown', handlePointerDown);
-      canvas.removeEventListener('pointermove', handlePointerMove);
-      canvas.removeEventListener('pointerup', handlePointerUp);
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', finishDrag);
+      window.removeEventListener('pointercancel', finishDrag);
     };
-  }, []);
+  }, [dragging]);
+
+  useFrame((_, delta) => {
+    if (!groupRef.current || isDragging.current) return;
+
+    if (!hasInteracted.current) {
+      targetRotation.current += delta * 0.06;
+    } else {
+      targetRotation.current += velocity.current * delta;
+      velocity.current *= Math.exp(-4 * delta);
+
+      if (Math.abs(velocity.current) < 0.03) {
+        velocity.current = 0;
+        const nearestIndex =
+          ((Math.round(-targetRotation.current / angleStep) % textures.length) +
+            textures.length) %
+          textures.length;
+        const desiredRotation = -nearestIndex * angleStep;
+        targetRotation.current += Math.atan2(
+          Math.sin(desiredRotation - targetRotation.current),
+          Math.cos(desiredRotation - targetRotation.current),
+        );
+
+        if (selectedIndexRef.current !== nearestIndex) {
+          selectedIndexRef.current = nearestIndex;
+          onSelectedIndexChange(nearestIndex);
+        }
+      }
+    }
+
+    groupRef.current.rotation.y = THREE.MathUtils.damp(
+      groupRef.current.rotation.y,
+      targetRotation.current,
+      7,
+      delta,
+    );
+
+    const frontIndex =
+      ((Math.round(-groupRef.current.rotation.y / angleStep) %
+        textures.length) +
+        textures.length) %
+      textures.length;
+    if (selectedIndexRef.current !== frontIndex) {
+      selectedIndexRef.current = frontIndex;
+      onSelectedIndexChange(frontIndex);
+    }
+  });
 
   return (
     <group ref={groupRef}>
@@ -112,121 +231,28 @@ function Carousel() {
           key={i}
           index={i}
           texture={texture}
+          width={cardWidth}
+          height={cardHeight}
           radius={radius}
           angleStep={angleStep}
+          onDragStart={startDrag}
+          onFocus={focusCard}
         />
       ))}
     </group>
   );
-}
-
-function ParticleRing() {
-  const meshRef = useRef<THREE.InstancedMesh>(null);
-  const PARTICLE_COUNT = 2000;
-
-  const particles = useMemo(() => {
-    return Array.from({ length: PARTICLE_COUNT }, () => ({
-      angle: Math.random() * Math.PI * 2,
-      radius: 4 + Math.random() * 2,
-      speed: 0.05 + Math.random() * 0.15,
-      yOffset: (Math.random() - 0.5) * 1.0,
-      wobble: Math.random() * Math.PI * 2,
-    }));
-  }, []);
-
-  const dummy = useMemo(() => new THREE.Object3D(), []);
-
-  useFrame((state) => {
-    if (!meshRef.current) return;
-    const time = state.clock.elapsedTime;
-
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const p = particles[i];
-      p.angle += p.speed * 0.016;
-      const x = Math.cos(p.angle) * p.radius;
-      const z = Math.sin(p.angle) * p.radius;
-      const y = Math.sin(time * p.speed + p.wobble) * p.yOffset;
-
-      dummy.position.set(x, y, z);
-      dummy.scale.setScalar(0.5 + Math.sin(time + p.wobble) * 0.3);
-      dummy.updateMatrix();
-      meshRef.current.setMatrixAt(i, dummy.matrix);
-    }
-
-    meshRef.current.instanceMatrix.needsUpdate = true;
-  });
-
-  return (
-    <instancedMesh ref={meshRef} args={[undefined, undefined, PARTICLE_COUNT]}>
-      <sphereGeometry args={[0.015, 6, 6]} />
-      <meshBasicMaterial
-        color="#D4A853"
-        transparent
-        opacity={0.6}
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-      />
-    </instancedMesh>
-  );
-}
-
-function DirectionalLightPillar() {
-  const meshRef = useRef<THREE.Mesh>(null);
-
-  const shaderMaterial = useMemo(() => {
-    return new THREE.ShaderMaterial({
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-      uniforms: {
-        uTime: { value: 0 },
-        uIntensity: { value: 2.5 },
-      },
-      vertexShader: `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform float uTime;
-        uniform float uIntensity;
-        varying vec2 vUv;
-
-        float noise(vec2 p) {
-          return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
-        }
-
-        void main() {
-          float edgeFade = smoothstep(0.0, 0.3, vUv.x) * smoothstep(1.0, 0.7, vUv.x);
-          float verticalFade = smoothstep(0.0, 0.1, vUv.y) * smoothstep(1.0, 0.9, vUv.y);
-          float pulse = 0.5 + 0.5 * sin(uTime * 0.5);
-          float n = noise(vUv * 10.0 + uTime * 0.1) * 0.3 + 0.7;
-          float alpha = edgeFade * verticalFade * pulse * n * 0.15 * uIntensity;
-          gl_FragColor = vec4(0.83, 0.66, 0.33, alpha);
-        }
-      `,
-    });
-  }, []);
-
-  useFrame((state) => {
-    if (shaderMaterial) {
-      shaderMaterial.uniforms.uTime.value = state.clock.elapsedTime;
-    }
-  });
-
-  return (
-    <mesh ref={meshRef} position={[0, 0, -2]} material={shaderMaterial}>
-      <planeGeometry args={[4, 6]} />
-    </mesh>
-  );
-}
+});
 
 export default function ParticleCarousel() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [carouselCount, setCarouselCount] = useState(IMAGE_LIST.length);
+  const carouselRef = useRef<CarouselHandle>(null);
   const { t } = useTranslation();
+  const handleItemCountChange = useCallback((count: number) => {
+    setCarouselCount(count);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -236,7 +262,7 @@ export default function ParticleCarousel() {
           observer.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
@@ -278,18 +304,57 @@ export default function ParticleCarousel() {
             transitionDelay: '200ms',
           }}
         >
-          <div style={{ width: '100%', height: '500px' }}>
+          <div
+            className="relative w-full touch-pan-y select-none cursor-grab active:cursor-grabbing"
+            style={{ height: '500px' }}
+            role="region"
+            aria-label={t('success.carouselLabel')}
+          >
             <Canvas
               camera={{ position: [0, 0, 6], fov: 50 }}
-              style={{ background: '#0D1B2A' }}
+              dpr={[1, 1.5]}
+              style={{
+                background:
+                  'radial-gradient(ellipse at center, rgba(212, 168, 83, 0.12), transparent 55%), #0D1B2A',
+              }}
             >
               <Suspense fallback={null}>
-                <Carousel />
-                <ParticleRing />
-                <DirectionalLightPillar />
+                <Carousel
+                  ref={carouselRef}
+                  onSelectedIndexChange={setSelectedIndex}
+                  onItemCountChange={handleItemCountChange}
+                />
               </Suspense>
             </Canvas>
           </div>
+          <div className="mt-5 flex items-center justify-center gap-5">
+            <button
+              type="button"
+              aria-label={t('success.carouselPrevious')}
+              onClick={() => carouselRef.current?.moveBy(-1)}
+              className="grid size-11 place-items-center rounded-full border border-white/15 text-[#F0EDE5] transition hover:border-[#D4A853] hover:text-[#D4A853] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D4A853]"
+            >
+              <ChevronLeft size={20} aria-hidden="true" />
+            </button>
+            <span
+              className="min-w-16 text-center text-sm tabular-nums text-[#8A9AB0]"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              {selectedIndex + 1} / {carouselCount}
+            </span>
+            <button
+              type="button"
+              aria-label={t('success.carouselNext')}
+              onClick={() => carouselRef.current?.moveBy(1)}
+              className="grid size-11 place-items-center rounded-full border border-white/15 text-[#F0EDE5] transition hover:border-[#D4A853] hover:text-[#D4A853] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D4A853]"
+            >
+              <ChevronRight size={20} aria-hidden="true" />
+            </button>
+          </div>
+          <p className="mt-3 text-center text-sm text-[#8A9AB0]">
+            {t('success.carouselHint')}
+          </p>
         </div>
 
         <div

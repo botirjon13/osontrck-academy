@@ -346,6 +346,10 @@
 
 "success.badge": "STUDENT SUCCESS",
 "success.title": "Meet our graduates",
+"success.carouselLabel": "Graduate gallery",
+"success.carouselHint": "Drag the images to rotate, or use the buttons to browse.",
+"success.carouselPrevious": "Previous image",
+"success.carouselNext": "Next image",
 "success.quote": "OsonTrack transformed my career. I went from zero backend knowledge to building production APIs in 3 months.",
 "success.author": "— Sarah K., Full Stack Developer",
 
