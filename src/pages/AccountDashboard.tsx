@@ -172,8 +172,14 @@ export default function AccountDashboard() {
           <button
             type="button"
             onClick={() => navigate("/")}
-            className="text-left text-xl font-bold tracking-tight transition hover:text-yellow-300"
+            className="flex items-center gap-2 text-left text-xl font-bold tracking-tight transition hover:text-yellow-300"
           >
+            <img
+              src="/images/osontrack-certificate-emblem.png"
+              alt=""
+              aria-hidden="true"
+              className="h-8 w-9 shrink-0 object-contain"
+            />
             OsonTrack <span className="text-yellow-400">Academy</span>
           </button>
           <p className="mt-2 text-sm text-slate-400">{t("account.portal")}</p>

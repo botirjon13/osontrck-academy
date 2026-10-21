@@ -63,18 +63,17 @@ export default function Navigation() {
       }}
     >
       <div className="max-w-[1200px] mx-auto flex min-h-16 flex-wrap items-center justify-between gap-y-2 px-4 py-2 sm:px-6">
-        <div className="flex items-center gap-2">
-          <div
-            className="w-4 h-4 border-2 border-accent-gold rotate-45"
-            style={{
-              borderRadius: "2px",
-            }}
+        <Link to="/" className="flex shrink-0 items-center gap-2">
+          <img
+            src="/images/osontrack-certificate-emblem.png"
+            alt=""
+            aria-hidden="true"
+            className="h-8 w-9 object-contain"
           />
-
           <span className="font-serif text-[22px] text-text-primary font-semibold tracking-tight">
             OsonTrack
           </span>
-        </div>
+        </Link>
 
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (

@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -79,15 +80,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Logo Column */}
           <div>
-            <div className="flex items-center gap-2">
-              <div
-                className="w-4 h-4 border-2 border-accent-gold rotate-45"
-                style={{ borderRadius: '2px' }}
+            <Link to="/" className="flex items-center gap-2">
+              <img
+                src="/images/osontrack-certificate-emblem.png"
+                alt=""
+                aria-hidden="true"
+                className="h-7 w-8 object-contain"
               />
               <span className="font-serif text-xl" style={{ color: '#F0EDE5' }}>
                 OsonTrack
               </span>
-            </div>
+            </Link>
             <p className="text-sm mt-3 leading-relaxed max-w-[240px]" style={{ color: '#4A5A70' }}>
               {t("footer.description")}
             </p>
@@ -152,4 +155,3 @@ export default function Footer() {
     </footer>
   );
 }
-
