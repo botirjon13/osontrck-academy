@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { useMicroSlats } from "../hooks/useMicroSlats";
+import { useFluidLineGrid } from "../hooks/useFluidLineGrid";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/auth-context";
@@ -7,7 +7,7 @@ import { useAuth } from "../context/auth-context";
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  useMicroSlats(canvasRef);
+  useFluidLineGrid(canvasRef);
 
   const { t } = useTranslation();
   const { status, user } = useAuth();
